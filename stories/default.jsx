@@ -8,20 +8,16 @@ import ReactDOM from "react-dom";
 import Table from "../src/table/table.component.jsx";
 import tableMock from "./table.mock.js";
 
-class App extends Component{
+class Default extends Component{
   render(){
     return(
-      <x-app>
-        <Table
-          data={tableMock}
-          showIndex={true}
-          filterable={["name"]}/>
-      </x-app>
+      <Table
+        data={tableMock} 
+        showIndex={true}
+        limit={25}
+        filterable={["name"]}/>
     )
   }
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById("app")
-)
+export default Default;

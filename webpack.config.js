@@ -3,10 +3,10 @@ const webpack = require("webpack");
 module.exports = {
   entry: {
     // table: "./src/table/table.component.jsx",
-    storybook: "./storybook/main.jsx"
+    table: "./src/table/table.component.jsx"
   },
   output: {
-    path: "./storybook/dist",
+    path: "./dist",
     filename: "[name].js"
   },
   module:{
