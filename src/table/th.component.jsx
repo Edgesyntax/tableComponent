@@ -4,6 +4,8 @@ import Radium from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
+import DownArrow from "../icons/IosArrowDown.component.jsx";
+import UpArrow from "../icons/IosArrowUp.component.jsx";
 
 const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => {
 
@@ -34,13 +36,11 @@ const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => 
         style={tableStylesheet.button}>
         {transformTh}
         {sortColumn === value && sort.direction === -1?
-          <i
-            className="ion-md-arrow-dropdown"
+          <DownArrow
             style={[tableStylesheet.i,{pointerEvents: "none"}]}/>
           : null}
         {sortColumn === value && sort.direction === 1?
-          <i
-            className="ion-md-arrow-dropup"
+          <UpArrow
             style={[tableStylesheet.i,{pointerEvents: "none"}]}/>
           : null}
       </button>
@@ -54,3 +54,14 @@ const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => 
 
 const Th = Radium(_Th);
 export default Th
+
+
+
+// <i
+//   className="ion-md-arrow-dropdown"
+//   style={[tableStylesheet.i,{pointerEvents: "none"}]}/>
+
+
+// <i
+// className="ion-md-arrow-dropup"
+// style={[tableStylesheet.i,{pointerEvents: "none"}]}/>

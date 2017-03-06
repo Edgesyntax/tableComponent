@@ -12,8 +12,9 @@ class Default extends Component{
   render(){
     return(
       <Table
-        data={tableMock} 
+        data={tableMock}
         showIndex={true}
+        devMode={true}
         limit={25}
         filterable={["name"]}/>
     )

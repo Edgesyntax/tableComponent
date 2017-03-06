@@ -28,27 +28,13 @@ class Table extends React.Component{
       pagination: 0,
       filter: ""
     }
-    this.generateTableData  = this.generateTableData.bind(this);
-    this.onChangeAction     = this.onChangeAction.bind(this);
+    this.onChangeAction = this.onChangeAction.bind(this);
   }
   componentWillMount(){
-    // Get initialized variables
-    var {sort, sortable, limit, filter} = this.init(this.props);
-    // Check/Render child components
-    this.childrenNodes = this.renderChildren(this.props);
-    // Generate table data
-    this.vTableData = this.generateTableData({data: this.props.data, sort, limit, filter});
-    // Set application state
-    this.setState({sort, sortable, limit, filter});
+    this.init(this.props);
   }
   componentWillReceiveProps(nextProps){
-    var {sort, sortable, limit, filter} = this.init(nextProps);
-    // Check/Render child components
-    this.childrenNodes = this.renderChildren(nextProps);
-    // Generate table data
-    this.vTableData = this.generateTableData({data: nextProps.data, sort, limit, filter});
-    // Set application state
-    this.setState({sort, sortable, limit, filter});
+    this.init(nextProps);
   }
   init(props){
     var sortable,sort,limit,filter;
@@ -62,7 +48,13 @@ class Table extends React.Component{
     limit     = (props.limit ? props.limit : undefined);
     // Assign user defined filter or use state filter
     filter    = (props.filter ? props.filter : this.state.filter);
-    return {sort, sortable, limit, filter};
+
+    // Check/Render child components
+    this.childrenNodes = this.renderChildren(props);
+    // Generate table data
+    this.vTableData = this.generateTableData({data: props.data, sort, limit, filter});
+    // Set application state
+    this.setState({sort, sortable, limit, filter});
   }
 
   generateTableData({data, devMode, limit, filter, sort}){
@@ -79,14 +71,11 @@ class Table extends React.Component{
     	return this.columns.map((column) => {
         var td = [];
         for (var variable in Tr) {
-          if (column === variable) {
-            td.push(Tr[variable]);
-          }
+          if (column === variable) td.push(Tr[variable]);
         }
         return td[0];
       });
     });
-    (this.props.devMode ? console.timeEnd('Generating table data') : null);
 
     // Filter table data
     if(filter ? tableData = filterTableAction({tableData, filter}) : null);
@@ -96,6 +85,8 @@ class Table extends React.Component{
 
     // Limit table data
     if(limit ? tableData = limitTableAction({tableData, limit, pagination: this.state.pagination}) : null);
+
+    (this.props.devMode ? console.timeEnd('Generating table data') : null);
     return tableData;
   }
   onChangeAction(event){
