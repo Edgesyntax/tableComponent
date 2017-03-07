@@ -1,4 +1,3 @@
-// TODO:40 Add support for custom header labels
 // React Modules
 import React from "react";
 import Radium from "radium";
@@ -12,7 +11,7 @@ import Thead from "./thead.component.jsx";
 import Tfoot from "./tfoot.component.jsx";
 
 
-import generateTableColumns  from "../helpers-v2/columns.js";
+import generateTableColumns, {validateColumns}  from "../helpers-v2/columns.js";
 import sortTableAction      from "../helpers-v2/sort.js";
 import filterTableAction    from "../helpers-v2/filter.js";
 import limitTableAction     from "../helpers-v2/limit.js";
@@ -39,7 +38,7 @@ class Table extends React.Component{
   init(props){
     var sortable,sort,limit,filter;
     // Assign user defined columns or generate columns
-    this.columns   = (props.columns ? props.columns : generateTableColumns(props));
+    this.columns   = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
     sortable  = (props.sortable ? props.sortable : this.columns);
     // Assign default sort column or use state
@@ -71,7 +70,7 @@ class Table extends React.Component{
     	return this.columns.map((column) => {
         var td = [];
         for (var variable in Tr) {
-          if (column === variable) td.push(Tr[variable]);
+          if (column.id === variable) td.push(Tr[variable]);
         }
         return td[0];
       });

@@ -18,13 +18,13 @@ const Tr = ({
       return <Td key={index} td={td}/>
     })
   }
-  const activeTrStyle = row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeTr: null;
+  const activeTrStyle = activeCondition && row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeTr: null;
   return (
     <tr style={activeTrStyle}>
       {showIndex ?
         <Td td={index + 1} style={[
             tableStylesheet.index,
-            row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeIndex: null ]}/>
+            activeCondition && row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeIndex: null ]}/>
       : null}
       {renderTd()}
     </tr>

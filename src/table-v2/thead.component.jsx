@@ -60,7 +60,8 @@ const Thead = ({
       {filterable && filterable.length || limit ?
         <tr>
           <Th
-            colSpan={colSpan} style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "right"}]}>
+            colSpan={colSpan}
+            style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "right"}]}>
             {filterable && filterable.length ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>

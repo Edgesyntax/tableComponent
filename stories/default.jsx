@@ -13,6 +13,7 @@ class Default extends Component{
     return(
       <Table
         data={tableMock}
+        columns={[{id: "_id", label: "me"},{id: "balance", label: "yo"}]}
         showIndex={true}
         limit={25}
         filterable={["name"]}/>
