@@ -12,7 +12,11 @@ module.exports = {
   ],
   module: {
     loaders: [
-      // add your custom loaders.
+      {
+        test: /\.yaml$/,
+        loader: 'yml',
+        exclude: /node_modules/
+      }
     ],
   },
 };

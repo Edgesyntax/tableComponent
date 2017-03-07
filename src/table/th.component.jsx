@@ -9,8 +9,9 @@ import UpArrow from "../icons/IosArrowUp.component.jsx";
 
 const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => {
 
+  // console.log(th);
   // Sort table using index
-  var transformTh = (th ? th.toString() : ""),
+  var transformTh = (th ? th.label.toString() : ""),
   sortColumn      = (sort && sort.column.toString() ? sort.column : null), // Add to string to capture 0 index
   sortDirection   = (sort && sort.direction.toString() ? 1 : null); // Set 1 to default to asc table on `sortTable`
 

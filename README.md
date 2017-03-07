@@ -27,9 +27,3 @@ ReactDOM.render(
 )
 
 ```
-
-# License
-
-[MIT](license) &copy; [Kwame Adjei][author]
-
-[author]: https://github.com/edgeadjei

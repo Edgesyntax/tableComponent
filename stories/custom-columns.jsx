@@ -5,8 +5,8 @@ import ReactDOM from "react-dom";
 // global.Perf = require('react-addons-perf');
 
 // Application Modules
-import Table from "../src/table-v2/table.component.jsx";
-import tableMock from "./table.mock.js";
+import Table from "../src/table/table.component.jsx";
+import tableMock from "./table.mock.yaml";
 
 class Default extends Component{
   render(){
@@ -14,18 +14,19 @@ class Default extends Component{
       <Table
         data={tableMock}
         columns={[
-          {id: "age", label: "age"},
-          {id: "eyeColor", label: "eyeColor"},
-          {id: "gender", label: "gender"},
-          {id: "company", label: "company"},
-          {id: "email", label: "email"},
-          {id: "registered", label: "registered"},
-          {id: "isActive", label: "isActive"}
+          {id: "balance", label: "Balance"},
+          {id: "age", label: "How old are you"},
+          {id: "eyeColor", label: "Eye Color"},
+          {id: "gender", label: "Gender"},
+          {id: "company", label: "Company"},
+          {id: "email", label: "Email"},
+          {id: "registered", label: "Registered"},
+          {id: "isActive", label: "Status"}
         ]}
         activeRow={"5844822b5913d7ec0efb189b"}
         showIndex={true}
         limit={25}
-        filterable={["name"]}/>
+        filterable={["name"]} />
     )
   }
 }

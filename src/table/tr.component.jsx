@@ -1,6 +1,5 @@
 // React Modules
 import React from "react";
-import Radium from "radium";
 
 // Application Modules
 import Td from "./td.component.jsx";
@@ -10,21 +9,17 @@ const Tr = ({
   showIndex,
   row,
   index,
-  activeCondition
+  activeRow
 }) => {
   const renderTd = () => {
     if (!row) return;
-    return row.map((td, index) => {
-      return <Td key={index} td={td}/>
-    })
+    return row.map((td, index) => <Td key={index} td={td}/>)
   }
-  const activeTrStyle = row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeTr: null;
+
   return (
-    <tr style={activeTrStyle}>
+    <tr style={activeRow && tableStylesheet.activeTr}>
       {showIndex ?
-        <Td td={index + 1} style={[
-            tableStylesheet.index,
-            row.indexOf(activeCondition) !== -1 ? tableStylesheet.activeIndex: null ]}/>
+        <Td td={index + 1} style={tableStylesheet.index} activeRow={activeRow}/>
       : null}
       {renderTd()}
     </tr>

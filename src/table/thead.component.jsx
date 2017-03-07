@@ -30,9 +30,10 @@ const Thead = ({
   }
   const colSpan = showIndex ? columns.length + 1 : columns.length;
   const renderFilter = () => {
+    const width = limit ? "50%" : "100%"
     return (
       <div
-        style={{display: "inline-block",width: "50%",textAlign: "left"}}>
+        style={{display: "inline-block",width,textAlign: "left"}}>
         <input
           name="filter"
           type="text"
@@ -44,9 +45,10 @@ const Thead = ({
     );
   }
   const renderLimiter = () => {
+    const width = filterable ? "50%" : "100%"
     return (
       <div
-        style={{display: "inline-block",width: "50%",textAlign: "right"}}>
+        style={{display: "inline-block",width,textAlign: "right"}}>
         <select name="limit" style={[tableStylesheet.formControl,tableStylesheet.select]} value={limit} onChange={limitTable}>
           <option value={25}>25</option>
           <option value={50}>50</option>
@@ -57,11 +59,12 @@ const Thead = ({
   }
   return(
     <thead>
-      {filterable && filterable.length || limit ?
+      {filterable || limit ?
         <tr>
           <Th
-            colSpan={colSpan} style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "right"}]}>
-            {filterable && filterable.length ? renderFilter() : null}
+            colSpan={colSpan}
+            style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "left"}]}>
+            {filterable ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>
         </tr>
