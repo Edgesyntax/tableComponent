@@ -211,6 +211,7 @@ Table.propTypes = {
   sortable: React.PropTypes.array,
   filterable: React.PropTypes.bool,
   limit: React.PropTypes.number,
+  activeRow: React.PropTypes.string,
   devMode: React.PropTypes.bool
 }
 

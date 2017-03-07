@@ -2,13 +2,11 @@
 import Color from "color";
 
 const brand = {
-  primaryColor    : "#673ab7",
+  primaryColor    : "#27ae60",
   secondaryColor 	: "#ECECEC",
-  alternateColor 	: "#F5F5F5",//"#f9fafc",
-  backgroundColor	: "#F8F8F8",//"#f9fafc",//"#F5F5F5",//#F1F1F1
-  borderColor			: "#E1E1E1",//"#E1E1E1",//#DADDE2 //eaedf1
-  successColor    : "#2ecc71",//#e74c3c
-  errorColor      : "#E84C3D"//#e74c3c
+  alternateColor 	: "#F5F5F5",
+  backgroundColor	: "#F8F8F8",
+  borderColor			: "#E1E1E1"
 };
 
 const tableStylesheet = {
