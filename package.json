@@ -2,7 +2,7 @@
   "name": "tableComponent",
   "version": "0.5.5",
   "description": "A flexible and performant table component for react",
-  "main": "dist/table.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1",
