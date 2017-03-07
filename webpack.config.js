@@ -7,7 +7,9 @@ module.exports = {
   },
   output: {
     path: "./dist",
-    filename: "[name].js"
+    filename: "[name].js",
+    library: "tableComponent",
+    libraryTarget: "umd"
   },
   module:{
     loaders: [
@@ -39,5 +41,8 @@ module.exports = {
     contentBase: "storybook",
     publicPath: "/dist/",
     filename: "storybook.js"
+  },
+  externals: {
+    react: "react"
   }
 };
