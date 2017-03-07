@@ -2,7 +2,7 @@ const tableMock = [
   {
     "_id": "5844822be1ea02fe2b261ab1",
     "balance": "$3,422.52",
-    "age": 31,
+    "age": 100,
     "eyeColor": "blue",
     "name": "Brittany Torres",
     "gender": "female",

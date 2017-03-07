@@ -14,14 +14,13 @@ class Default extends Component{
       <Table
         data={tableMock}
         columns={[
-          {id: "balance", label: "Balance"},
-          {id: "age", label: "How old are you"},
-          {id: "eyeColor", label: "Eye Color"},
-          {id: "gender", label: "Gender"},
-          {id: "company", label: "Company"},
-          {id: "email", label: "Email"},
-          {id: "registered", label: "Registered"},
-          {id: "isActive", label: "Status"}
+          {id: "age", label: "age"},
+          {id: "eyeColor", label: "eyeColor"},
+          {id: "gender", label: "gender"},
+          {id: "company", label: "company"},
+          {id: "email", label: "email"},
+          {id: "registered", label: "registered"},
+          {id: "isActive", label: "isActive"}
         ]}
         activeRow={"5844822b5913d7ec0efb189b"}
         showIndex={true}

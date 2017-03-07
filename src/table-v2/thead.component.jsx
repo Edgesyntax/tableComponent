@@ -61,7 +61,7 @@ const Thead = ({
         <tr>
           <Th
             colSpan={colSpan}
-            style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "right"}]}>
+            style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "left"}]}>
             {filterable && filterable.length ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>

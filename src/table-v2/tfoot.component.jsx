@@ -65,7 +65,7 @@ const _Tfoot = ({
           <div style={{display: "inline-block",width: "50%",textAlign: "left"}}>
             {renderPageInfo()}
           </div>
-          <div style={{display: "inline-block",width: "50%",textAlign: "right"}}>
+          <div style={{display: "inline-block",width: "50%",textAlign: "right",whiteSpace: "nowrap"}}>
             {renderPagination()}
           </div>
         </td>
