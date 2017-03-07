@@ -43,6 +43,7 @@ module.exports = {
     filename: "storybook.js"
   },
   externals: {
-    react: "react"
+    react: "react",
+    "react-dom": "react-dom"
   }
 };

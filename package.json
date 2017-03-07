@@ -42,6 +42,7 @@
     "babel-preset-react": "^6.16.0",
     "raw-loader": "^0.5.1",
     "react-addons-perf": "^15.4.1",
+    "react-dom": "^15.4.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
     "yml-loader": "^1.1.0"
