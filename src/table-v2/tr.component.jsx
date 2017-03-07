@@ -1,6 +1,5 @@
 // React Modules
 import React from "react";
-import Radium from "radium";
 
 // Application Modules
 import Td from "./td.component.jsx";
@@ -20,7 +19,7 @@ const Tr = ({
   return (
     <tr style={activeRow && tableStylesheet.activeTr}>
       {showIndex ?
-        <Td td={index + 1} style={[ tableStylesheet.index,activeRow && tableStylesheet.activeIndex]}/>
+        <Td td={index + 1} style={tableStylesheet.index} activeRow={activeRow}/>
       : null}
       {renderTd()}
     </tr>

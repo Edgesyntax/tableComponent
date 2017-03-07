@@ -5,11 +5,12 @@ import ReactDOM from "react-dom";
 // global.Perf = require('react-addons-perf');
 
 // Application Modules
-import Table from "../src/table-v2/table.component.jsx";
+import Table, {Tr, Td} from "../src/table-v2/table.component.jsx";
 import tableMock from "./table.mock.js";
 
 class Default extends Component{
   render(){
+    const value = 4;
     return(
       <Table
         data={tableMock}
@@ -26,7 +27,11 @@ class Default extends Component{
         activeRow={"5844822b5913d7ec0efb189b"}
         showIndex={true}
         limit={25}
-        filterable={["name"]}/>
+        filterable={["name"]}>
+        <Tr>
+          <Td column="balance">{value}</Td>
+        </Tr>
+      </Table>
     )
   }
 }

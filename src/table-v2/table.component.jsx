@@ -55,7 +55,6 @@ class Table extends React.Component{
     // Set application state
     this.setState({sort, sortable, limit, filter});
   }
-
   generateTableData({data, devMode, limit, filter, sort}){
     if (!data || !data.length) var data = [];
     // Add child Tr nodes to table data
@@ -105,7 +104,7 @@ class Table extends React.Component{
     (this.props.devMode ? console.timeEnd('Sorting table data') : null);
 
     this.fTableData = tableData;
-    
+
     // Limit table data
     (this.props.devMode ? console.time('Limiting table data') : null);
     if(limit ? tableData = limitTableAction({tableData, limit, pagination: this.state.pagination}) : null);
@@ -136,24 +135,34 @@ class Table extends React.Component{
     this.setState(state);
   }
   renderChildren(props){
-    var children = {tr:[]};
+    const children = {tr:[]};
     if (!React.Children.count(props.children)) return children;
+
     React.Children.map(props.children, (child) => {
       // Add table rows to children object
-      if (child.type.name === "Tr") {
-        if (!child.props.children) {
-          return children.tr.push(child.props.row);
-        }
-        //return children.tr.push(child.props);
-
-        var obj = {};
-        React.Children.forEach(child.props.children, (nestedChild) => {
-          // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-          if (nestedChild.props.column && !nestedChild.props.children) return;
-          obj[nestedChild.props.column] = nestedChild.props.children;
-        });
-        children.tr.push(obj)
+      if (child.type.name !== "Tr") {
+        console.warn("Invalid Table child element expected Tr");
+        return;
       }
+      if (!child.props.children || child.props.children.type.displayName !== "_Td") {
+        console.warn("Invalid Tr child element expected Td");
+        return;
+      }
+
+      const td = {};
+      React.Children.forEach(child.props.children, (nestedChild) => {
+        const nestedChildChildren = nestedChild.props.children;
+
+        if (nestedChild.props.column && !nestedChildChildren) return;
+        
+        if (typeof nestedChildChildren === "object" && !nestedChildChildren[0].trim() && !nestedChildChildren[2].trim()) {
+          // Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
+          td[nestedChild.props.column] = nestedChildChildren[1];
+          return;
+        }
+        td[nestedChild.props.column] = nestedChildChildren;
+      });
+      children.tr.push(td);
     });
     return children;
   }
@@ -168,9 +177,9 @@ class Table extends React.Component{
         activeRow={row._activeRow}/>
     })
   }
-  renderTable(){
-    return (
-      <table style={[tableStylesheet.table,this.props.tableStyle]}>
+  render(){
+    return(
+      <table style={[tableStylesheet.table, this.props.style]}>
         {!this.props.hideHeader ?
           <Thead
             columns={this.columns}
@@ -203,13 +212,6 @@ class Table extends React.Component{
           paginateTable={this.onChangeAction}
           showIndex={this.props.showIndex}/>
       </table>
-    )
-  }
-  render(){
-    return(
-      <x-component style={[{height: "100%"},this.props.style]}>
-        {this.renderTable()}
-      </x-component>
     );
   }
 }
