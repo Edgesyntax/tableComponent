@@ -1,6 +1,6 @@
 {
   "name": "tableComponent",
-  "version": "0.5.0",
+  "version": "0.5.3",
   "description": "A flexible and performant table component for react",
   "main": "dist/table.js",
   "scripts": {
@@ -25,9 +25,7 @@
     "color": "^0.11.4",
     "radium": "^0.18.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-json-tree": "^0.10.5",
-    "yml-loader": "^1.1.0"
+    "react-json-tree": "^0.10.5"
   },
   "babel": {
     "presets": [
@@ -44,6 +42,7 @@
     "raw-loader": "^0.5.1",
     "react-addons-perf": "^15.4.1",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "webpack-dev-server": "^2.4.1",
+    "yml-loader": "^1.1.0"
   }
 }
