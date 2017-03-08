@@ -132,7 +132,7 @@ class Table extends React.Component{
         console.warn("Invalid Table child element expected Tr");
         return;
       }
-      if (!child.props.children || child.props.children.type.displayName !== "_Td") {
+      if (!child.props.children || !child.props.children.type || child.props.children.type.displayName !== "_Td") {
         console.warn("Invalid Tr child element expected Td");
         return;
       }
