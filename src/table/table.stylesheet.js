@@ -11,8 +11,7 @@ const brand = {
 
 const tableStylesheet = {
   table:{
-    borderCollapse: "collapse",
-    fontSize: "inherit"
+    borderCollapse: "collapse"
   },
   th:{
     backgroundColor:"#f9f9f9",
@@ -21,7 +20,7 @@ const tableStylesheet = {
     borderColor: brand.borderColor,
     fontWeight: "normal",
     padding:"2px 12px",
-    fontSize: "15px"
+    fontSize: "inherit"
   },
   tr: {
     ":hover": {
