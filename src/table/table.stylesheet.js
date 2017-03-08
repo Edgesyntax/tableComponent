@@ -48,7 +48,7 @@ const tableStylesheet = {
     border: 0,
     cursor: "pointer",
     whiteSpace: "nowrap",
-    fontSize: "inherit",
+    font: "inherit",
     color: "inherit"
   },
   actionButton: {
