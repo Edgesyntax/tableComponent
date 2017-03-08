@@ -3,7 +3,7 @@ const webpack = require("webpack");
 module.exports = {
   entry: {
     // table: "./src/table/table.component.jsx",
-    table: "./src/table/table.component.jsx"
+    table: "./src/table/table.control.jsx"
   },
   output: {
     path: "./dist",

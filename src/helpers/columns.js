@@ -19,7 +19,6 @@ const validateColumns = (columns) => {
     // Check column type
     if (typeof column !== "object") return Object.assign({},{_message: "Invalid column expected object", value: column});
     if (!column.id) return Object.assign({},{_message: "Missing id key", value: column});
-    if (!column.label) return Object.assign({},{_message: "Missing label key", value: column});
   });
   if (columnErrors.length) {
     console.warn("Found invalid column prop. Table will bypass column prop and generate columns.", columnErrors);

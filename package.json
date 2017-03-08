@@ -5,6 +5,7 @@
   "main": "./dist/table.js",
   "scripts": {
     "build": "webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",

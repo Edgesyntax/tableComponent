@@ -24,7 +24,7 @@ const Thead = ({
         key={index}
         th={column}
         sort={sort}
-        sortable={sortable && sortable.indexOf(column) !== -1 ? 1 : 0}
+        sortable={sortable && sortable.indexOf(column.id) !== -1 ? 1 : 0}
         sortTable={sortTable}/>
     });
   }
@@ -45,14 +45,16 @@ const Thead = ({
     );
   }
   const renderLimiter = () => {
-    const width = filterable ? "50%" : "100%"
+    const options = [25, 50, 100];
+    const width = filterable ? "50%" : "100%";
+    if (options.indexOf(limit) === -1) options.unshift(limit);
+    
+    const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option}</option>)
     return (
       <div
         style={{display: "inline-block",width,textAlign: "right"}}>
         <select name="limit" style={[tableStylesheet.formControl,tableStylesheet.select]} value={limit} onChange={limitTable}>
-          <option value={25}>25</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
+          {renderOptions()}
         </select>
       </div>
     );

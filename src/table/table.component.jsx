@@ -74,7 +74,10 @@ class Table extends React.Component{
         }
       });
 
-      if (JSON.stringify(row).indexOf(this.props.activeRow) !== -1) return {data: tableRow, _activeRow: true};
+      if (this.props.activeRow && this.props.activeRow.id) {
+        var activeRowKey = row[this.props.activeRow.id];
+        if (activeRowKey === this.props.activeRow.value && !React.isValidElement(activeRowKey)) return {data: tableRow, _activeRow: true};
+      }
 
       return {data: tableRow};
     });
@@ -123,35 +126,27 @@ class Table extends React.Component{
     this.setState(state);
   }
   renderChildren(props){
-    const children = {tr:[]};
+    var children = {tr:[]};
     if (!React.Children.count(props.children)) return children;
-
     React.Children.map(props.children, (child) => {
       // Add table rows to children object
-      if (!child.type || child.type.name !== "Tr") {
-        console.warn("Invalid Table child element expected Tr");
-        return;
+      if (child.type.name === "Tr") {
+        if (!child.props.children) return children.tr.push(child.props.row);
+
+        //return children.tr.push(child.props);
+
+        var obj = {};
+        React.Children.forEach(child.props.children, (nestedChild) => {
+          // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
+          if (nestedChild.props.column && !nestedChild.props.children) return;
+          obj[nestedChild.props.column] = nestedChild.props.children;
+        });
+        children.tr.push(obj)
       }
-      if (!child.props.children || !child.props.children.type || child.props.children.type.displayName !== "_Td") {
-        console.warn("Invalid Tr child element expected Td");
-        return;
-      }
-
-      const td = {};
-      React.Children.forEach(child.props.children, (nestedChild) => {
-        const nestedChildChildren = nestedChild.props.children;
-
-        if (nestedChild.props.column && !nestedChildChildren) return;
-
-        if (typeof nestedChildChildren === "object" && !nestedChildChildren[0].trim() && !nestedChildChildren[2].trim()) {
-          // Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-          td[nestedChild.props.column] = nestedChildChildren[1];
-          return;
-        }
-        td[nestedChild.props.column] = nestedChildChildren;
-      });
-      children.tr.push(td);
     });
+
+    // Generate table columns if not specified columns
+    if (!this.columns || !this.columns.length) this.columns = generateTableColumns({data: children.tr});
     return children;
   }
   renderTr(){
@@ -211,10 +206,48 @@ Table.propTypes = {
   sortable: React.PropTypes.array,
   filterable: React.PropTypes.bool,
   limit: React.PropTypes.number,
-  activeRow: React.PropTypes.string,
+  activeRow: React.PropTypes.object,
   devMode: React.PropTypes.bool
 }
 
 const TableComponent = Radium(Table);
 export default TableComponent;
-export {Tr,Td};
+
+
+
+
+
+
+
+// renderChildren(props){
+//   const children = {tr:[]};
+//   if (!React.Children.count(props.children)) return children;
+//
+//   React.Children.map(props.children, (child) => {
+//     // Add table rows to children object
+//     if (!child.type || child.type.name !== "Tr") {
+//       console.warn("Invalid Table child element expected Tr");
+//       return;
+//     }
+//     if (!child.props.children || !child.props.children.type || child.props.children.type.displayName !== "_Td") {
+//       console.warn("Invalid Tr child element expected Td");
+//       return;
+//     }
+//
+//     const td = {};
+//     React.Children.forEach(child.props.children, (nestedChild) => {
+//       const nestedChildChildren = nestedChild.props.children;
+//
+//       if (nestedChild.props.column && !nestedChildChildren) return;
+//
+//       if (typeof nestedChildChildren === "object" && !nestedChildChildren[0].trim() && !nestedChildChildren[2].trim()) {
+//         // Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
+//         td[nestedChild.props.column] = nestedChildChildren[1];
+//         return;
+//       }
+//       td[nestedChild.props.column] = nestedChildChildren;
+//     });
+//     children.tr.push(td);
+//   });
+//   return children;
+// }
