@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 // global.Perf = require('react-addons-perf');
 
 // Application Modules
-import Table from "../dist/index.js";
+import Table from "../index.js";
 import tableMock from "./table.mock.yaml";
 
 class Default extends Component{

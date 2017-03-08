@@ -128,7 +128,7 @@ class Table extends React.Component{
 
     React.Children.map(props.children, (child) => {
       // Add table rows to children object
-      if (child.type.name !== "Tr") {
+      if (!child.type || child.type.name !== "Tr") {
         console.warn("Invalid Table child element expected Tr");
         return;
       }
