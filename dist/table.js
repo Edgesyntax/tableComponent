@@ -4964,12 +4964,13 @@ var Thead = function Thead(_ref) {
 
   var renderThead = function renderThead() {
     return columns.map(function (column, index) {
+      var shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
       return _react2.default.createElement(_thComponent2.default, { name: "sort",
         value: index,
         key: index,
         th: column,
         sort: sort,
-        sortable: sortable && sortable.indexOf(column.id) !== -1 ? 1 : 0,
+        sortable: shouldSort,
         sortTable: sortTable });
     });
   };

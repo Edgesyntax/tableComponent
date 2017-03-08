@@ -42,8 +42,11 @@ class Default extends Component{
   }
   render(){
     return <Table
-      sortable={["name","gender"]}
       limit={15}
+      sort={{
+        column: 1,
+        direction: 1
+      }}
       activeRow={{id: "_id", value: "5844822b26f2fd9d3a0e02db"}}>{this.renderTableList()}</Table>
   }
 }

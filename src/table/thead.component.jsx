@@ -19,12 +19,13 @@ const Thead = ({
 }) => {
   const renderThead = () => {
     return columns.map((column, index) => {
+      const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0
       return <Th name="sort"
         value={index}
         key={index}
         th={column}
         sort={sort}
-        sortable={sortable && sortable.indexOf(column.id) !== -1 ? 1 : 0}
+        sortable={shouldSort}
         sortTable={sortTable}/>
     });
   }
@@ -48,7 +49,7 @@ const Thead = ({
     const options = [25, 50, 100];
     const width = filterable ? "50%" : "100%";
     if (options.indexOf(limit) === -1) options.unshift(limit);
-    
+
     const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option}</option>)
     return (
       <div
