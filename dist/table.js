@@ -254,53 +254,60 @@ module.exports = function(it){
 
 /***/ }),
 /* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_color__ = __webpack_require__(192);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_color___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_color__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "brand", function() { return brand; });
-// Node Modules
 
 
-const brand = {
-  primaryColor    : "#27ae60",
-  secondaryColor 	: "#ECECEC",
-  alternateColor 	: "#F5F5F5",
-  backgroundColor	: "#F8F8F8",
-  borderColor			: "#E1E1E1"
-};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.brand = undefined;
 
-const tableStylesheet = {
-  table:{
+var _color = __webpack_require__(192);
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var brand = {
+  primaryColor: "#27ae60",
+  secondaryColor: "#ECECEC",
+  alternateColor: "#F5F5F5",
+  backgroundColor: "#F8F8F8",
+  borderColor: "#E1E1E1"
+}; // Node Modules
+
+
+var tableStylesheet = {
+  table: {
     borderCollapse: "collapse"
   },
-  th:{
-    backgroundColor:"#f9f9f9",
+  th: {
+    backgroundColor: "#f9f9f9",
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: brand.borderColor,
     fontWeight: "normal",
-    padding:"2px 12px"
+    padding: "2px 12px"
   },
   tr: {
     ":hover": {
       backgroundColor: "#EBEBEB"
     }
   },
-  td:{
-    border: `1px solid ${brand.borderColor}`,
-    padding:"2px 12px"
+  td: {
+    border: "1px solid " + brand.borderColor,
+    padding: "2px 12px"
   },
-  index:{
-    backgroundColor:"#f9f9f9",
-    border: `1px solid ${brand.borderColor}`,
+  index: {
+    backgroundColor: "#f9f9f9",
+    border: "1px solid " + brand.borderColor,
     fontWeight: "normal",
-    padding:"2px 12px",
-    textAlign:"center"
+    padding: "2px 12px",
+    textAlign: "center"
   },
-  button:{
+  button: {
     display: "inline-block",
     width: "auto",
     margin: 0,
@@ -313,22 +320,22 @@ const tableStylesheet = {
   },
   actionButton: {
     fontSize: "1.4em",
-    margin: "0",//"0 12px 0 0"
+    margin: "0", //"0 12px 0 0"
     overflow: "hidden"
   },
   i: {
     pointerEvents: "none",
     width: "15px",
     display: "inline-block",
-    verticalAlign: "middle",
+    verticalAlign: "middle"
   },
-  formControl:{
+  formControl: {
     margin: "0px",
     height: "100%",
     width: "auto"
   },
-  preview:{
-    display:"block",
+  preview: {
+    display: "block",
     cursor: "alias",
     ":hover": {}
   },
@@ -336,23 +343,21 @@ const tableStylesheet = {
     display: "none",
     position: "absolute"
   },
-  select:{
-    border: `1px solid ${brand.borderColor}`
+  select: {
+    border: "1px solid " + brand.borderColor
   },
   activeTr: {
     //borderLeft: `3px solid ${brand.primaryColor}`,
-    background: __WEBPACK_IMPORTED_MODULE_0_color___default()(brand.primaryColor).alpha(0.1).lighten(0.1).hslString()
+    background: (0, _color2.default)(brand.primaryColor).alpha(0.1).lighten(0.1).hslString()
   },
   activeIndex: {
     backgroundColor: brand.primaryColor,
-    color: "#fff",
-    //border: `1px solid ${brand.primaryColor}`,
+    color: "#fff"
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = tableStylesheet;
-
-
+exports.default = tableStylesheet;
+exports.brand = brand;
 
 /***/ }),
 /* 10 */
@@ -4124,6 +4129,144 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var generateTableColumns = function generateTableColumns(_ref) {
+  var data = _ref.data;
+
+  if (!data || !data.length) return [];
+  var tableColumns = [];
+  var columnList = [];
+  data.map(function (row) {
+    for (var variable in row) {
+      var column = { id: variable, label: variable };
+      if (columnList.indexOf(variable) === -1) {
+        columnList.push(variable);
+        tableColumns.push({ id: variable, label: variable });
+      }
+    }
+  });
+  return tableColumns;
+};
+
+var validateColumns = function validateColumns(columns) {
+  var columnErrors = columns.filter(function (column) {
+    // Check column type
+    if ((typeof column === "undefined" ? "undefined" : _typeof(column)) !== "object") return Object.assign({}, { _message: "Invalid column expected object", value: column });
+    if (!column.id) return Object.assign({}, { _message: "Missing id key", value: column });
+    if (!column.label) return Object.assign({}, { _message: "Missing label key", value: column });
+  });
+  if (columnErrors.length) {
+    console.warn("Found invalid column prop. Table will bypass column prop and generate columns.", columnErrors);
+    return false;
+  }
+  return true;
+};
+
+exports.default = generateTableColumns;
+exports.validateColumns = validateColumns;
+
+// const containsColumn = (object, array) => {
+//   for (var i = 0; i < array.length; i++) {
+//     // console.log(array[i].id === object.id, array[i], object);
+//     if (array[i].id === object.id) return true;
+//   }
+// };
+// if (!containsColumn(column,tableColumns)) tableColumns.push(column);
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// TODO: filter keys is filterable array
+var filterTable = function filterTable(_ref) {
+  var tableData = _ref.tableData,
+      filter = _ref.filter;
+
+  if (!filter) return tableData;
+  return tableData.filter(function (row) {
+    var formatedRow = row.data.join("").toLowerCase();
+    return formatedRow.indexOf(filter.toLowerCase()) !== -1;
+  });
+};
+
+exports.default = filterTable;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var limitTable = function limitTable(_ref) {
+  var tableData = _ref.tableData,
+      limit = _ref.limit,
+      pagination = _ref.pagination;
+
+  if (!limit) return;
+  // check if pagination
+  if (pagination > 0) {
+    var page = limit * pagination;
+    return tableData.slice(page, limit + page);
+  }
+  return tableData.slice(0, limit);
+};
+
+exports.default = limitTable;
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var sortTable = function sortTable(_ref) {
+  var tableData = _ref.tableData,
+      sort = _ref.sort;
+
+  if (!sort) return tableData;
+  return tableData.sort(function (dataA, dataB) {
+    var _a = dataA.data,
+        _b = dataB.data;
+    if (_a[sort.column] && _typeof(_a[sort.column]) === "object" || _b[sort.column] && _b[sort.column] === "object") return;
+    var a = typeof _a[sort.column] === "string" ? _a[sort.column].toLowerCase() : _a[sort.column],
+        b = typeof _b[sort.column] === "string" ? _b[sort.column].toLowerCase() : _b[sort.column];
+    if (sort.direction === 1) return a > b ? 1 : a < b ? -1 : 0;else if (sort.direction === -1) return b > a ? 1 : b < a ? -1 : 0;else {
+      return 0;
+    }
+  });
+};
+
+exports.default = sortTable;
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -4309,7 +4452,7 @@ exports.default = Tfoot;
 //console.log(Math.ceil(i/paginationIndex) === limit, Math.ceil(i/paginationIndex), paginationArray, paginationArray.length);
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4426,7 +4569,7 @@ var Thead = function Thead(_ref) {
 exports.default = Thead;
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4472,115 +4615,6 @@ var Tr = function Tr(_ref) {
   );
 }; // React Modules
 exports.default = Tr;
-
-/***/ }),
-/* 91 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateColumns", function() { return validateColumns; });
-const generateTableColumns = ({data}) => {
-  if (!data || !data.length) return [];
-  var tableColumns = [];
-  var columnList = [];
-  data.map((row) => {
-    for (var variable in row) {
-      var column = {id: variable, label: variable};
-      if (columnList.indexOf(variable) === -1) {
-        columnList.push(variable);
-        tableColumns.push({id: variable, label: variable});
-      }
-    }
-  });
-  return tableColumns;
-};
-
-const validateColumns = (columns) => {
-  const columnErrors = columns.filter((column) => {
-    // Check column type
-    if (typeof column !== "object") return Object.assign({},{_message: "Invalid column expected object", value: column});
-    if (!column.id) return Object.assign({},{_message: "Missing id key", value: column});
-    if (!column.label) return Object.assign({},{_message: "Missing label key", value: column});
-  });
-  if (columnErrors.length) {
-    console.warn("Found invalid column prop. Table will bypass column prop and generate columns.", columnErrors);
-    return false;
-  }
-  return true;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = generateTableColumns;
-
-
-// const containsColumn = (object, array) => {
-//   for (var i = 0; i < array.length; i++) {
-//     // console.log(array[i].id === object.id, array[i], object);
-//     if (array[i].id === object.id) return true;
-//   }
-// };
-// if (!containsColumn(column,tableColumns)) tableColumns.push(column);
-
-
-/***/ }),
-/* 92 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-// TODO: filter keys is filterable array
-const filterTable = ({tableData,filter}) => {
-  if (!filter) return tableData;
-  return tableData.filter((row) => {
-    var formatedRow = row.data.join("").toLowerCase();
-    return formatedRow.indexOf(filter.toLowerCase()) !== -1;
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = filterTable;
-
-
-/***/ }),
-/* 93 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const limitTable = ({tableData,limit, pagination}) => {
-  if (!limit) return;
-  // check if pagination
-  if (pagination > 0) {
-    const page = limit * pagination;
-    return tableData.slice(page, limit + page);
-  }
-  return tableData.slice(0,limit);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = limitTable;
-
-
-/***/ }),
-/* 94 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const sortTable = ({tableData, sort}) => {
-  if (!sort) return tableData;
-  return tableData.sort((dataA, dataB) => {
-    const _a = dataA.data, _b = dataB.data;
-    if (_a[sort.column] && typeof _a[sort.column] === "object" || _b[sort.column] && _b[sort.column] === "object") return;
-    var a = (typeof _a[sort.column] === "string" ? _a[sort.column].toLowerCase() : _a[sort.column]), b = (typeof _b[sort.column] === "string" ? _b[sort.column].toLowerCase() : _b[sort.column]);
-    if (sort.direction === 1) return a > b ? 1 : a < b ? -1 : 0;
-    else if (sort.direction === -1) return b > a ? 1 : b < a ? -1 : 0;
-    else{
-      return 0;
-    }
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = sortTable;
-
 
 /***/ }),
 /* 95 */
@@ -16150,7 +16184,7 @@ var _thComponent = __webpack_require__(56);
 
 var _thComponent2 = _interopRequireDefault(_thComponent);
 
-var _trComponent = __webpack_require__(90);
+var _trComponent = __webpack_require__(94);
 
 var _trComponent2 = _interopRequireDefault(_trComponent);
 
@@ -16158,27 +16192,27 @@ var _tdComponent = __webpack_require__(55);
 
 var _tdComponent2 = _interopRequireDefault(_tdComponent);
 
-var _theadComponent = __webpack_require__(89);
+var _theadComponent = __webpack_require__(93);
 
 var _theadComponent2 = _interopRequireDefault(_theadComponent);
 
-var _tfootComponent = __webpack_require__(88);
+var _tfootComponent = __webpack_require__(92);
 
 var _tfootComponent2 = _interopRequireDefault(_tfootComponent);
 
-var _columns = __webpack_require__(91);
+var _columns = __webpack_require__(88);
 
 var _columns2 = _interopRequireDefault(_columns);
 
-var _sort = __webpack_require__(94);
+var _sort = __webpack_require__(91);
 
 var _sort2 = _interopRequireDefault(_sort);
 
-var _filter = __webpack_require__(92);
+var _filter = __webpack_require__(89);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _limit = __webpack_require__(93);
+var _limit = __webpack_require__(90);
 
 var _limit2 = _interopRequireDefault(_limit);
 
