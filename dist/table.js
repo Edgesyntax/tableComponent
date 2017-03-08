@@ -4279,7 +4279,9 @@ var Table = function (_React$Component) {
       // Assign user defined columns or generate columns
       this.columns = props.columns && (0, _columns.validateColumns)(props.columns) ? props.columns : (0, _columns2.default)(props);
       // Make all columns sortable if no user defined sortable array
-      sortable = props.sortable ? props.sortable : this.columns;
+      sortable = props.sortable ? props.sortable : this.columns.map(function (column) {
+        return column.id;
+      });
       // Assign default sort column or use state
       sort = props.sort ? props.sort : this.state.sort;
       // Assign default limit or show all data
@@ -4965,6 +4967,7 @@ var Thead = function Thead(_ref) {
   var renderThead = function renderThead() {
     return columns.map(function (column, index) {
       var shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
+
       return _react2.default.createElement(_thComponent2.default, { name: "sort",
         value: index,
         key: index,

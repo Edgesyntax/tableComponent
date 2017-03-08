@@ -43,6 +43,15 @@ class Default extends Component{
   render(){
     return <Table
       limit={15}
+      columns={[
+        {id: "balance"},
+        {id: "age"},
+        {id: "eyeColor"},
+        {id: "name"},
+        {id: "gender"},
+        {id: "company"},
+        {id: "email"}
+      ]}
       sort={{
         column: 1,
         direction: 1

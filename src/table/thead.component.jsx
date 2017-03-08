@@ -19,7 +19,8 @@ const Thead = ({
 }) => {
   const renderThead = () => {
     return columns.map((column, index) => {
-      const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0
+      const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
+      
       return <Th name="sort"
         value={index}
         key={index}

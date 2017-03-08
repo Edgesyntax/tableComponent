@@ -40,7 +40,7 @@ class Table extends React.Component{
     // Assign user defined columns or generate columns
     this.columns   = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
-    sortable  = (props.sortable ? props.sortable : this.columns);
+    sortable  = (props.sortable ? props.sortable : this.columns.map((column) => column.id));
     // Assign default sort column or use state
     sort      = (props.sort ? props.sort : this.state.sort);
     // Assign default limit or show all data
