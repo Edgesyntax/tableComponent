@@ -1,3 +1,8 @@
+// TODO: Show filter by default
+// TODO: Add css classes
+// TODO: Change icons
+// TODO: Change index count
+
 // React Modules
 import React from "react";
 import Radium from "radium";
