@@ -4281,11 +4281,11 @@ var Table = function (_React$Component) {
         return column.id;
       });
       // Assign default sort column or use state
-      sort = props.sort ? props.sort : this.state.sort;
+      sort = this.state.sort ? this.state.sort : props.sort;
       // Assign default limit or show all data
-      limit = props.limit ? props.limit : undefined;
+      limit = this.state.limit ? this.state.limit : props.limit;
       // Assign user defined filter or use state filter
-      filter = props.filter ? props.filter : this.state.filter;
+      filter = this.state.filter ? this.state.filter : props.filter;
 
       // Check/Render child components
       this.childrenNodes = this.renderChildren(props);
