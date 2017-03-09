@@ -49,8 +49,8 @@
     "yml-loader": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "radium": "^0.18.1"
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "radium": "^0.18.0"
   }
 }
