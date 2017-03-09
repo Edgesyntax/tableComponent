@@ -40,8 +40,9 @@ const Thead = ({
           <Funnel style={{
             height: "100%",
             position: "absolute",
-            padding: "0 6px",
-            textAlign: "center"
+            left: "7px",
+            textAlign: "center",
+            zIndex: 1
           }}/>
           <input
             name="filter"
