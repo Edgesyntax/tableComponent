@@ -1802,31 +1802,38 @@ var _Th = function _Th(_ref) {
       children = _ref.children;
 
 
+  console.log(sort);
   // Sort table using index
-  var transformTh = th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : "",
-      sortColumn = sort && sort.column.toString() ? sort.column : null,
-      // Add to string to capture 0 index
-  sortDirection = sort && sort.direction.toString() ? 1 : null; // Set 1 to default to asc table on `sortTable`
+  var transformTh = th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : "";
+  var sortColumn = sort && sort.column.toString() ? sort.column : null; // Add to string to capture 0 index
+  var sortDirection = sort && sort.direction ? "ASC" : null; // Set 1 to default to asc table on `sortTable`
 
+  if (sort && sortColumn === value) {
+    console.log("Before", sortColumn, sortDirection);
+  }
   // Check if sorting is in dec order
-  if (sort && sortColumn === value && sort.direction === -1) sortDirection = 0;
+  if (sort && sortColumn === value && sort.direction === "DES") sortDirection = "INI";
 
   // Check if sorting is in reset order
-  if (sort && sortColumn === value && sort.direction === 0) sortDirection = 1;
+  if (sort && sortColumn === value && sort.direction === "INI") sortDirection = "ASC";
 
   // Check if sorting is in asc order
-  if (sort && sortColumn === value && sort.direction === 1) sortDirection = -1;
+  if (sort && sortColumn === value && sort.direction === "ASC") sortDirection = "DES";
+  if (sort && sortColumn === value) {
+
+    console.log("After", sortColumn, sortDirection);
+  }
 
   if (sortable) {
     transformTh = _react2.default.createElement(
       "button",
       {
         name: name,
-        value: "{\"column\": " + value + ", \"direction\": " + sortDirection + "}",
+        value: "{\"column\": " + value + ", \"direction\": \"" + sortDirection + "\"}",
         onClick: sortTable },
       transformTh,
-      sortColumn === value && sort.direction === -1 ? _react2.default.createElement(_mdArrowDropdownComponent2.default, { className: "icon" }) : null,
-      sortColumn === value && sort.direction === 1 ? _react2.default.createElement(_mdArrowDropupComponent2.default, { className: "icon" }) : null
+      sortColumn === value && sort.direction === "DES" ? _react2.default.createElement(_mdArrowDropdownComponent2.default, { className: "icon" }) : null,
+      sortColumn === value && sort.direction === "ASC" ? _react2.default.createElement(_mdArrowDropupComponent2.default, { className: "icon" }) : null
     );
   }
   return _react2.default.createElement(
@@ -4232,9 +4239,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TODO: Add css classes
-
-// React Modules
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // React Modules
 
 
 // Application Modules
@@ -4249,10 +4254,6 @@ var Table = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this));
 
     _this.state = {
-      sort: {
-        column: 0,
-        direction: 0
-      },
       pagination: 0,
       filter: ""
     };
@@ -4285,7 +4286,7 @@ var Table = function (_React$Component) {
       // Assign default limit or show all data
       limit = this.state.limit ? this.state.limit : props.limit;
       // Assign user defined filter or use state filter
-      filter = this.state.filter ? this.state.filter : props.filter;
+      filter = this.state.filter ? this.state.filter : props.filter ? props.filter : "";
 
       // Check/Render child components
       this.childrenNodes = this.renderChildren(props);
@@ -4656,7 +4657,7 @@ var sortTable = function sortTable(_ref) {
     if (_a[sort.column] && _typeof(_a[sort.column]) === "object" || _b[sort.column] && _b[sort.column] === "object") return;
     var a = typeof _a[sort.column] === "string" ? _a[sort.column].toLowerCase() : _a[sort.column],
         b = typeof _b[sort.column] === "string" ? _b[sort.column].toLowerCase() : _b[sort.column];
-    if (sort.direction === 1) return a > b ? 1 : a < b ? -1 : 0;else if (sort.direction === -1) return b > a ? 1 : b < a ? -1 : 0;else {
+    if (sort.direction === "ASC") return a > b ? 1 : a < b ? -1 : 0;else if (sort.direction === "DES") return b > a ? 1 : b < a ? -1 : 0;else {
       return 0;
     }
   });
@@ -4870,9 +4871,13 @@ var _thComponent = __webpack_require__(57);
 
 var _thComponent2 = _interopRequireDefault(_thComponent);
 
+var _mdArrowDropdownComponent = __webpack_require__(260);
+
+var _mdArrowDropdownComponent2 = _interopRequireDefault(_mdArrowDropdownComponent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// React Modules
+// Application Modules
 var Thead = function Thead(_ref) {
   var columns = _ref.columns,
       showIndex = _ref.showIndex,
@@ -4905,6 +4910,7 @@ var Thead = function Thead(_ref) {
       "div",
       {
         style: { display: "inline-block", width: width, textAlign: "left" } },
+      _react2.default.createElement(_mdArrowDropdownComponent2.default, { style: { width: "25px", height: "auto" } }),
       _react2.default.createElement("input", {
         name: "filter",
         type: "text",
@@ -4960,9 +4966,7 @@ var Thead = function Thead(_ref) {
       renderThead()
     )
   );
-};
-
-// Application Modules
+}; // React Modules
 exports.default = Thead;
 
 /***/ }),
@@ -16476,11 +16480,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // React Modules
+
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _radium = __webpack_require__(26);
+
+var _radium2 = _interopRequireDefault(_radium);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16494,12 +16503,12 @@ var style = {
 var MdArrowDropdown = function MdArrowDropdown(props) {
   return _react2.default.createElement(
     "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
     _react2.default.createElement("path", { d: "M128 192l128 128 128-128z" })
   );
 };
 
-exports.default = MdArrowDropdown;
+exports.default = (0, _radium2.default)(MdArrowDropdown);
 
 /***/ }),
 /* 261 */
@@ -16512,11 +16521,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // React Modules
+
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _radium = __webpack_require__(26);
+
+var _radium2 = _interopRequireDefault(_radium);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16530,12 +16544,12 @@ var style = {
 var MdArrowDropup = function MdArrowDropup(props) {
   return _react2.default.createElement(
     "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
     _react2.default.createElement("path", { d: "M128 320l128-128 128 128z" })
   );
 };
 
-exports.default = MdArrowDropup;
+exports.default = (0, _radium2.default)(MdArrowDropup);
 
 /***/ })
 /******/ ]);

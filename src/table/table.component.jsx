@@ -1,5 +1,3 @@
-// TODO: Add css classes
-
 // React Modules
 import React from "react";
 import Radium, {Style} from "radium";
@@ -12,7 +10,6 @@ import Td from "./td.component.jsx";
 import Thead from "./thead.component.jsx";
 import Tfoot from "./tfoot.component.jsx";
 
-
 import generateTableColumns, {validateColumns}  from "../helpers/columns.js";
 import sortTableAction      from "../helpers/sort.js";
 import filterTableAction    from "../helpers/filter.js";
@@ -22,10 +19,6 @@ class Table extends React.Component{
   constructor(){
     super();
     this.state = {
-      sort:{
-        column: 0,
-        direction: 0
-      },
       pagination: 0,
       filter: ""
     }
@@ -48,7 +41,7 @@ class Table extends React.Component{
     // Assign default limit or show all data
     limit     = (this.state.limit ? this.state.limit : props.limit);
     // Assign user defined filter or use state filter
-    filter    = (this.state.filter ? this.state.filter : props.filter);
+    filter    = (this.state.filter ? this.state.filter : props.filter ? props.filter : "");
 
     // Check/Render child components
     this.childrenNodes = this.renderChildren(props);

@@ -3,6 +3,7 @@ import React from "react";
 
 // Application Modules
 import Th from "./th.component.jsx";
+import DownArrow from "../icons/mdArrowDropdown.component.jsx";
 
 const Thead = ({
   columns,
@@ -35,6 +36,7 @@ const Thead = ({
     return (
       <div
         style={{display: "inline-block",width,textAlign: "left"}}>
+        <DownArrow style={{width: "25px", height: "auto"}}/>
         <input
           name="filter"
           type="text"

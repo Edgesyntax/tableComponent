@@ -56,7 +56,7 @@ class Default extends Component{
       showIndex={true}
       sort={{
         column: 1,
-        direction: 1
+        direction: "ASC" //DES // INI
       }}
       activeRow={{id: "id", value: "5844822b0604c338bfdbe2a7"}}>{this.renderTableList()}</Table>
   }
