@@ -11,6 +11,7 @@ class Default extends Component{
   renderTableList(){
     return tableMock.map((item, index) => {
       return (<Tr key={index}>
+        <Td column="id">{item._id}</Td>
         <Td column="balance">{item.balance}</Td>
         <Td column="age">{item.age}</Td>
         <Td column="eyeColor">{item.eyeColor}</Td>
@@ -21,20 +22,16 @@ class Default extends Component{
         <Td column="registered">{item.registered}</Td>
         <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>
         <Td column="action">
-          <div style={{textAlign: "center"}}>
-            <button
-            style={tableStylesheet.button}>
+            <button>
             button
               <i className="ion-ios-create-outline" style={tableStylesheet.i}></i>
             </button>
             <button
               onClick={this.deleteItemHandler}
-              value={item._id}
-              style={tableStylesheet.button}>
+              value={item._id}>
               button
               <i className="ion-ios-trash-outline" style={tableStylesheet.i}></i>
             </button>
-          </div>
         </Td>
       </Tr>
     )
@@ -44,20 +41,22 @@ class Default extends Component{
     return <Table
       limit={25}
       columns={[
+        {id: "id"},
         {id: "balance"},
         {id: "age"},
         {id: "eyeColor"},
         {id: "name"},
         {id: "gender"},
         {id: "company"},
-        {id: "email"}
+        {id: "email"},
+        {id: "action"}
       ]}
       showIndex={true}
       sort={{
         column: 1,
         direction: 1
       }}
-      activeRow={{id: "_id", value: "5844822b26f2fd9d3a0e02db"}}>{this.renderTableList()}</Table>
+      activeRow={{id: "id", value: "5844822b0604c338bfdbe2a7"}}>{this.renderTableList()}</Table>
   }
 }
 

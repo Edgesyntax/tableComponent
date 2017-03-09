@@ -3,7 +3,6 @@ import React from "react";
 
 // Application Modules
 import Th from "./th.component.jsx";
-import tableStylesheet, {brand} from "./table.stylesheet.js";
 
 const Thead = ({
   columns,
@@ -42,7 +41,7 @@ const Thead = ({
           value={filter}
           onChange={filterTable}
           placeholder="Filter"
-          style={[tableStylesheet.formControl,{border: `1px solid ${brand.borderColor}`}]}/>
+          className="formControl"/>
       </div>
     );
   }
@@ -55,7 +54,7 @@ const Thead = ({
     return (
       <div
         style={{display: "inline-block",width,textAlign: "right"}}>
-        <select name="limit" style={[tableStylesheet.formControl,tableStylesheet.select]} value={limit} onChange={limitTable}>
+        <select name="limit" value={limit} onChange={limitTable}>
           {renderOptions()}
         </select>
       </div>
@@ -66,8 +65,7 @@ const Thead = ({
       {!hideFilter || limit ?
         <tr>
           <Th
-            colSpan={colSpan}
-            style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "left"}]}>
+            colSpan={colSpan}>
             {!hideFilter ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const style = {
   display: "inline-block",
-  width: "10px",
+  width: "12px",
   verticalAlign: "middle",
   marginLeft: "4px"
 }

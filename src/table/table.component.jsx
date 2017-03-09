@@ -2,7 +2,7 @@
 
 // React Modules
 import React from "react";
-import Radium from "radium";
+import Radium, {Style} from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
@@ -164,39 +164,44 @@ class Table extends React.Component{
   }
   render(){
     return(
-      <table style={[tableStylesheet.table, this.props.style]}>
-        {!this.props.hideHeader ?
-          <Thead
+      <component className="tableComponent">
+        <table>
+          {!this.props.hideHeader ?
+            <Thead
+              columns={this.columns}
+              showIndex={this.props.showIndex}
+              sortable={this.state.sortable}
+              hideFilter={this.props.hideFilter}
+              limit={this.state.limit}
+              limitTable={this.onChangeAction}
+              filter={this.state.filter}
+              filterTable={this.onChangeAction}
+              sort={this.state.sort}
+              sortTable={this.onChangeAction}/>
+          : null }
+          <tbody>
+            {this.vTableData && this.vTableData.length ? this.renderTr() :
+              <tr>
+                <td colSpan={this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
+                  <x-component-error>
+                    <x-message><h3>No records found.</h3></x-message>
+                  </x-component-error>
+                </td>
+              </tr>
+            }
+          </tbody>
+          <Tfoot
             columns={this.columns}
-            showIndex={this.props.showIndex}
-            sortable={this.state.sortable}
-            hideFilter={this.props.hideFilter}
+            tableLength={this.fTableData.length}
             limit={this.state.limit}
-            limitTable={this.onChangeAction}
-            filter={this.state.filter}
-            filterTable={this.onChangeAction}
-            sort={this.state.sort}
-            sortTable={this.onChangeAction}/>
-        : null }
-        <tbody>
-          {this.vTableData && this.vTableData.length ? this.renderTr() :
-            <tr>
-              <td colSpan={this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
-                <x-component-error>
-                  <x-message><h3>No records found.</h3></x-message>
-                </x-component-error>
-              </td>
-            </tr>
-          }
-        </tbody>
-        <Tfoot
-          columns={this.columns}
-          tableLength={this.fTableData.length}
-          limit={this.state.limit}
-          pagination={this.state.pagination}
-          paginateTable={this.onChangeAction}
-          showIndex={this.props.showIndex}/>
-      </table>
+            pagination={this.state.pagination}
+            paginateTable={this.onChangeAction}
+            showIndex={this.props.showIndex}/>
+        </table>
+        <Style
+          scopeSelector=".tableComponent"
+          rules={tableStylesheet}/>
+      </component>
     );
   }
 }

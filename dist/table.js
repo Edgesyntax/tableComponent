@@ -186,9 +186,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var brand = {
   primaryColor: "#27ae60",
-  secondaryColor: "#ECECEC",
-  alternateColor: "#F5F5F5",
-  backgroundColor: "#F8F8F8",
+  secondaryColor: "#f9f9f9",
   borderColor: "#E1E1E1"
 }; // Node Modules
 
@@ -197,32 +195,23 @@ var tableStylesheet = {
   table: {
     borderCollapse: "collapse"
   },
-  th: {
-    backgroundColor: "#f9f9f9",
+  "th, tfoot td": {
+    backgroundColor: brand.secondaryColor,
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: brand.borderColor,
     fontWeight: "normal",
-    padding: "2px 12px",
+    padding: "4px 25px",
     fontSize: "inherit"
   },
-  tr: {
-    ":hover": {
-      backgroundColor: "#EBEBEB"
-    }
+  "tr:hover": {
+    backgroundColor: brand.secondaryColor
   },
   td: {
     border: "1px solid " + brand.borderColor,
     padding: "2px 12px"
   },
-  index: {
-    backgroundColor: "#f9f9f9",
-    border: "1px solid " + brand.borderColor,
-    fontWeight: "normal",
-    padding: "2px 12px",
-    textAlign: "center"
-  },
-  button: {
+  "thead button": {
     display: "inline-block",
     width: "auto",
     margin: 0,
@@ -235,27 +224,6 @@ var tableStylesheet = {
     font: "inherit",
     color: "inherit"
   },
-  actionButton: {
-    fontSize: "1.4em",
-    margin: "0", //"0 12px 0 0"
-    overflow: "hidden"
-  },
-  i: {
-    pointerEvents: "none",
-    width: "15px",
-    display: "inline-block",
-    verticalAlign: "middle"
-  },
-  formControl: {
-    margin: "0px",
-    height: "100%",
-    width: "auto"
-  },
-  preview: {
-    display: "block",
-    cursor: "alias",
-    ":hover": {}
-  },
   pre: {
     display: "none",
     position: "absolute"
@@ -263,13 +231,50 @@ var tableStylesheet = {
   select: {
     border: "1px solid " + brand.borderColor
   },
-  activeTr: {
+  ".formControl": {
+    width: "auto",
+    border: "1px solid " + brand.borderColor
+  },
+  i: {
+    pointerEvents: "none"
+  },
+  ".icon": {
+    pointerEvents: "none",
+    width: "15px",
+    display: "inline-block",
+    verticalAlign: "middle"
+  },
+  ".activeRow": {
     //borderLeft: `3px solid ${brand.primaryColor}`,
     background: (0, _color2.default)(brand.primaryColor).alpha(0.1).lighten(0.1).hslString()
   },
-  activeIndex: {
+  ".index": {
+    backgroundColor: brand.secondaryColor,
+    border: "1px solid " + brand.borderColor,
+    fontWeight: "normal",
+    padding: "2px 12px",
+    textAlign: "center"
+  },
+  ".activeIndex": {
     backgroundColor: brand.primaryColor,
     color: "#fff"
+  },
+  ".pages": {
+    display: "inline-block",
+    margin: 0
+  },
+  ".activePage": {
+    background: brand.primaryColor,
+    borderColor: brand.primaryColor,
+    color: "#fff"
+  },
+  ".tree ul": {
+    background: "transparent !important"
+  },
+  ".actionBtn": {
+    fontSize: "1.4em",
+    margin: "0", //"0 12px 0 0"
+    overflow: "hidden"
   }
 };
 
@@ -871,25 +876,29 @@ var _reactJsonTree2 = _interopRequireDefault(_reactJsonTree);
 
 var _tableStylesheet = __webpack_require__(6);
 
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _Td = function _Td(_ref) {
   var td = _ref.td,
       activeRow = _ref.activeRow,
-      style = _ref.style,
+      className = _ref.className,
       children = _ref.children;
 
   var transformTd;
   var renderObject = function renderObject() {
-    return _react2.default.createElement(_reactJsonTree2.default, { data: td, theme: { base00: '#000', base0B: _tableStylesheet.brand.primaryColor, base0D: '#999' } });
+    return _react2.default.createElement(
+      "div",
+      { className: "tree" },
+      _react2.default.createElement(_reactJsonTree2.default, {
+        data: td,
+        hideRoot: true })
+    );
   };
   if (td && _react2.default.isValidElement(td)) transformTd = td;else if (td && (typeof td === "undefined" ? "undefined" : _typeof(td)) === "object") transformTd = renderObject();else if (typeof td !== "undefined") transformTd = td.toString();
 
   return _react2.default.createElement(
     "td",
-    { style: [_tableStylesheet2.default.td, style, activeRow && _tableStylesheet2.default.activeIndex] },
+    { className: activeRow ? className + " activeIndex" : className },
     transformTd,
     children
   );
@@ -897,6 +906,12 @@ var _Td = function _Td(_ref) {
 var Td = (0, _radium2.default)(_Td);
 
 exports.default = Td;
+
+// theme={{
+//   base00: '#000',
+//   base0B: brand.primaryColor,
+//   base0D: '#999'
+// }}
 
 /***/ }),
 /* 29 */
@@ -1713,13 +1728,9 @@ var _tdComponent = __webpack_require__(28);
 
 var _tdComponent2 = _interopRequireDefault(_tdComponent);
 
-var _tableStylesheet = __webpack_require__(6);
-
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Application Modules
+// React Modules
 var Tr = function Tr(_ref) {
   var showIndex = _ref.showIndex,
       row = _ref.row,
@@ -1735,11 +1746,13 @@ var Tr = function Tr(_ref) {
 
   return _react2.default.createElement(
     "tr",
-    { style: activeRow && _tableStylesheet2.default.activeTr },
-    showIndex ? _react2.default.createElement(_tdComponent2.default, { td: index + 1, style: _tableStylesheet2.default.index, activeRow: activeRow }) : null,
+    { className: activeRow && "activeRow" },
+    showIndex ? _react2.default.createElement(_tdComponent2.default, { td: index + 1, className: "index", activeRow: activeRow }) : null,
     renderTd()
   );
-}; // React Modules
+};
+
+// Application Modules
 exports.default = Tr;
 
 /***/ }),
@@ -1761,10 +1774,6 @@ var _radium = __webpack_require__(26);
 
 var _radium2 = _interopRequireDefault(_radium);
 
-var _tableStylesheet = __webpack_require__(6);
-
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 var _mdArrowDropdownComponent = __webpack_require__(260);
 
 var _mdArrowDropdownComponent2 = _interopRequireDefault(_mdArrowDropdownComponent);
@@ -1775,6 +1784,8 @@ var _mdArrowDropupComponent2 = _interopRequireDefault(_mdArrowDropupComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Application Modules
+// React Modules
 var _Th = function _Th(_ref) {
   var th = _ref.th,
       name = _ref.name,
@@ -1808,40 +1819,22 @@ var _Th = function _Th(_ref) {
       {
         name: name,
         value: "{\"column\": " + value + ", \"direction\": " + sortDirection + "}",
-        onClick: sortTable,
-        style: _tableStylesheet2.default.button },
+        onClick: sortTable },
       transformTh,
-      sortColumn === value && sort.direction === -1 ? _react2.default.createElement(_mdArrowDropdownComponent2.default, {
-        style: [_tableStylesheet2.default.i, { pointerEvents: "none" }] }) : null,
-      sortColumn === value && sort.direction === 1 ? _react2.default.createElement(_mdArrowDropupComponent2.default, {
-        style: [_tableStylesheet2.default.i, { pointerEvents: "none" }] }) : null
+      sortColumn === value && sort.direction === -1 ? _react2.default.createElement(_mdArrowDropdownComponent2.default, { className: "icon" }) : null,
+      sortColumn === value && sort.direction === 1 ? _react2.default.createElement(_mdArrowDropupComponent2.default, { className: "icon" }) : null
     );
   }
   return _react2.default.createElement(
     "th",
-    {
-      colSpan: colSpan,
-      style: [_tableStylesheet2.default.th, style] },
+    { colSpan: colSpan },
     transformTh,
     children
   );
 };
 
-// Application Modules
-// React Modules
-
-
 var Th = (0, _radium2.default)(_Th);
 exports.default = Th;
-
-// <i
-//   className="ion-md-arrow-dropdown"
-//   style={[tableStylesheet.i,{pointerEvents: "none"}]}/>
-
-
-// <i
-// className="ion-md-arrow-dropup"
-// style={[tableStylesheet.i,{pointerEvents: "none"}]}/>
 
 /***/ }),
 /* 58 */
@@ -4424,51 +4417,58 @@ var Table = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "table",
-        { style: [_tableStylesheet2.default.table, this.props.style] },
-        !this.props.hideHeader ? _react2.default.createElement(_theadComponent2.default, {
-          columns: this.columns,
-          showIndex: this.props.showIndex,
-          sortable: this.state.sortable,
-          hideFilter: this.props.hideFilter,
-          limit: this.state.limit,
-          limitTable: this.onChangeAction,
-          filter: this.state.filter,
-          filterTable: this.onChangeAction,
-          sort: this.state.sort,
-          sortTable: this.onChangeAction }) : null,
+        "component",
+        { className: "tableComponent" },
         _react2.default.createElement(
-          "tbody",
+          "table",
           null,
-          this.vTableData && this.vTableData.length ? this.renderTr() : _react2.default.createElement(
-            "tr",
+          !this.props.hideHeader ? _react2.default.createElement(_theadComponent2.default, {
+            columns: this.columns,
+            showIndex: this.props.showIndex,
+            sortable: this.state.sortable,
+            hideFilter: this.props.hideFilter,
+            limit: this.state.limit,
+            limitTable: this.onChangeAction,
+            filter: this.state.filter,
+            filterTable: this.onChangeAction,
+            sort: this.state.sort,
+            sortTable: this.onChangeAction }) : null,
+          _react2.default.createElement(
+            "tbody",
             null,
-            _react2.default.createElement(
-              "td",
-              { colSpan: this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0 },
+            this.vTableData && this.vTableData.length ? this.renderTr() : _react2.default.createElement(
+              "tr",
+              null,
               _react2.default.createElement(
-                "x-component-error",
-                null,
+                "td",
+                { colSpan: this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0 },
                 _react2.default.createElement(
-                  "x-message",
+                  "x-component-error",
                   null,
                   _react2.default.createElement(
-                    "h3",
+                    "x-message",
                     null,
-                    "No records found."
+                    _react2.default.createElement(
+                      "h3",
+                      null,
+                      "No records found."
+                    )
                   )
                 )
               )
             )
-          )
+          ),
+          _react2.default.createElement(_tfootComponent2.default, {
+            columns: this.columns,
+            tableLength: this.fTableData.length,
+            limit: this.state.limit,
+            pagination: this.state.pagination,
+            paginateTable: this.onChangeAction,
+            showIndex: this.props.showIndex })
         ),
-        _react2.default.createElement(_tfootComponent2.default, {
-          columns: this.columns,
-          tableLength: this.fTableData.length,
-          limit: this.state.limit,
-          pagination: this.state.pagination,
-          paginateTable: this.onChangeAction,
-          showIndex: this.props.showIndex })
+        _react2.default.createElement(_radium.Style, {
+          scopeSelector: ".tableComponent",
+          rules: _tableStylesheet2.default })
       );
     }
   }]);
@@ -4681,20 +4681,16 @@ var _radium = __webpack_require__(26);
 
 var _radium2 = _interopRequireDefault(_radium);
 
-var _tableStylesheet = __webpack_require__(6);
-
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// React Modules
 var _Tfoot = function _Tfoot(_ref) {
   var columns = _ref.columns,
       tableLength = _ref.tableLength,
       limit = _ref.limit,
       pagination = _ref.pagination,
       showIndex = _ref.showIndex,
-      paginateTable = _ref.paginateTable,
-      style = _ref.style;
+      paginateTable = _ref.paginateTable;
 
   if (!tableLength || !limit || tableLength < limit) return null;
   var renderPageInfo = function renderPageInfo() {
@@ -4740,8 +4736,7 @@ var _Tfoot = function _Tfoot(_ref) {
           type: "button",
           value: page,
           onClick: paginateTable,
-          style: [{ display: "inline-block", margin: 0 }, pagination === page && { background: _tableStylesheet.brand.primaryColor, borderColor: _tableStylesheet.brand.primaryColor, color: "#fff" }] },
-        " ",
+          className: pagination === page ? "pages activePage" : "pages" },
         page + 1
       );
     });
@@ -4755,8 +4750,7 @@ var _Tfoot = function _Tfoot(_ref) {
       _react2.default.createElement(
         "td",
         {
-          colSpan: showIndex ? columns.length + 1 : columns.length,
-          style: [_tableStylesheet2.default.th, style] },
+          colSpan: showIndex ? columns.length + 1 : columns.length },
         _react2.default.createElement(
           "div",
           { style: { display: "inline-block", width: "50%", textAlign: "left" } },
@@ -4771,10 +4765,6 @@ var _Tfoot = function _Tfoot(_ref) {
     )
   );
 };
-
-// Application Modules
-// React Modules
-
 
 _Tfoot.propTypes = {
   columns: _react2.default.PropTypes.array.isRequired,
@@ -4876,13 +4866,9 @@ var _thComponent = __webpack_require__(57);
 
 var _thComponent2 = _interopRequireDefault(_thComponent);
 
-var _tableStylesheet = __webpack_require__(6);
-
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Application Modules
+// React Modules
 var Thead = function Thead(_ref) {
   var columns = _ref.columns,
       showIndex = _ref.showIndex,
@@ -4921,7 +4907,7 @@ var Thead = function Thead(_ref) {
         value: filter,
         onChange: filterTable,
         placeholder: "Filter",
-        style: [_tableStylesheet2.default.formControl, { border: "1px solid " + _tableStylesheet.brand.borderColor }] })
+        className: "formControl" })
     );
   };
   var renderLimiter = function renderLimiter() {
@@ -4944,7 +4930,7 @@ var Thead = function Thead(_ref) {
         style: { display: "inline-block", width: width, textAlign: "right" } },
       _react2.default.createElement(
         "select",
-        { name: "limit", style: [_tableStylesheet2.default.formControl, _tableStylesheet2.default.select], value: limit, onChange: limitTable },
+        { name: "limit", value: limit, onChange: limitTable },
         renderOptions()
       )
     );
@@ -4958,8 +4944,7 @@ var Thead = function Thead(_ref) {
       _react2.default.createElement(
         _thComponent2.default,
         {
-          colSpan: colSpan,
-          style: [_tableStylesheet2.default.th, { padding: "4px 25px", textAlign: "left" }] },
+          colSpan: colSpan },
         !hideFilter ? renderFilter() : null,
         limit ? renderLimiter() : null
       )
@@ -4971,7 +4956,9 @@ var Thead = function Thead(_ref) {
       renderThead()
     )
   );
-}; // React Modules
+};
+
+// Application Modules
 exports.default = Thead;
 
 /***/ }),
@@ -16495,7 +16482,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var style = {
   display: "inline-block",
-  width: "10px",
+  width: "12px",
   verticalAlign: "middle",
   marginLeft: "4px"
 };
@@ -16531,7 +16518,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var style = {
   display: "inline-block",
-  width: "10px",
+  width: "12px",
   verticalAlign: "middle",
   marginLeft: "4px"
 };

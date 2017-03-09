@@ -3,9 +3,7 @@ import Color from "color";
 
 const brand = {
   primaryColor    : "#27ae60",
-  secondaryColor 	: "#ECECEC",
-  alternateColor 	: "#F5F5F5",
-  backgroundColor	: "#F8F8F8",
+  secondaryColor  : "#f9f9f9",
   borderColor			: "#E1E1E1"
 };
 
@@ -13,32 +11,23 @@ const tableStylesheet = {
   table:{
     borderCollapse: "collapse"
   },
-  th:{
-    backgroundColor:"#f9f9f9",
+  "th, tfoot td":{
+    backgroundColor: brand.secondaryColor,
     borderStyle: "solid",
     borderWidth: "1px",
     borderColor: brand.borderColor,
     fontWeight: "normal",
-    padding:"2px 12px",
+    padding:"4px 25px",
     fontSize: "inherit"
   },
-  tr: {
-    ":hover": {
-      backgroundColor: "#EBEBEB"
-    }
+  "tr:hover": {
+    backgroundColor: brand.secondaryColor
   },
   td:{
     border: `1px solid ${brand.borderColor}`,
     padding:"2px 12px"
   },
-  index:{
-    backgroundColor:"#f9f9f9",
-    border: `1px solid ${brand.borderColor}`,
-    fontWeight: "normal",
-    padding:"2px 12px",
-    textAlign:"center"
-  },
-  button:{
+  "thead button":{
     display: "inline-block",
     width: "auto",
     margin: 0,
@@ -51,27 +40,6 @@ const tableStylesheet = {
     font: "inherit",
     color: "inherit"
   },
-  actionButton: {
-    fontSize: "1.4em",
-    margin: "0",//"0 12px 0 0"
-    overflow: "hidden"
-  },
-  i: {
-    pointerEvents: "none",
-    width: "15px",
-    display: "inline-block",
-    verticalAlign: "middle",
-  },
-  formControl:{
-    margin: "0px",
-    height: "100%",
-    width: "auto"
-  },
-  preview:{
-    display:"block",
-    cursor: "alias",
-    ":hover": {}
-  },
   pre: {
     display: "none",
     position: "absolute"
@@ -79,14 +47,51 @@ const tableStylesheet = {
   select:{
     border: `1px solid ${brand.borderColor}`
   },
-  activeTr: {
+  ".formControl":{
+    width: "auto",
+    border: `1px solid ${brand.borderColor}`
+  },
+  i: {
+    pointerEvents: "none"
+  },
+  ".icon": {
+    pointerEvents: "none",
+    width: "15px",
+    display: "inline-block",
+    verticalAlign: "middle",
+  },
+  ".activeRow": {
     //borderLeft: `3px solid ${brand.primaryColor}`,
     background: Color(brand.primaryColor).alpha(0.1).lighten(0.1).hslString()
   },
-  activeIndex: {
+  ".index":{
+    backgroundColor: brand.secondaryColor,
+    border: `1px solid ${brand.borderColor}`,
+    fontWeight: "normal",
+    padding:"2px 12px",
+    textAlign:"center"
+  },
+  ".activeIndex": {
     backgroundColor: brand.primaryColor,
     color: "#fff",
     //border: `1px solid ${brand.primaryColor}`,
+  },
+  ".pages": {
+    display: "inline-block",
+    margin: 0
+  },
+  ".activePage": {
+    background: brand.primaryColor,
+    borderColor: brand.primaryColor,
+    color: "#fff"
+  },
+  ".tree ul": {
+    background: "transparent !important"
+  },
+  ".actionBtn": {
+    fontSize: "1.4em",
+    margin: "0",//"0 12px 0 0"
+    overflow: "hidden"
   }
 };
 

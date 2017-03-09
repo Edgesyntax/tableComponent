@@ -2,17 +2,13 @@
 import React from "react";
 import Radium from "radium";
 
-// Application Modules
-import tableStylesheet, {brand} from "./table.stylesheet.js";
-
 const _Tfoot = ({
   columns,
   tableLength,
   limit,
   pagination,
   showIndex,
-  paginateTable,
-  style
+  paginateTable
 }) => {
   if (!tableLength || !limit || tableLength < limit) return null;
   const renderPageInfo = () => {
@@ -48,10 +44,8 @@ const _Tfoot = ({
           type="button"
           value={page}
           onClick={paginateTable}
-          style={[
-            {display: "inline-block",margin: 0},
-            pagination === page && {background: brand.primaryColor,borderColor: brand.primaryColor, color: "#fff"}
-          ]}> {page + 1}
+          className={(pagination === page ? `pages activePage` : "pages")}>
+          {page + 1}
         </button>
       );
     });
@@ -60,8 +54,7 @@ const _Tfoot = ({
     <tfoot>
       <tr>
         <td
-          colSpan={showIndex ? columns.length + 1 : columns.length}
-          style={[tableStylesheet.th,style]}>
+          colSpan={showIndex ? columns.length + 1 : columns.length}>
           <div style={{display: "inline-block",width: "50%",textAlign: "left"}}>
             {renderPageInfo()}
           </div>
