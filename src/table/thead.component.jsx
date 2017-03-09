@@ -37,7 +37,7 @@ const Thead = ({
       <div
         style={{display: "inline-block",width,textAlign: "left"}}>
         <div style={{position: "relative"}}>
-          <Funnel style={{
+          <Funnel className="funnel" style={{
             height: "100%",
             position: "absolute",
             left: "7px",
@@ -50,7 +50,7 @@ const Thead = ({
             value={filter}
             onChange={filterTable}
             placeholder="Filter"
-            className="formControl"
+            className="formControl filter"
             style={{
               display: "inline-block",
               paddingLeft: "24px"

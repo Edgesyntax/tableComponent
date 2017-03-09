@@ -495,6 +495,9 @@ var tableStylesheet = {
     fontSize: "1.4em",
     margin: "0", //"0 12px 0 0"
     overflow: "hidden"
+  },
+  ".funnel": {
+    fill: brand.borderColor
   }
 };
 
@@ -3661,7 +3664,7 @@ var Thead = function Thead(_ref) {
       _react2.default.createElement(
         "div",
         { style: { position: "relative" } },
-        _react2.default.createElement(_IosFunnelComponent2.default, { style: {
+        _react2.default.createElement(_IosFunnelComponent2.default, { className: "funnel", style: {
             height: "100%",
             position: "absolute",
             left: "7px",
@@ -3674,7 +3677,7 @@ var Thead = function Thead(_ref) {
           value: filter,
           onChange: filterTable,
           placeholder: "Filter",
-          className: "formControl",
+          className: "formControl filter",
           style: {
             display: "inline-block",
             paddingLeft: "24px"

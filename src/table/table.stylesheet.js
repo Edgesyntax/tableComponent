@@ -96,6 +96,9 @@ const tableStylesheet = {
     fontSize: "1.4em",
     margin: "0",//"0 12px 0 0"
     overflow: "hidden"
+  },
+  ".funnel": {
+    fill: brand.borderColor
   }
 };
 
