@@ -3,7 +3,7 @@ import React from "react";
 
 // Application Modules
 import Th from "./th.component.jsx";
-import DownArrow from "../icons/mdArrowDropdown.component.jsx";
+import Funnel from "../icons/IosFunnel.component.jsx";
 
 const Thead = ({
   columns,
@@ -36,14 +36,25 @@ const Thead = ({
     return (
       <div
         style={{display: "inline-block",width,textAlign: "left"}}>
-        <DownArrow style={{width: "25px", height: "auto"}}/>
-        <input
-          name="filter"
-          type="text"
-          value={filter}
-          onChange={filterTable}
-          placeholder="Filter"
-          className="formControl"/>
+        <div style={{position: "relative"}}>
+          <Funnel style={{
+            height: "100%",
+            position: "absolute",
+            padding: "0 6px",
+            textAlign: "center"
+          }}/>
+          <input
+            name="filter"
+            type="text"
+            value={filter}
+            onChange={filterTable}
+            placeholder="Filter"
+            className="formControl"
+            style={{
+              display: "inline-block",
+              paddingLeft: "24px"
+            }}/>
+        </div>
       </div>
     );
   }

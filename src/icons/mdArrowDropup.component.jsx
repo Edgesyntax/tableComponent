@@ -5,8 +5,7 @@ import Radium from "radium";
 const style = {
   display: "inline-block",
   width: "12px",
-  verticalAlign: "middle",
-  marginLeft: "4px"
+  verticalAlign: "middle"
 }
 
 const MdArrowDropup = (props) => {

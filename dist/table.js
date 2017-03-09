@@ -4871,9 +4871,9 @@ var _thComponent = __webpack_require__(57);
 
 var _thComponent2 = _interopRequireDefault(_thComponent);
 
-var _mdArrowDropdownComponent = __webpack_require__(260);
+var _IosFunnelComponent = __webpack_require__(262);
 
-var _mdArrowDropdownComponent2 = _interopRequireDefault(_mdArrowDropdownComponent);
+var _IosFunnelComponent2 = _interopRequireDefault(_IosFunnelComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4910,14 +4910,27 @@ var Thead = function Thead(_ref) {
       "div",
       {
         style: { display: "inline-block", width: width, textAlign: "left" } },
-      _react2.default.createElement(_mdArrowDropdownComponent2.default, { style: { width: "25px", height: "auto" } }),
-      _react2.default.createElement("input", {
-        name: "filter",
-        type: "text",
-        value: filter,
-        onChange: filterTable,
-        placeholder: "Filter",
-        className: "formControl" })
+      _react2.default.createElement(
+        "div",
+        { style: { position: "relative" } },
+        _react2.default.createElement(_IosFunnelComponent2.default, { style: {
+            height: "100%",
+            position: "absolute",
+            padding: "0 6px",
+            textAlign: "center"
+          } }),
+        _react2.default.createElement("input", {
+          name: "filter",
+          type: "text",
+          value: filter,
+          onChange: filterTable,
+          placeholder: "Filter",
+          className: "formControl",
+          style: {
+            display: "inline-block",
+            paddingLeft: "24px"
+          } })
+      )
     );
   };
   var renderLimiter = function renderLimiter() {
@@ -16496,8 +16509,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var style = {
   display: "inline-block",
   width: "12px",
-  verticalAlign: "middle",
-  marginLeft: "4px"
+  verticalAlign: "middle"
 };
 
 var MdArrowDropdown = function MdArrowDropdown(props) {
@@ -16537,8 +16549,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var style = {
   display: "inline-block",
   width: "12px",
-  verticalAlign: "middle",
-  marginLeft: "4px"
+  verticalAlign: "middle"
 };
 
 var MdArrowDropup = function MdArrowDropup(props) {
@@ -16550,6 +16561,45 @@ var MdArrowDropup = function MdArrowDropup(props) {
 };
 
 exports.default = (0, _radium2.default)(MdArrowDropup);
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _radium = __webpack_require__(26);
+
+var _radium2 = _interopRequireDefault(_radium);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var style = {
+  display: "inline-block",
+  width: "12px",
+  verticalAlign: "middle"
+};
+
+var IosFunnel = function IosFunnel(props) {
+  return _react2.default.createElement(
+    "svg",
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
+    _react2.default.createElement("path", { d: "M32 64v32l176 192v128l96 32V288L480 96V64H32z" })
+  );
+};
+
+exports.default = (0, _radium2.default)(IosFunnel);
 
 /***/ })
 /******/ ]);
