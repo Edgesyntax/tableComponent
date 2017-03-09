@@ -17,10 +17,10 @@ const tableStylesheet = {
     borderWidth: "1px",
     borderColor: brand.borderColor,
     fontWeight: "normal",
-    padding:"4px 25px",
+    padding:"2px 25px",
     fontSize: "inherit"
   },
-  "tr:hover": {
+  "tr:not(.activeRow):hover": {
     backgroundColor: brand.secondaryColor
   },
   td:{
@@ -45,10 +45,14 @@ const tableStylesheet = {
     position: "absolute"
   },
   select:{
+    height: "100%",
+    margin: 0,
     border: `1px solid ${brand.borderColor}`
   },
   ".formControl":{
+    height: "100%",
     width: "auto",
+    margin: 0,
     border: `1px solid ${brand.borderColor}`
   },
   i: {

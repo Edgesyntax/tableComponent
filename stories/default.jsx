@@ -22,6 +22,7 @@ class Default extends Component{
         <Td column="registered">{item.registered}</Td>
         <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>
         <Td column="action">
+          <div style={{textAlign: "center"}}>
             <button>
             button
               <i className="ion-ios-create-outline" style={tableStylesheet.i}></i>
@@ -32,6 +33,7 @@ class Default extends Component{
               button
               <i className="ion-ios-trash-outline" style={tableStylesheet.i}></i>
             </button>
+          </div>
         </Td>
       </Tr>
     )
