@@ -52,6 +52,7 @@ class Default extends Component{
         {id: "company"},
         {id: "email"}
       ]}
+      showIndex={true}
       sort={{
         column: 1,
         direction: 1

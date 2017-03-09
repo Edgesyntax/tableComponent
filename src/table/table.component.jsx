@@ -1,7 +1,4 @@
-// TODO: Show filter by default
 // TODO: Add css classes
-// TODO: Change icons
-// TODO: Change index count
 
 // React Modules
 import React from "react";
@@ -160,7 +157,7 @@ class Table extends React.Component{
       return <Tr
         key={index}
         row={row.data}
-        index={index}
+        index={(this.state.pagination ? index + (this.state.pagination * this.state.limit) : index)}
         showIndex={this.props.showIndex}
         activeRow={row._activeRow}/>
     })
@@ -173,7 +170,7 @@ class Table extends React.Component{
             columns={this.columns}
             showIndex={this.props.showIndex}
             sortable={this.state.sortable}
-            filterable={this.props.filterable}
+            hideFilter={this.props.hideFilter}
             limit={this.state.limit}
             limitTable={this.onChangeAction}
             filter={this.state.filter}
@@ -209,7 +206,7 @@ Table.propTypes = {
   showIndex: React.PropTypes.bool,
   columns: React.PropTypes.array,
   sortable: React.PropTypes.array,
-  filterable: React.PropTypes.bool,
+  hideFilter: React.PropTypes.bool,
   limit: React.PropTypes.number,
   activeRow: React.PropTypes.object,
   devMode: React.PropTypes.bool

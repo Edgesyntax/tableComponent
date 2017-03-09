@@ -1765,13 +1765,13 @@ var _tableStylesheet = __webpack_require__(6);
 
 var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
 
-var _IosArrowDownComponent = __webpack_require__(94);
+var _mdArrowDropdownComponent = __webpack_require__(260);
 
-var _IosArrowDownComponent2 = _interopRequireDefault(_IosArrowDownComponent);
+var _mdArrowDropdownComponent2 = _interopRequireDefault(_mdArrowDropdownComponent);
 
-var _IosArrowUpComponent = __webpack_require__(95);
+var _mdArrowDropupComponent = __webpack_require__(261);
 
-var _IosArrowUpComponent2 = _interopRequireDefault(_IosArrowUpComponent);
+var _mdArrowDropupComponent2 = _interopRequireDefault(_mdArrowDropupComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1811,9 +1811,9 @@ var _Th = function _Th(_ref) {
         onClick: sortTable,
         style: _tableStylesheet2.default.button },
       transformTh,
-      sortColumn === value && sort.direction === -1 ? _react2.default.createElement(_IosArrowDownComponent2.default, {
+      sortColumn === value && sort.direction === -1 ? _react2.default.createElement(_mdArrowDropdownComponent2.default, {
         style: [_tableStylesheet2.default.i, { pointerEvents: "none" }] }) : null,
-      sortColumn === value && sort.direction === 1 ? _react2.default.createElement(_IosArrowUpComponent2.default, {
+      sortColumn === value && sort.direction === 1 ? _react2.default.createElement(_mdArrowDropupComponent2.default, {
         style: [_tableStylesheet2.default.i, { pointerEvents: "none" }] }) : null
     );
   }
@@ -4235,10 +4235,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TODO: Show filter by default
-// TODO: Add css classes
-// TODO: Change icons
-// TODO: Change index count
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TODO: Add css classes
 
 // React Modules
 
@@ -4418,7 +4415,7 @@ var Table = function (_React$Component) {
         return _react2.default.createElement(_trComponent2.default, {
           key: index,
           row: row.data,
-          index: index,
+          index: _this3.state.pagination ? index + _this3.state.pagination * _this3.state.limit : index,
           showIndex: _this3.props.showIndex,
           activeRow: row._activeRow });
       });
@@ -4433,7 +4430,7 @@ var Table = function (_React$Component) {
           columns: this.columns,
           showIndex: this.props.showIndex,
           sortable: this.state.sortable,
-          filterable: this.props.filterable,
+          hideFilter: this.props.hideFilter,
           limit: this.state.limit,
           limitTable: this.onChangeAction,
           filter: this.state.filter,
@@ -4484,7 +4481,7 @@ Table.propTypes = {
   showIndex: _react2.default.PropTypes.bool,
   columns: _react2.default.PropTypes.array,
   sortable: _react2.default.PropTypes.array,
-  filterable: _react2.default.PropTypes.bool,
+  hideFilter: _react2.default.PropTypes.bool,
   limit: _react2.default.PropTypes.number,
   activeRow: _react2.default.PropTypes.object,
   devMode: _react2.default.PropTypes.bool
@@ -4664,78 +4661,8 @@ var sortTable = function sortTable(_ref) {
 exports.default = sortTable;
 
 /***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var style = {
-  display: "inline-block",
-  width: "10px",
-  verticalAlign: "middle",
-  marginLeft: "4px"
-};
-
-var IosArrowDown = function IosArrowDown(props) {
-  return _react2.default.createElement(
-    "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
-    _react2.default.createElement("path", { d: "M128.4 160L96 192.3 256 352l160-159.7-32.4-32.3L256 287.3z" })
-  );
-};
-
-exports.default = IosArrowDown;
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var style = {
-  display: "inline-block",
-  width: "10px",
-  verticalAlign: "middle",
-  marginLeft: "4px"
-};
-
-var IosArrowUp = function IosArrowUp(props) {
-  return _react2.default.createElement(
-    "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
-    _react2.default.createElement("path", { d: "M383.6 352l32.4-32.3L256 160 96 319.7l32.4 32.3L256 224.7z" })
-  );
-};
-
-exports.default = IosArrowUp;
-
-/***/ }),
+/* 94 */,
+/* 95 */,
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4961,7 +4888,7 @@ var Thead = function Thead(_ref) {
       showIndex = _ref.showIndex,
       sort = _ref.sort,
       sortable = _ref.sortable,
-      filterable = _ref.filterable,
+      hideFilter = _ref.hideFilter,
       filter = _ref.filter,
       filterTable = _ref.filterTable,
       limit = _ref.limit,
@@ -4999,7 +4926,7 @@ var Thead = function Thead(_ref) {
   };
   var renderLimiter = function renderLimiter() {
     var options = [25, 50, 100];
-    var width = filterable ? "50%" : "100%";
+    var width = !hideFilter ? "50%" : "100%";
     if (options.indexOf(limit) === -1) options.unshift(limit);
 
     var renderOptions = function renderOptions() {
@@ -5025,7 +4952,7 @@ var Thead = function Thead(_ref) {
   return _react2.default.createElement(
     "thead",
     null,
-    filterable || limit ? _react2.default.createElement(
+    !hideFilter || limit ? _react2.default.createElement(
       "tr",
       null,
       _react2.default.createElement(
@@ -5033,7 +4960,7 @@ var Thead = function Thead(_ref) {
         {
           colSpan: colSpan,
           style: [_tableStylesheet2.default.th, { padding: "4px 25px", textAlign: "left" }] },
-        filterable ? renderFilter() : null,
+        !hideFilter ? renderFilter() : null,
         limit ? renderLimiter() : null
       )
     ) : null,
@@ -16546,6 +16473,78 @@ exports.default = _tableComponent2.default;
 exports.Tr = _trComponent2.default;
 exports.Td = _tdComponent2.default;
 exports.tableStylesheet = _tableStylesheet2.default;
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var style = {
+  display: "inline-block",
+  width: "10px",
+  verticalAlign: "middle",
+  marginLeft: "4px"
+};
+
+var MdArrowDropdown = function MdArrowDropdown(props) {
+  return _react2.default.createElement(
+    "svg",
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
+    _react2.default.createElement("path", { d: "M128 192l128 128 128-128z" })
+  );
+};
+
+exports.default = MdArrowDropdown;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var style = {
+  display: "inline-block",
+  width: "10px",
+  verticalAlign: "middle",
+  marginLeft: "4px"
+};
+
+var MdArrowDropup = function MdArrowDropup(props) {
+  return _react2.default.createElement(
+    "svg",
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
+    _react2.default.createElement("path", { d: "M128 320l128-128 128 128z" })
+  );
+};
+
+exports.default = MdArrowDropup;
 
 /***/ })
 /******/ ]);

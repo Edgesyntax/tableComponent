@@ -10,7 +10,7 @@ const Thead = ({
   showIndex,
   sort,
   sortable,
-  filterable,
+  hideFilter,
   filter,
   filterTable,
   limit,
@@ -20,7 +20,7 @@ const Thead = ({
   const renderThead = () => {
     return columns.map((column, index) => {
       const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
-      
+
       return <Th name="sort"
         value={index}
         key={index}
@@ -48,7 +48,7 @@ const Thead = ({
   }
   const renderLimiter = () => {
     const options = [25, 50, 100];
-    const width = filterable ? "50%" : "100%";
+    const width = !hideFilter ? "50%" : "100%";
     if (options.indexOf(limit) === -1) options.unshift(limit);
 
     const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option}</option>)
@@ -63,12 +63,12 @@ const Thead = ({
   }
   return(
     <thead>
-      {filterable || limit ?
+      {!hideFilter || limit ?
         <tr>
           <Th
             colSpan={colSpan}
             style={[tableStylesheet.th,{padding: "4px 25px", textAlign: "left"}]}>
-            {filterable ? renderFilter() : null}
+            {!hideFilter ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>
         </tr>

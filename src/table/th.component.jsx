@@ -4,11 +4,11 @@ import Radium from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
-import DownArrow from "../icons/IosArrowDown.component.jsx";
-import UpArrow from "../icons/IosArrowUp.component.jsx";
+import DownArrow from "../icons/mdArrowDropdown.component.jsx";
+import UpArrow from "../icons/mdArrowDropup.component.jsx";
 
 const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => {
-
+ 
   // Sort table using index
   var transformTh = (th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : ""),
   sortColumn      = (sort && sort.column.toString() ? sort.column : null), // Add to string to capture 0 index
