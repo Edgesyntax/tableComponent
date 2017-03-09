@@ -42,7 +42,7 @@ class Default extends Component{
   }
   render(){
     return <Table
-      limit={15}
+      limit={25}
       columns={[
         {id: "balance"},
         {id: "age"},
