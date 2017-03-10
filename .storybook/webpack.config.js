@@ -16,6 +16,16 @@ module.exports = {
         test: /\.yaml$/,
         loader: 'yml',
         exclude: /node_modules/
+      },
+      {
+        test: /\.md$/,
+        loader: "raw"
+      }, {
+        test: /\.json$/,
+        loader: 'json'
+      }, {
+        test: /\.css$/,
+        loader: 'style!css'
       }
     ],
   },

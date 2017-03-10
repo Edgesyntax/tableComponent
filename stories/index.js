@@ -1,10 +1,18 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
+import withReadme from 'storybook-readme/with-readme';
+
 // Stories
 import Default from "./default.jsx";
+import Button from "./Button.js";
+
+// Readme
+import DefaultReadme from "./readme/default.md";
 
 storiesOf('Welcome', module)
-  .add("Default", () => <Default />)
+  .addDecorator(withReadme(DefaultReadme))
+  .add("Default", () => <Default />);
+
 
 storiesOf("Columns", module)
   .add("Rendered Columns", () => <Default columns={[{id: "balance"},{id: "email"},{id: "age"}]}/>)
