@@ -89,8 +89,8 @@ const tableStylesheet = {
     borderColor: brand.primaryColor,
     color: "#fff"
   },
-  ".tree ul": {
-    background: "transparent !important"
+  ".jsonTreeTheme": {
+    color: brand.primaryColor
   },
   ".actionBtn": {
     fontSize: "1.4em",

@@ -488,8 +488,8 @@ var tableStylesheet = {
     borderColor: brand.primaryColor,
     color: "#fff"
   },
-  ".tree ul": {
-    background: "transparent !important"
+  ".jsonTreeTheme": {
+    color: brand.primaryColor
   },
   ".actionBtn": {
     fontSize: "1.4em",
@@ -515,7 +515,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // React Modules
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; //https://github.com/markdalgleish/react-themeable
+// React Modules
 
 
 // Application Modules
@@ -545,13 +546,26 @@ var _Td = function _Td(_ref) {
 
   var transformTd;
   var renderObject = function renderObject() {
-    return _react2.default.createElement(
-      "div",
-      { className: "tree" },
-      _react2.default.createElement(_reactJsonTree2.default, {
-        data: td,
-        hideRoot: true })
-    );
+    return _react2.default.createElement(_reactJsonTree2.default, { data: td, hideRoot: true, theme: {
+        tree: function tree(_ref2) {
+          var style = _ref2.style;
+          return { style: Object.assign({}, style, { backgroundColor: undefined }) };
+        },
+        label: function label(_ref3) {
+          var style = _ref3.style;
+        },
+        arrowSign: function arrowSign(_ref4) {
+          var style = _ref4.style;
+        },
+        nestedNodeItemString: function nestedNodeItemString(_ref5) {
+          var style = _ref5.style;
+          return { style: Object.assign({}, style, { color: "#999" }) };
+        },
+        valueText: function valueText(_ref6) {
+          var style = _ref6.style;
+          return { className: "jsonTreeTheme" };
+        }
+      } });
   };
   if (td && _react2.default.isValidElement(td)) transformTd = td;else if (td && (typeof td === "undefined" ? "undefined" : _typeof(td)) === "object") transformTd = renderObject();else if (typeof td !== "undefined") transformTd = td.toString();
 
@@ -2873,7 +2887,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // React Modules
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // global.Perf = require('react-addons-perf');
+
+// React Modules
 
 
 // Application Modules
@@ -3087,17 +3103,9 @@ var Table = function (_React$Component) {
                 "td",
                 { colSpan: this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0 },
                 _react2.default.createElement(
-                  "x-component-error",
+                  "h3",
                   null,
-                  _react2.default.createElement(
-                    "x-message",
-                    null,
-                    _react2.default.createElement(
-                      "h3",
-                      null,
-                      "No records found."
-                    )
-                  )
+                  this.props.noDataText ? this.props.noDataText : "No records found."
                 )
               )
             )

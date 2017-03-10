@@ -1,3 +1,5 @@
+// global.Perf = require('react-addons-perf');
+
 // React Modules
 import React from "react";
 import Radium, {Style} from "radium";
@@ -180,9 +182,7 @@ class Table extends React.Component{
             {this.vTableData && this.vTableData.length ? this.renderTr() :
               <tr>
                 <td colSpan={this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
-                  <x-component-error>
-                    <x-message><h3>No records found.</h3></x-message>
-                  </x-component-error>
+                  <h3>{this.props.noDataText ? this.props.noDataText : "No records found."}</h3>
                 </td>
               </tr>
             }

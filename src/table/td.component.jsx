@@ -1,3 +1,4 @@
+//https://github.com/markdalgleish/react-themeable
 // React Modules
 import React from "react";
 import Radium from "radium";
@@ -8,10 +9,13 @@ import {brand} from "./table.stylesheet.js";
 
 const _Td = ({td,activeRow,className,children}) => {
   var transformTd;
-  const renderObject = () => <div className="tree">
-    <JsonTree
-      data={td}
-      hideRoot={true}/></div>
+  const renderObject = () => <JsonTree data={td} hideRoot={true} theme={{
+    tree: ({style}) => ({ style: Object.assign({}, style, {backgroundColor: undefined})}),
+    label: ({style}) => {},
+    arrowSign: ({style}) => {},
+    nestedNodeItemString: ({style}) => ({ style: Object.assign({}, style, {color: "#999"})}),
+    valueText: ({style}) => ({ className: "jsonTreeTheme"})
+  }}/>
   if (td && React.isValidElement(td)) transformTd = td;
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (typeof td !== "undefined") transformTd = td.toString();

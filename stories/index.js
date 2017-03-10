@@ -4,6 +4,7 @@ import withReadme from 'storybook-readme/with-readme';
 
 // Stories
 import Default from "./default.jsx";
+import Custom from "./custom.jsx";
 import Button from "./Button.js";
 
 // Readme
@@ -46,16 +47,22 @@ storiesOf("Limiting", module)
   .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Default limit={25}/>));
 
 storiesOf("Custom Table", module)
-  .add("Render Table", () => <Default/>);
+  .add("JSX Data", () => <Custom dataType="jsx" />)
+  .add("Json Data", () => <Custom dataType="json" />);
 
 storiesOf("All Options", module)
-  .add("Show index", () => <Default showIndex={true}/>)
-  .add("Active Row", () => <Default showIndex={true} activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>);
+  .add("Show index", () => <Default showIndex/>)
+  .add("Active Row", () => <Default showIndex activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>)
+  .add("No matching records", () => <Default
+    data={[]}
+    showIndex
+    columns={[
+      {id: "balance"},
+      {id: "email"},
+      {id: "age"}
+    ]}
+    noDataText="Error finding matching records." />);
 
 // storiesOf("Pagination", module)
 
 // storiesOf("Events", module)
-
-
-// .add("Custom Columns", () => <CustomColumns />);
-// noDataText="No matching records found." TODO: Empty datasets
