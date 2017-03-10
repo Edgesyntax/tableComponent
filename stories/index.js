@@ -8,38 +8,52 @@ import Button from "./Button.js";
 
 // Readme
 import DefaultReadme from "./readme/default.md";
+import ColumnsRenderedReadme from "./readme/columns-rendered.md";
+import ColumnsCustomLabelsReadme from "./readme/columns-custom-labels.md";
+import FilterAllColumnsReadme from "./readme/filter-all-columns.md";
+import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
+import SortingSortableReadme from "./readme/sorting-sortable.md";
+import SortingInitialSortReadme from "./readme/sorting-initial-sort.md";
+import LimitingInitialLimitReadme from "./readme/limiting-initial-limit.md";
 
 storiesOf('Welcome', module)
   .addDecorator(withReadme(DefaultReadme))
   .add("Default", () => <Default />);
 
-
 storiesOf("Columns", module)
-  .add("Rendered Columns", () => <Default columns={[{id: "balance"},{id: "email"},{id: "age"}]}/>)
-  .add("Custom Lables", () => <Default
+  .add("Rendered Columns", withReadme(ColumnsRenderedReadme, () => <Default columns={[
+    {id: "balance"},
+    {id: "email"},
+    {id: "age"}
+  ]}/>))
+  .add("Custom Lables", withReadme(ColumnsCustomLabelsReadme, () => <Default
     columns={[
       {id: "balance", label: "Remaining Balance"},
       {id: "email", label: "Company email"},
       {id: "age", label: "Current Age"}
-    ]}/>)
+    ]}/>));
 
 storiesOf("Filtering", module)
   // .add("Filter specific columns", () => <Default filterable={[]} />) // TODO: Add filterable
-  .add("Filter all columns", () => <Default filterable={true} />)
-  .add("Initial Filter", () => <Default filter="Brittany" />)
+  .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Default filterable={true} />))
+  .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Default filter="brittany" />));
 
 storiesOf("Sorting", module)
-  .add("Sortable", () => <Default sortable={["name","balance"]}/>)
-  .add("Initial Sort", () => <Default sort={{column: 1, direction: "DES"}}/>)
+  .add("Sortable", withReadme(SortingSortableReadme, () => <Default sortable={["name","balance"]}/>))
+  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Default sort={{column: 1, direction: "DES"}}/>));
 
 storiesOf("Limiting", module)
-  .add("Initial Limit", () => <Default limit={25}/>)
+  .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Default limit={25}/>));
+
 storiesOf("Custom Table", module)
-  .add("Render Table", () => <Default/>)
+  .add("Render Table", () => <Default/>);
+
 storiesOf("All Options", module)
   .add("Show index", () => <Default showIndex={true}/>)
-  .add("Active Row", () => <Default showIndex={true} activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>)
+  .add("Active Row", () => <Default showIndex={true} activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>);
+
 // storiesOf("Pagination", module)
+
 // storiesOf("Events", module)
 
 

@@ -5,7 +5,11 @@ import Table from "../dist/table.js";
 import data from "./table.mock.yaml";
 
 const Default = () => {
-  return <Table data={data}/>
+  return (
+    <Table
+      data={data}
+      sortable={["name","balance"]}/>
+  )
 }
 
 export default Default;

@@ -2951,7 +2951,7 @@ var Table = function (_React$Component) {
       var tableData = cTableData.map(function (row) {
         // Add child Td nodes to table data
         var Tr = Object.assign({}, row, _this2.childrenNodes.td),
-            row;
+            rowObject;
         // Map table rows
         var tableRow = _this2.columns.map(function (column) {
           for (var variable in Tr) {
@@ -2959,15 +2959,15 @@ var Table = function (_React$Component) {
           }
         });
 
-        row = { data: tableRow };
+        rowObject = { data: tableRow };
         // Add active row metadata
         if (_this2.props.activeRow && _this2.props.activeRow.id) {
           var activeRowKey = row[_this2.props.activeRow.id];
           if (activeRowKey === _this2.props.activeRow.value && !_react2.default.isValidElement(activeRowKey)) {
-            row = Object.assign({}, row, { _activeRow: true });
+            rowObject = Object.assign({}, rowObject, { _activeRow: true });
           }
         }
-        return row;
+        return rowObject;
       });
 
       this.props.devMode ? console.timeEnd('Generating table data') : null;

@@ -61,7 +61,7 @@ class Table extends React.Component{
 
     var tableData = cTableData.map((row) => {
       // Add child Td nodes to table data
-      var Tr = Object.assign({}, row, this.childrenNodes.td), row;
+      var Tr = Object.assign({}, row, this.childrenNodes.td), rowObject;
       // Map table rows
       const tableRow = this.columns.map((column) => {
         for (var variable in Tr) {
@@ -69,15 +69,15 @@ class Table extends React.Component{
         }
       });
 
-      row = {data: tableRow};
+      rowObject = {data: tableRow};
       // Add active row metadata
       if (this.props.activeRow && this.props.activeRow.id) {
         var activeRowKey = row[this.props.activeRow.id];
         if (activeRowKey === this.props.activeRow.value && !React.isValidElement(activeRowKey)) {
-          row = Object.assign({}, row, {_activeRow: true});
+          rowObject = Object.assign({}, rowObject, {_activeRow: true});
         }
       }
-      return row;
+      return rowObject;
     });
 
     (this.props.devMode ? console.timeEnd('Generating table data') : null);
