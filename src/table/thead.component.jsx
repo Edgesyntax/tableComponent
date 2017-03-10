@@ -10,8 +10,8 @@ const Thead = ({
   showIndex,
   sort,
   sortable,
-  hideFilter,
   filter,
+  filterable,
   filterTable,
   limit,
   limitTable,
@@ -61,7 +61,7 @@ const Thead = ({
   }
   const renderLimiter = () => {
     const options = [25, 50, 100];
-    const width = !hideFilter ? "50%" : "100%";
+    const width = filterable ? "50%" : "100%";
     if (options.indexOf(limit) === -1) options.unshift(limit);
 
     const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option}</option>)
@@ -76,11 +76,11 @@ const Thead = ({
   }
   return(
     <thead>
-      {!hideFilter || limit ?
+      {filterable || filter || limit ?
         <tr>
           <Th
             colSpan={colSpan}>
-            {!hideFilter ? renderFilter() : null}
+            {filterable || filter ? renderFilter() : null}
             {limit ? renderLimiter() : null}
           </Th>
         </tr>

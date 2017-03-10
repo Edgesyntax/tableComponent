@@ -61,7 +61,7 @@ class Table extends React.Component{
 
     var tableData = cTableData.map((row) => {
       // Add child Td nodes to table data
-      var Tr = Object.assign({}, row, this.childrenNodes.td);
+      var Tr = Object.assign({}, row, this.childrenNodes.td), row;
       // Map table rows
       const tableRow = this.columns.map((column) => {
         for (var variable in Tr) {
@@ -69,19 +69,22 @@ class Table extends React.Component{
         }
       });
 
+      row = {data: tableRow};
+      // Add active row metadata
       if (this.props.activeRow && this.props.activeRow.id) {
         var activeRowKey = row[this.props.activeRow.id];
-        if (activeRowKey === this.props.activeRow.value && !React.isValidElement(activeRowKey)) return {data: tableRow, _activeRow: true};
+        if (activeRowKey === this.props.activeRow.value && !React.isValidElement(activeRowKey)) {
+          row = Object.assign({}, row, {_activeRow: true});
+        }
       }
-
-      return {data: tableRow};
+      return row;
     });
 
     (this.props.devMode ? console.timeEnd('Generating table data') : null);
 
     // Filter table data
     (this.props.devMode ? console.time('Filtering table data') : null);
-    if(filter ? tableData = filterTableAction({tableData, filter}) : null);
+    if(filter ? tableData = filterTableAction({tableData, filter, filterable: this.props.filterable}) : null);
     (this.props.devMode ? console.timeEnd('Filtering table data') : null);
 
     // Sort table data
@@ -168,6 +171,7 @@ class Table extends React.Component{
               limit={this.state.limit}
               limitTable={this.onChangeAction}
               filter={this.state.filter}
+              filterable={this.props.filterable}
               filterTable={this.onChangeAction}
               sort={this.state.sort}
               sortTable={this.onChangeAction}/>
@@ -203,8 +207,9 @@ Table.propTypes = {
   data: React.PropTypes.array,
   showIndex: React.PropTypes.bool,
   columns: React.PropTypes.array,
+  filter: React.PropTypes.string,
+  filterable: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.array]),
   sortable: React.PropTypes.array,
-  hideFilter: React.PropTypes.bool,
   limit: React.PropTypes.number,
   activeRow: React.PropTypes.object,
   devMode: React.PropTypes.bool

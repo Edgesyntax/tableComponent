@@ -17,11 +17,11 @@ const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => 
   if (sort && sortColumn === value && sort.direction === "DES") sortDirection = "INI";
 
   // Check if sorting is in reset order
-  if(sort && sortColumn === value && sort.direction === "INI" ) sortDirection = "ASC"
+  if(sort && sortColumn === value && sort.direction === "INI" ) sortDirection = "ASC";
 
   // Check if sorting is in asc order
-  if(sort && sortColumn === value && sort.direction === "ASC" ) sortDirection = "DES"
-  console.log(sort, sortColumn, sortDirection);
+  if(sort && sortColumn === value && sort.direction === "ASC" ) sortDirection = "DES";
+
   if (sortable) {
     transformTh =
       <button

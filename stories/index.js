@@ -24,9 +24,9 @@ storiesOf("Columns", module)
     ]}/>)
 
 storiesOf("Filtering", module)
-  .add("Filterable", () => <Default filterable={[]} />) // TODO: Add filterable
+  // .add("Filter specific columns", () => <Default filterable={[]} />) // TODO: Add filterable
+  .add("Filter all columns", () => <Default filterable={true} />)
   .add("Initial Filter", () => <Default filter="Brittany" />)
-  .add("Hide Filter", () => <Default hideFilter={true} />)
 
 storiesOf("Sorting", module)
   .add("Sortable", () => <Default sortable={["name","balance"]}/>)
@@ -34,7 +34,6 @@ storiesOf("Sorting", module)
 
 storiesOf("Limiting", module)
   .add("Initial Limit", () => <Default limit={25}/>)
-  // .add("Hide Limit", () => <Default hideFilter={true} />) TODO: Add hide limit
 storiesOf("Custom Table", module)
   .add("Render Table", () => <Default/>)
 storiesOf("All Options", module)

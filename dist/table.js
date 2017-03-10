@@ -1270,7 +1270,7 @@ var _Th = function _Th(_ref) {
 
   // Check if sorting is in asc order
   if (sort && sortColumn === value && sort.direction === "ASC") sortDirection = "DES";
-  console.log(sort, sortColumn, sortDirection);
+
   if (sortable) {
     transformTh = _react2.default.createElement(
       "button",
@@ -2950,7 +2950,8 @@ var Table = function (_React$Component) {
 
       var tableData = cTableData.map(function (row) {
         // Add child Td nodes to table data
-        var Tr = Object.assign({}, row, _this2.childrenNodes.td);
+        var Tr = Object.assign({}, row, _this2.childrenNodes.td),
+            row;
         // Map table rows
         var tableRow = _this2.columns.map(function (column) {
           for (var variable in Tr) {
@@ -2958,19 +2959,22 @@ var Table = function (_React$Component) {
           }
         });
 
+        row = { data: tableRow };
+        // Add active row metadata
         if (_this2.props.activeRow && _this2.props.activeRow.id) {
           var activeRowKey = row[_this2.props.activeRow.id];
-          if (activeRowKey === _this2.props.activeRow.value && !_react2.default.isValidElement(activeRowKey)) return { data: tableRow, _activeRow: true };
+          if (activeRowKey === _this2.props.activeRow.value && !_react2.default.isValidElement(activeRowKey)) {
+            row = Object.assign({}, row, { _activeRow: true });
+          }
         }
-
-        return { data: tableRow };
+        return row;
       });
 
       this.props.devMode ? console.timeEnd('Generating table data') : null;
 
       // Filter table data
       this.props.devMode ? console.time('Filtering table data') : null;
-      if (filter ? tableData = (0, _filter2.default)({ tableData: tableData, filter: filter }) : null) ;
+      if (filter ? tableData = (0, _filter2.default)({ tableData: tableData, filter: filter, filterable: this.props.filterable }) : null) ;
       this.props.devMode ? console.timeEnd('Filtering table data') : null;
 
       // Sort table data
@@ -3069,6 +3073,7 @@ var Table = function (_React$Component) {
             limit: this.state.limit,
             limitTable: this.onChangeAction,
             filter: this.state.filter,
+            filterable: this.props.filterable,
             filterTable: this.onChangeAction,
             sort: this.state.sort,
             sortTable: this.onChangeAction }) : null,
@@ -3119,8 +3124,9 @@ Table.propTypes = {
   data: _react2.default.PropTypes.array,
   showIndex: _react2.default.PropTypes.bool,
   columns: _react2.default.PropTypes.array,
+  filter: _react2.default.PropTypes.string,
+  filterable: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.bool, _react2.default.PropTypes.array]),
   sortable: _react2.default.PropTypes.array,
-  hideFilter: _react2.default.PropTypes.bool,
   limit: _react2.default.PropTypes.number,
   activeRow: _react2.default.PropTypes.object,
   devMode: _react2.default.PropTypes.bool
@@ -3240,6 +3246,12 @@ var filterTable = function filterTable(_ref) {
 };
 
 exports.default = filterTable;
+
+// Add filterable metadata
+// if (this.props.filterable) {
+//   row = Object.assign({}, row, {_filterable: this.props.filterable});
+// }
+// console.log(row);
 
 /***/ }),
 /* 73 */
@@ -3634,8 +3646,8 @@ var Thead = function Thead(_ref) {
       showIndex = _ref.showIndex,
       sort = _ref.sort,
       sortable = _ref.sortable,
-      hideFilter = _ref.hideFilter,
       filter = _ref.filter,
+      filterable = _ref.filterable,
       filterTable = _ref.filterTable,
       limit = _ref.limit,
       limitTable = _ref.limitTable,
@@ -3687,7 +3699,7 @@ var Thead = function Thead(_ref) {
   };
   var renderLimiter = function renderLimiter() {
     var options = [25, 50, 100];
-    var width = !hideFilter ? "50%" : "100%";
+    var width = filterable ? "50%" : "100%";
     if (options.indexOf(limit) === -1) options.unshift(limit);
 
     var renderOptions = function renderOptions() {
@@ -3713,14 +3725,14 @@ var Thead = function Thead(_ref) {
   return _react2.default.createElement(
     "thead",
     null,
-    !hideFilter || limit ? _react2.default.createElement(
+    filterable || filter || limit ? _react2.default.createElement(
       "tr",
       null,
       _react2.default.createElement(
         _thComponent2.default,
         {
           colSpan: colSpan },
-        !hideFilter ? renderFilter() : null,
+        filterable || filter ? renderFilter() : null,
         limit ? renderLimiter() : null
       )
     ) : null,
