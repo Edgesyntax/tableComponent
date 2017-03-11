@@ -13,8 +13,8 @@ const _Td = ({td,activeRow,className,children}) => {
     tree: ({style}) => ({ style: Object.assign({}, style, {backgroundColor: undefined})}),
     label: ({style}) => {},
     arrowSign: ({style}) => {},
-    nestedNodeItemString: ({style}) => ({ style: Object.assign({}, style, {color: "#999"})}),
-    valueText: ({style}) => ({ className: "jsonTreeTheme"})
+    nestedNodeItemString: () => ({ className: "jsonNestedNodeItemString"}),
+    valueText: () => ({ className: "jsonValueText"})
   }}/>
   if (td && React.isValidElement(td)) transformTd = td;
   else if (td && typeof td === "object") transformTd = renderObject();

@@ -89,8 +89,11 @@ const tableStylesheet = {
     borderColor: brand.primaryColor,
     color: "#fff"
   },
-  ".jsonTreeTheme": {
+  ".jsonValueText": {
     color: brand.primaryColor
+  },
+  ".jsonNestedNodeItemString": {
+    color: "#999"
   },
   ".actionBtn": {
     fontSize: "1.4em",

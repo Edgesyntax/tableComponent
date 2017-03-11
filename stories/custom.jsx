@@ -13,7 +13,6 @@ class Default extends React.Component{
         <Td column="email">{item.email}</Td>
         <Td column="balance">{item.balance}</Td>
         <Td column="age">{item.age}</Td>
-        <Td column="eyeColor">{item.eyeColor}</Td>
         <Td column="registered">{item.registered}</Td>
         <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>
         <Td column="action">
@@ -37,7 +36,6 @@ class Default extends React.Component{
       columns={[
         {id: "balance"},
         {id: "age"},
-        {id: "eyeColor"},
         {id: "name"},
         {id: "email"},
         {id: this.props.dataType === "jsx" ? "action" : "json"}
