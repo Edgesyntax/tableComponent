@@ -1,7 +1,4 @@
-// TODO: Use immutable data
 // TODO: Add propTypes check to all components
-// TODO: Fix header funnel index of
-// TODO: Create production bundle - minify codebase
 
 // React Modules
 import React from "react";
@@ -20,7 +17,7 @@ import sortTableAction      from "../helpers/sort.js";
 import filterTableAction    from "../helpers/filter.js";
 import limitTableAction     from "../helpers/limit.js";
 
-class Table extends React.PureComponent{
+class Table extends React.Component{
   constructor(){
     super();
     this.state = {

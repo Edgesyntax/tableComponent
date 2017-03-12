@@ -37,13 +37,6 @@ const Thead = ({
       <div
         style={{display: "inline-block",width,textAlign: "left"}}>
         <div style={{position: "relative"}}>
-          <Funnel className="funnel" style={{
-            height: "100%",
-            position: "absolute",
-            left: "7px",
-            textAlign: "center",
-            zIndex: 1
-          }}/>
           <input
             name="filter"
             type="text"
@@ -54,6 +47,13 @@ const Thead = ({
             style={{
               display: "inline-block",
               paddingLeft: "24px"
+            }}/>
+            <Funnel className="funnel" style={{
+              height: "100%",
+              position: "absolute",
+              left: "7px",
+              textAlign: "center",
+              top: 0
             }}/>
         </div>
       </div>

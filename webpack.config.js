@@ -2,7 +2,6 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: {
-    // table: "./src/table/table.component.jsx",
     table: "./src/table/table.control.jsx"
   },
   output: {
@@ -30,13 +29,13 @@ module.exports = {
       }
     ]
   },
-  // plugins: [
-  //   new webpack.optimize.UglifyJsPlugin({
-  //     compress: {
-  //       warnings: false
-  //     }
-  //   })
-  // ],
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ],
   externals: {
     react: "react",
     "react-dom": "react-dom",
