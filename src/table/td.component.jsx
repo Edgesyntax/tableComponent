@@ -19,6 +19,7 @@ const Td = ({td, activeRow, className, children}) => {
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (typeof td !== "undefined") transformTd = td.toString();
 
+  console.log(td, typeof td, transformTd);
   return <td className={(activeRow ? `${className} activeIndex` : className)}>{transformTd}{children}</td>;
 }
 
