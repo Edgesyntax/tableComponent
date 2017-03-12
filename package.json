@@ -53,7 +53,7 @@
     "yml-loader": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "* || ^0.14.0",
+    "react": "* || ^15.4.1",
     "radium": "^0.18.0"
   }
 }
