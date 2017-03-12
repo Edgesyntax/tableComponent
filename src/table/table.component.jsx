@@ -1,4 +1,3 @@
-global.Perf = require('react-addons-perf');
 // TODO: Use immutable data
 // TODO: Add propTypes check to all components
 // TODO: Fix header funnel index of
