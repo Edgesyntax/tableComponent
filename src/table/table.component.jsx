@@ -1,4 +1,8 @@
-// global.Perf = require('react-addons-perf');
+global.Perf = require('react-addons-perf');
+// TODO: Use immutable data
+// TODO: Add propTypes check to all components
+// TODO: Fix header funnel index of
+// TODO: Create production bundle - minify codebase
 
 // React Modules
 import React from "react";

@@ -1,12 +1,11 @@
 // React Modules
 import React from "react";
-import Radium from "radium";
 
 // Application Modules
 import DownArrow from "../icons/mdArrowDropdown.component.jsx";
 import UpArrow from "../icons/mdArrowDropup.component.jsx";
 
-const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => {
+const Th = ({th,name,value,colSpan,sort,sortTable,sortable,children}) => {
 
   // Sort table using index
   var transformTh = (th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : "");
@@ -40,5 +39,4 @@ const _Th = ({th,name,value,colSpan,style,sort,sortTable,sortable,children}) => 
   return <th colSpan={colSpan}>{transformTh}{children}</th>;
 }
 
-const Th = Radium(_Th);
 export default Th;

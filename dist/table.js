@@ -518,8 +518,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; //https://github.com/markdalgleish/react-themeable
-// React Modules
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // React Modules
 
 
 // Application Modules
@@ -529,10 +528,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(8);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 var _reactJsonTree = __webpack_require__(193);
 
 var _reactJsonTree2 = _interopRequireDefault(_reactJsonTree);
@@ -541,7 +536,7 @@ var _tableStylesheet = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _Td = function _Td(_ref) {
+var Td = function Td(_ref) {
   var td = _ref.td,
       activeRow = _ref.activeRow,
       className = _ref.className,
@@ -557,9 +552,7 @@ var _Td = function _Td(_ref) {
         label: function label(_ref3) {
           var style = _ref3.style;
         },
-        arrowSign: function arrowSign(_ref4) {
-          var style = _ref4.style;
-        },
+        arrowSign: { color: "inherit" },
         nestedNodeItemString: function nestedNodeItemString() {
           return { className: "jsonNestedNodeItemString" };
         },
@@ -568,6 +561,7 @@ var _Td = function _Td(_ref) {
         }
       } });
   };
+
   if (td && _react2.default.isValidElement(td)) transformTd = td;else if (td && (typeof td === "undefined" ? "undefined" : _typeof(td)) === "object") transformTd = renderObject();else if (typeof td !== "undefined") transformTd = td.toString();
 
   return _react2.default.createElement(
@@ -577,15 +571,15 @@ var _Td = function _Td(_ref) {
     children
   );
 };
-var Td = (0, _radium2.default)(_Td);
+
+Td.propTypes = {
+  td: _react2.default.PropTypes.any,
+  activeRow: _react2.default.PropTypes.bool,
+  className: _react2.default.PropTypes.string,
+  children: _react2.default.PropTypes.any
+};
 
 exports.default = Td;
-
-// theme={{
-//   base00: '#000',
-//   base0B: brand.primaryColor,
-//   base0D: '#999'
-// }}
 
 /***/ }),
 /* 24 */
@@ -1244,10 +1238,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(8);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 var _mdArrowDropdownComponent = __webpack_require__(76);
 
 var _mdArrowDropdownComponent2 = _interopRequireDefault(_mdArrowDropdownComponent);
@@ -1259,13 +1249,11 @@ var _mdArrowDropupComponent2 = _interopRequireDefault(_mdArrowDropupComponent);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Application Modules
-// React Modules
-var _Th = function _Th(_ref) {
+var Th = function Th(_ref) {
   var th = _ref.th,
       name = _ref.name,
       value = _ref.value,
       colSpan = _ref.colSpan,
-      style = _ref.style,
       sort = _ref.sort,
       sortTable = _ref.sortTable,
       sortable = _ref.sortable,
@@ -1304,9 +1292,7 @@ var _Th = function _Th(_ref) {
     transformTh,
     children
   );
-};
-
-var Th = (0, _radium2.default)(_Th);
+}; // React Modules
 exports.default = Th;
 
 /***/ }),
@@ -2826,7 +2812,7 @@ exports['default'] = JSONNode;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2888,13 +2874,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // global.Perf = require('react-addons-perf');
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+global.Perf = __webpack_require__(207);
+// TODO: Use immutable data
+// TODO: Add propTypes check to all components
+// TODO: Fix header funnel index of
+// TODO: Create production bundle - minify codebase
 
 // React Modules
 
 
 // Application Modules
-
 
 var Table = function (_React$Component) {
   _inherits(Table, _React$Component);
@@ -3176,6 +3167,7 @@ exports.default = TableComponent;
 //   });
 //   return children;
 // }
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
 
 /***/ }),
 /* 71 */
@@ -3454,14 +3446,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(8);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// React Modules
-var _Tfoot = function _Tfoot(_ref) {
+var Tfoot = function Tfoot(_ref) {
   var columns = _ref.columns,
       tableLength = _ref.tableLength,
       limit = _ref.limit,
@@ -3541,88 +3528,19 @@ var _Tfoot = function _Tfoot(_ref) {
       )
     )
   );
-};
+}; // React Modules
 
-_Tfoot.propTypes = {
+
+Tfoot.propTypes = {
   columns: _react2.default.PropTypes.array.isRequired,
   tableLength: _react2.default.PropTypes.number.isRequired,
   limit: _react2.default.PropTypes.number,
-  //pagination: React.PropTypes.array
-  paginateTable: _react2.default.PropTypes.func,
-  showIndex: _react2.default.PropTypes.bool
+  pagination: _react2.default.PropTypes.number,
+  showIndex: _react2.default.PropTypes.bool,
+  paginateTable: _react2.default.PropTypes.func
 };
-var Tfoot = (0, _radium2.default)(_Tfoot);
+
 exports.default = Tfoot;
-
-// .wrapper {
-//   width: 90%;
-//   position: relative;
-//   border: 1px solid #000;
-//   background: #efefef;
-//   overflow: hidden;
-//   border-radius: 7px;
-// }
-//
-// .container {
-//   overflow-y: scroll;
-//   height: 100px;
-//   border-top: 21px solid transparent;
-//   border-bottom: 21px solid transparent;
-// }
-//
-// table {
-//   border-spacing: 0;
-//   border-collapse: collapse;
-//   width: 100%;
-// }
-//
-// thead tr th,
-// tfoot tr td {
-//   height: 0;
-//   line-height: 0;
-//   margin: 0;
-//   padding-top: 0;
-//   padding-bottom: 0;
-//   color: transparent;
-//   border: none;
-//   white-space: nowrap;
-// }
-//
-// thead tr th div,
-// tfoot tr td div {
-//   position: absolute;
-//   color: #fff;
-//   padding: 10px;
-//   margin-left: 0px;
-//   line-height: normal;
-//   width: 100%;
-//   z-index: 2;
-//   text-align: left;
-// }
-//
-// thead tr th div {
-//   border-left: 1px solid #000;
-//   border-bottom: 1px solid #000;
-// }
-//
-// tfoot tr td div {
-//   border-left: 1px solid #000;
-//   border-top: 1px solid #000;
-// }
-
-
-//const delta = tableLength / (tableLength / limit);
-// const generatePagination = () => {
-//   var delta = tableLength / (tableLength / limit),
-//   pagination = [];
-//   for (var i = 0; i < tableLength; i = i+delta) {
-//     pagination.push(Math.ceil(i));
-//   }
-//   return pagination;
-// }
-
-//Math.ceil(i/paginationIndex) === limit && paginationArray.length < 5
-//console.log(Math.ceil(i/paginationIndex) === limit, Math.ceil(i/paginationIndex), paginationArray, paginationArray.length);
 
 /***/ }),
 /* 79 */
@@ -12292,6 +12210,1958 @@ exports.default = _tableComponent2.default;
 exports.Tr = _trComponent2.default;
 exports.Td = _tdComponent2.default;
 exports.tableStylesheet = _tableStylesheet2.default;
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2014-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var emptyFunction = __webpack_require__(202);
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = emptyFunction;
+
+if (process.env.NODE_ENV !== 'production') {
+  (function () {
+    var printWarning = function printWarning(format) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      var argIndex = 0;
+      var message = 'Warning: ' + format.replace(/%s/g, function () {
+        return args[argIndex++];
+      });
+      if (typeof console !== 'undefined') {
+        console.error(message);
+      }
+      try {
+        // --- Welcome to debugging React ---
+        // This error was thrown as a convenience so that you can use this stack
+        // to find the callsite that caused this warning to fire.
+        throw new Error(message);
+      } catch (x) {}
+    };
+
+    warning = function warning(condition, format) {
+      if (format === undefined) {
+        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+      }
+
+      if (format.indexOf('Failed Composite propType: ') === 0) {
+        return; // Ignore CompositeComponent proptype check.
+      }
+
+      if (!condition) {
+        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+          args[_key2 - 2] = arguments[_key2];
+        }
+
+        printWarning.apply(undefined, [format].concat(args));
+      }
+    };
+  })();
+}
+
+module.exports = warning;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+/**
+ * Simple, lightweight module assisting with the detection and context of
+ * Worker. Helps avoid circular dependencies and allows code to reason about
+ * whether or not they are in a Worker, even if they never include the main
+ * `ReactWorker` dependency.
+ */
+var ExecutionEnvironment = {
+
+  canUseDOM: canUseDOM,
+
+  canUseWorkers: typeof Worker !== 'undefined',
+
+  canUseEventListeners: canUseDOM && !!(window.addEventListener || window.attachEvent),
+
+  canUseViewport: canUseDOM && !!window.screen,
+
+  isInWorker: !canUseDOM // For now, this is true - might change in the future.
+
+};
+
+module.exports = ExecutionEnvironment;
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+function makeEmptyFunction(arg) {
+  return function () {
+    return arg;
+  };
+}
+
+/**
+ * This function accepts and discards inputs; it has no side effects. This is
+ * primarily useful idiomatically for overridable function endpoints which
+ * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
+ */
+var emptyFunction = function emptyFunction() {};
+
+emptyFunction.thatReturns = makeEmptyFunction;
+emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
+emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
+emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+emptyFunction.thatReturnsThis = function () {
+  return this;
+};
+emptyFunction.thatReturnsArgument = function (arg) {
+  return arg;
+};
+
+module.exports = emptyFunction;
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function validateFormat(format) {};
+
+if (process.env.NODE_ENV !== 'production') {
+  validateFormat = function validateFormat(format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+module.exports = invariant;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ */
+
+
+
+var ExecutionEnvironment = __webpack_require__(201);
+
+var performance;
+
+if (ExecutionEnvironment.canUseDOM) {
+  performance = window.performance || window.msPerformance || window.webkitPerformance;
+}
+
+module.exports = performance || {};
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @typechecks
+ */
+
+var performance = __webpack_require__(204);
+
+var performanceNow;
+
+/**
+ * Detect if we can use `window.performance.now()` and gracefully fallback to
+ * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
+ * because of Facebook's testing infrastructure.
+ */
+if (performance.now) {
+  performanceNow = function performanceNow() {
+    return performance.now();
+  };
+} else {
+  performanceNow = function performanceNow() {
+    return Date.now();
+  };
+}
+
+module.exports = performanceNow;
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(211);
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var ReactInvalidSetStateWarningHook = __webpack_require__(210);
+var ReactHostOperationHistoryHook = __webpack_require__(209);
+var ReactComponentTreeHook = __webpack_require__(212);
+var ExecutionEnvironment = __webpack_require__(201);
+
+var performanceNow = __webpack_require__(205);
+var warning = __webpack_require__(200);
+
+var hooks = [];
+var didHookThrowForEvent = {};
+
+function callHook(event, fn, context, arg1, arg2, arg3, arg4, arg5) {
+  try {
+    fn.call(context, arg1, arg2, arg3, arg4, arg5);
+  } catch (e) {
+    process.env.NODE_ENV !== 'production' ? warning(didHookThrowForEvent[event], 'Exception thrown by hook while handling %s: %s', event, e + '\n' + e.stack) : void 0;
+    didHookThrowForEvent[event] = true;
+  }
+}
+
+function emitEvent(event, arg1, arg2, arg3, arg4, arg5) {
+  for (var i = 0; i < hooks.length; i++) {
+    var hook = hooks[i];
+    var fn = hook[event];
+    if (fn) {
+      callHook(event, fn, hook, arg1, arg2, arg3, arg4, arg5);
+    }
+  }
+}
+
+var isProfiling = false;
+var flushHistory = [];
+var lifeCycleTimerStack = [];
+var currentFlushNesting = 0;
+var currentFlushMeasurements = [];
+var currentFlushStartTime = 0;
+var currentTimerDebugID = null;
+var currentTimerStartTime = 0;
+var currentTimerNestedFlushDuration = 0;
+var currentTimerType = null;
+
+var lifeCycleTimerHasWarned = false;
+
+function clearHistory() {
+  ReactComponentTreeHook.purgeUnmountedComponents();
+  ReactHostOperationHistoryHook.clearHistory();
+}
+
+function getTreeSnapshot(registeredIDs) {
+  return registeredIDs.reduce(function (tree, id) {
+    var ownerID = ReactComponentTreeHook.getOwnerID(id);
+    var parentID = ReactComponentTreeHook.getParentID(id);
+    tree[id] = {
+      displayName: ReactComponentTreeHook.getDisplayName(id),
+      text: ReactComponentTreeHook.getText(id),
+      updateCount: ReactComponentTreeHook.getUpdateCount(id),
+      childIDs: ReactComponentTreeHook.getChildIDs(id),
+      // Text nodes don't have owners but this is close enough.
+      ownerID: ownerID || parentID && ReactComponentTreeHook.getOwnerID(parentID) || 0,
+      parentID: parentID
+    };
+    return tree;
+  }, {});
+}
+
+function resetMeasurements() {
+  var previousStartTime = currentFlushStartTime;
+  var previousMeasurements = currentFlushMeasurements;
+  var previousOperations = ReactHostOperationHistoryHook.getHistory();
+
+  if (currentFlushNesting === 0) {
+    currentFlushStartTime = 0;
+    currentFlushMeasurements = [];
+    clearHistory();
+    return;
+  }
+
+  if (previousMeasurements.length || previousOperations.length) {
+    var registeredIDs = ReactComponentTreeHook.getRegisteredIDs();
+    flushHistory.push({
+      duration: performanceNow() - previousStartTime,
+      measurements: previousMeasurements || [],
+      operations: previousOperations || [],
+      treeSnapshot: getTreeSnapshot(registeredIDs)
+    });
+  }
+
+  clearHistory();
+  currentFlushStartTime = performanceNow();
+  currentFlushMeasurements = [];
+}
+
+function checkDebugID(debugID) {
+  var allowRoot = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  if (allowRoot && debugID === 0) {
+    return;
+  }
+  if (!debugID) {
+    process.env.NODE_ENV !== 'production' ? warning(false, 'ReactDebugTool: debugID may not be empty.') : void 0;
+  }
+}
+
+function beginLifeCycleTimer(debugID, timerType) {
+  if (currentFlushNesting === 0) {
+    return;
+  }
+  if (currentTimerType && !lifeCycleTimerHasWarned) {
+    process.env.NODE_ENV !== 'production' ? warning(false, 'There is an internal error in the React performance measurement code. ' + 'Did not expect %s timer to start while %s timer is still in ' + 'progress for %s instance.', timerType, currentTimerType || 'no', debugID === currentTimerDebugID ? 'the same' : 'another') : void 0;
+    lifeCycleTimerHasWarned = true;
+  }
+  currentTimerStartTime = performanceNow();
+  currentTimerNestedFlushDuration = 0;
+  currentTimerDebugID = debugID;
+  currentTimerType = timerType;
+}
+
+function endLifeCycleTimer(debugID, timerType) {
+  if (currentFlushNesting === 0) {
+    return;
+  }
+  if (currentTimerType !== timerType && !lifeCycleTimerHasWarned) {
+    process.env.NODE_ENV !== 'production' ? warning(false, 'There is an internal error in the React performance measurement code. ' + 'We did not expect %s timer to stop while %s timer is still in ' + 'progress for %s instance. Please report this as a bug in React.', timerType, currentTimerType || 'no', debugID === currentTimerDebugID ? 'the same' : 'another') : void 0;
+    lifeCycleTimerHasWarned = true;
+  }
+  if (isProfiling) {
+    currentFlushMeasurements.push({
+      timerType: timerType,
+      instanceID: debugID,
+      duration: performanceNow() - currentTimerStartTime - currentTimerNestedFlushDuration
+    });
+  }
+  currentTimerStartTime = 0;
+  currentTimerNestedFlushDuration = 0;
+  currentTimerDebugID = null;
+  currentTimerType = null;
+}
+
+function pauseCurrentLifeCycleTimer() {
+  var currentTimer = {
+    startTime: currentTimerStartTime,
+    nestedFlushStartTime: performanceNow(),
+    debugID: currentTimerDebugID,
+    timerType: currentTimerType
+  };
+  lifeCycleTimerStack.push(currentTimer);
+  currentTimerStartTime = 0;
+  currentTimerNestedFlushDuration = 0;
+  currentTimerDebugID = null;
+  currentTimerType = null;
+}
+
+function resumeCurrentLifeCycleTimer() {
+  var _lifeCycleTimerStack$ = lifeCycleTimerStack.pop(),
+      startTime = _lifeCycleTimerStack$.startTime,
+      nestedFlushStartTime = _lifeCycleTimerStack$.nestedFlushStartTime,
+      debugID = _lifeCycleTimerStack$.debugID,
+      timerType = _lifeCycleTimerStack$.timerType;
+
+  var nestedFlushDuration = performanceNow() - nestedFlushStartTime;
+  currentTimerStartTime = startTime;
+  currentTimerNestedFlushDuration += nestedFlushDuration;
+  currentTimerDebugID = debugID;
+  currentTimerType = timerType;
+}
+
+var lastMarkTimeStamp = 0;
+var canUsePerformanceMeasure =
+// $FlowFixMe https://github.com/facebook/flow/issues/2345
+typeof performance !== 'undefined' && typeof performance.mark === 'function' && typeof performance.clearMarks === 'function' && typeof performance.measure === 'function' && typeof performance.clearMeasures === 'function';
+
+function shouldMark(debugID) {
+  if (!isProfiling || !canUsePerformanceMeasure) {
+    return false;
+  }
+  var element = ReactComponentTreeHook.getElement(debugID);
+  if (element == null || typeof element !== 'object') {
+    return false;
+  }
+  var isHostElement = typeof element.type === 'string';
+  if (isHostElement) {
+    return false;
+  }
+  return true;
+}
+
+function markBegin(debugID, markType) {
+  if (!shouldMark(debugID)) {
+    return;
+  }
+
+  var markName = debugID + '::' + markType;
+  lastMarkTimeStamp = performanceNow();
+  performance.mark(markName);
+}
+
+function markEnd(debugID, markType) {
+  if (!shouldMark(debugID)) {
+    return;
+  }
+
+  var markName = debugID + '::' + markType;
+  var displayName = ReactComponentTreeHook.getDisplayName(debugID) || 'Unknown';
+
+  // Chrome has an issue of dropping markers recorded too fast:
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=640652
+  // To work around this, we will not report very small measurements.
+  // I determined the magic number by tweaking it back and forth.
+  // 0.05ms was enough to prevent the issue, but I set it to 0.1ms to be safe.
+  // When the bug is fixed, we can `measure()` unconditionally if we want to.
+  var timeStamp = performanceNow();
+  if (timeStamp - lastMarkTimeStamp > 0.1) {
+    var measurementName = displayName + ' [' + markType + ']';
+    performance.measure(measurementName, markName);
+  }
+
+  performance.clearMarks(markName);
+  performance.clearMeasures(measurementName);
+}
+
+var ReactDebugTool = {
+  addHook: function (hook) {
+    hooks.push(hook);
+  },
+  removeHook: function (hook) {
+    for (var i = 0; i < hooks.length; i++) {
+      if (hooks[i] === hook) {
+        hooks.splice(i, 1);
+        i--;
+      }
+    }
+  },
+  isProfiling: function () {
+    return isProfiling;
+  },
+  beginProfiling: function () {
+    if (isProfiling) {
+      return;
+    }
+
+    isProfiling = true;
+    flushHistory.length = 0;
+    resetMeasurements();
+    ReactDebugTool.addHook(ReactHostOperationHistoryHook);
+  },
+  endProfiling: function () {
+    if (!isProfiling) {
+      return;
+    }
+
+    isProfiling = false;
+    resetMeasurements();
+    ReactDebugTool.removeHook(ReactHostOperationHistoryHook);
+  },
+  getFlushHistory: function () {
+    return flushHistory;
+  },
+  onBeginFlush: function () {
+    currentFlushNesting++;
+    resetMeasurements();
+    pauseCurrentLifeCycleTimer();
+    emitEvent('onBeginFlush');
+  },
+  onEndFlush: function () {
+    resetMeasurements();
+    currentFlushNesting--;
+    resumeCurrentLifeCycleTimer();
+    emitEvent('onEndFlush');
+  },
+  onBeginLifeCycleTimer: function (debugID, timerType) {
+    checkDebugID(debugID);
+    emitEvent('onBeginLifeCycleTimer', debugID, timerType);
+    markBegin(debugID, timerType);
+    beginLifeCycleTimer(debugID, timerType);
+  },
+  onEndLifeCycleTimer: function (debugID, timerType) {
+    checkDebugID(debugID);
+    endLifeCycleTimer(debugID, timerType);
+    markEnd(debugID, timerType);
+    emitEvent('onEndLifeCycleTimer', debugID, timerType);
+  },
+  onBeginProcessingChildContext: function () {
+    emitEvent('onBeginProcessingChildContext');
+  },
+  onEndProcessingChildContext: function () {
+    emitEvent('onEndProcessingChildContext');
+  },
+  onHostOperation: function (operation) {
+    checkDebugID(operation.instanceID);
+    emitEvent('onHostOperation', operation);
+  },
+  onSetState: function () {
+    emitEvent('onSetState');
+  },
+  onSetChildren: function (debugID, childDebugIDs) {
+    checkDebugID(debugID);
+    childDebugIDs.forEach(checkDebugID);
+    emitEvent('onSetChildren', debugID, childDebugIDs);
+  },
+  onBeforeMountComponent: function (debugID, element, parentDebugID) {
+    checkDebugID(debugID);
+    checkDebugID(parentDebugID, true);
+    emitEvent('onBeforeMountComponent', debugID, element, parentDebugID);
+    markBegin(debugID, 'mount');
+  },
+  onMountComponent: function (debugID) {
+    checkDebugID(debugID);
+    markEnd(debugID, 'mount');
+    emitEvent('onMountComponent', debugID);
+  },
+  onBeforeUpdateComponent: function (debugID, element) {
+    checkDebugID(debugID);
+    emitEvent('onBeforeUpdateComponent', debugID, element);
+    markBegin(debugID, 'update');
+  },
+  onUpdateComponent: function (debugID) {
+    checkDebugID(debugID);
+    markEnd(debugID, 'update');
+    emitEvent('onUpdateComponent', debugID);
+  },
+  onBeforeUnmountComponent: function (debugID) {
+    checkDebugID(debugID);
+    emitEvent('onBeforeUnmountComponent', debugID);
+    markBegin(debugID, 'unmount');
+  },
+  onUnmountComponent: function (debugID) {
+    checkDebugID(debugID);
+    markEnd(debugID, 'unmount');
+    emitEvent('onUnmountComponent', debugID);
+  },
+  onTestEvent: function () {
+    emitEvent('onTestEvent');
+  }
+};
+
+// TODO remove these when RN/www gets updated
+ReactDebugTool.addDevtool = ReactDebugTool.addHook;
+ReactDebugTool.removeDevtool = ReactDebugTool.removeHook;
+
+ReactDebugTool.addHook(ReactInvalidSetStateWarningHook);
+ReactDebugTool.addHook(ReactComponentTreeHook);
+var url = ExecutionEnvironment.canUseDOM && window.location.href || '';
+if (/[?&]react_perf\b/.test(url)) {
+  ReactDebugTool.beginProfiling();
+}
+
+module.exports = ReactDebugTool;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var history = [];
+
+var ReactHostOperationHistoryHook = {
+  onHostOperation: function (operation) {
+    history.push(operation);
+  },
+  clearHistory: function () {
+    if (ReactHostOperationHistoryHook._preventClearing) {
+      // Should only be used for tests.
+      return;
+    }
+
+    history = [];
+  },
+  getHistory: function () {
+    return history;
+  }
+};
+
+module.exports = ReactHostOperationHistoryHook;
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var warning = __webpack_require__(200);
+
+if (process.env.NODE_ENV !== 'production') {
+  var processingChildContext = false;
+
+  var warnInvalidSetState = function () {
+    process.env.NODE_ENV !== 'production' ? warning(!processingChildContext, 'setState(...): Cannot call setState() inside getChildContext()') : void 0;
+  };
+}
+
+var ReactInvalidSetStateWarningHook = {
+  onBeginProcessingChildContext: function () {
+    processingChildContext = true;
+  },
+  onEndProcessingChildContext: function () {
+    processingChildContext = false;
+  },
+  onSetState: function () {
+    warnInvalidSetState();
+  }
+};
+
+module.exports = ReactInvalidSetStateWarningHook;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _assign = __webpack_require__(206);
+
+var _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var ReactDebugTool = __webpack_require__(208);
+var warning = __webpack_require__(200);
+var alreadyWarned = false;
+
+function roundFloat(val) {
+  var base = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+
+  var n = Math.pow(10, base);
+  return Math.floor(val * n) / n;
+}
+
+// Flow type definition of console.table is too strict right now, see
+// https://github.com/facebook/flow/pull/2353 for updates
+function consoleTable(table) {
+  console.table(table);
+}
+
+function warnInProduction() {
+  if (alreadyWarned) {
+    return;
+  }
+  alreadyWarned = true;
+  if (typeof console !== 'undefined') {
+    console.error('ReactPerf is not supported in the production builds of React. ' + 'To collect measurements, please use the development build of React instead.');
+  }
+}
+
+function getLastMeasurements() {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return [];
+  }
+
+  return ReactDebugTool.getFlushHistory();
+}
+
+function getExclusive() {
+  var flushHistory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getLastMeasurements();
+
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return [];
+  }
+
+  var aggregatedStats = {};
+  var affectedIDs = {};
+
+  function updateAggregatedStats(treeSnapshot, instanceID, timerType, applyUpdate) {
+    var displayName = treeSnapshot[instanceID].displayName;
+
+    var key = displayName;
+    var stats = aggregatedStats[key];
+    if (!stats) {
+      affectedIDs[key] = {};
+      stats = aggregatedStats[key] = {
+        key: key,
+        instanceCount: 0,
+        counts: {},
+        durations: {},
+        totalDuration: 0
+      };
+    }
+    if (!stats.durations[timerType]) {
+      stats.durations[timerType] = 0;
+    }
+    if (!stats.counts[timerType]) {
+      stats.counts[timerType] = 0;
+    }
+    affectedIDs[key][instanceID] = true;
+    applyUpdate(stats);
+  }
+
+  flushHistory.forEach(function (flush) {
+    var measurements = flush.measurements,
+        treeSnapshot = flush.treeSnapshot;
+
+    measurements.forEach(function (measurement) {
+      var duration = measurement.duration,
+          instanceID = measurement.instanceID,
+          timerType = measurement.timerType;
+
+      updateAggregatedStats(treeSnapshot, instanceID, timerType, function (stats) {
+        stats.totalDuration += duration;
+        stats.durations[timerType] += duration;
+        stats.counts[timerType]++;
+      });
+    });
+  });
+
+  return Object.keys(aggregatedStats).map(function (key) {
+    return _extends({}, aggregatedStats[key], {
+      instanceCount: Object.keys(affectedIDs[key]).length
+    });
+  }).sort(function (a, b) {
+    return b.totalDuration - a.totalDuration;
+  });
+}
+
+function getInclusive() {
+  var flushHistory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getLastMeasurements();
+
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return [];
+  }
+
+  var aggregatedStats = {};
+  var affectedIDs = {};
+
+  function updateAggregatedStats(treeSnapshot, instanceID, applyUpdate) {
+    var _treeSnapshot$instanc = treeSnapshot[instanceID],
+        displayName = _treeSnapshot$instanc.displayName,
+        ownerID = _treeSnapshot$instanc.ownerID;
+
+    var owner = treeSnapshot[ownerID];
+    var key = (owner ? owner.displayName + ' > ' : '') + displayName;
+    var stats = aggregatedStats[key];
+    if (!stats) {
+      affectedIDs[key] = {};
+      stats = aggregatedStats[key] = {
+        key: key,
+        instanceCount: 0,
+        inclusiveRenderDuration: 0,
+        renderCount: 0
+      };
+    }
+    affectedIDs[key][instanceID] = true;
+    applyUpdate(stats);
+  }
+
+  var isCompositeByID = {};
+  flushHistory.forEach(function (flush) {
+    var measurements = flush.measurements;
+
+    measurements.forEach(function (measurement) {
+      var instanceID = measurement.instanceID,
+          timerType = measurement.timerType;
+
+      if (timerType !== 'render') {
+        return;
+      }
+      isCompositeByID[instanceID] = true;
+    });
+  });
+
+  flushHistory.forEach(function (flush) {
+    var measurements = flush.measurements,
+        treeSnapshot = flush.treeSnapshot;
+
+    measurements.forEach(function (measurement) {
+      var duration = measurement.duration,
+          instanceID = measurement.instanceID,
+          timerType = measurement.timerType;
+
+      if (timerType !== 'render') {
+        return;
+      }
+      updateAggregatedStats(treeSnapshot, instanceID, function (stats) {
+        stats.renderCount++;
+      });
+      var nextParentID = instanceID;
+      while (nextParentID) {
+        // As we traverse parents, only count inclusive time towards composites.
+        // We know something is a composite if its render() was called.
+        if (isCompositeByID[nextParentID]) {
+          updateAggregatedStats(treeSnapshot, nextParentID, function (stats) {
+            stats.inclusiveRenderDuration += duration;
+          });
+        }
+        nextParentID = treeSnapshot[nextParentID].parentID;
+      }
+    });
+  });
+
+  return Object.keys(aggregatedStats).map(function (key) {
+    return _extends({}, aggregatedStats[key], {
+      instanceCount: Object.keys(affectedIDs[key]).length
+    });
+  }).sort(function (a, b) {
+    return b.inclusiveRenderDuration - a.inclusiveRenderDuration;
+  });
+}
+
+function getWasted() {
+  var flushHistory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getLastMeasurements();
+
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return [];
+  }
+
+  var aggregatedStats = {};
+  var affectedIDs = {};
+
+  function updateAggregatedStats(treeSnapshot, instanceID, applyUpdate) {
+    var _treeSnapshot$instanc2 = treeSnapshot[instanceID],
+        displayName = _treeSnapshot$instanc2.displayName,
+        ownerID = _treeSnapshot$instanc2.ownerID;
+
+    var owner = treeSnapshot[ownerID];
+    var key = (owner ? owner.displayName + ' > ' : '') + displayName;
+    var stats = aggregatedStats[key];
+    if (!stats) {
+      affectedIDs[key] = {};
+      stats = aggregatedStats[key] = {
+        key: key,
+        instanceCount: 0,
+        inclusiveRenderDuration: 0,
+        renderCount: 0
+      };
+    }
+    affectedIDs[key][instanceID] = true;
+    applyUpdate(stats);
+  }
+
+  flushHistory.forEach(function (flush) {
+    var measurements = flush.measurements,
+        treeSnapshot = flush.treeSnapshot,
+        operations = flush.operations;
+
+    var isDefinitelyNotWastedByID = {};
+
+    // Find host components associated with an operation in this batch.
+    // Mark all components in their parent tree as definitely not wasted.
+    operations.forEach(function (operation) {
+      var instanceID = operation.instanceID;
+
+      var nextParentID = instanceID;
+      while (nextParentID) {
+        isDefinitelyNotWastedByID[nextParentID] = true;
+        nextParentID = treeSnapshot[nextParentID].parentID;
+      }
+    });
+
+    // Find composite components that rendered in this batch.
+    // These are potential candidates for being wasted renders.
+    var renderedCompositeIDs = {};
+    measurements.forEach(function (measurement) {
+      var instanceID = measurement.instanceID,
+          timerType = measurement.timerType;
+
+      if (timerType !== 'render') {
+        return;
+      }
+      renderedCompositeIDs[instanceID] = true;
+    });
+
+    measurements.forEach(function (measurement) {
+      var duration = measurement.duration,
+          instanceID = measurement.instanceID,
+          timerType = measurement.timerType;
+
+      if (timerType !== 'render') {
+        return;
+      }
+
+      // If there was a DOM update below this component, or it has just been
+      // mounted, its render() is not considered wasted.
+      var updateCount = treeSnapshot[instanceID].updateCount;
+
+      if (isDefinitelyNotWastedByID[instanceID] || updateCount === 0) {
+        return;
+      }
+
+      // We consider this render() wasted.
+      updateAggregatedStats(treeSnapshot, instanceID, function (stats) {
+        stats.renderCount++;
+      });
+
+      var nextParentID = instanceID;
+      while (nextParentID) {
+        // Any parents rendered during this batch are considered wasted
+        // unless we previously marked them as dirty.
+        var isWasted = renderedCompositeIDs[nextParentID] && !isDefinitelyNotWastedByID[nextParentID];
+        if (isWasted) {
+          updateAggregatedStats(treeSnapshot, nextParentID, function (stats) {
+            stats.inclusiveRenderDuration += duration;
+          });
+        }
+        nextParentID = treeSnapshot[nextParentID].parentID;
+      }
+    });
+  });
+
+  return Object.keys(aggregatedStats).map(function (key) {
+    return _extends({}, aggregatedStats[key], {
+      instanceCount: Object.keys(affectedIDs[key]).length
+    });
+  }).sort(function (a, b) {
+    return b.inclusiveRenderDuration - a.inclusiveRenderDuration;
+  });
+}
+
+function getOperations() {
+  var flushHistory = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getLastMeasurements();
+
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return [];
+  }
+
+  var stats = [];
+  flushHistory.forEach(function (flush, flushIndex) {
+    var operations = flush.operations,
+        treeSnapshot = flush.treeSnapshot;
+
+    operations.forEach(function (operation) {
+      var instanceID = operation.instanceID,
+          type = operation.type,
+          payload = operation.payload;
+      var _treeSnapshot$instanc3 = treeSnapshot[instanceID],
+          displayName = _treeSnapshot$instanc3.displayName,
+          ownerID = _treeSnapshot$instanc3.ownerID;
+
+      var owner = treeSnapshot[ownerID];
+      var key = (owner ? owner.displayName + ' > ' : '') + displayName;
+
+      stats.push({
+        flushIndex: flushIndex,
+        instanceID: instanceID,
+        key: key,
+        type: type,
+        ownerID: ownerID,
+        payload: payload
+      });
+    });
+  });
+  return stats;
+}
+
+function printExclusive(flushHistory) {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  var stats = getExclusive(flushHistory);
+  var table = stats.map(function (item) {
+    var key = item.key,
+        instanceCount = item.instanceCount,
+        totalDuration = item.totalDuration;
+
+    var renderCount = item.counts.render || 0;
+    var renderDuration = item.durations.render || 0;
+    return {
+      'Component': key,
+      'Total time (ms)': roundFloat(totalDuration),
+      'Instance count': instanceCount,
+      'Total render time (ms)': roundFloat(renderDuration),
+      'Average render time (ms)': renderCount ? roundFloat(renderDuration / renderCount) : undefined,
+      'Render count': renderCount,
+      'Total lifecycle time (ms)': roundFloat(totalDuration - renderDuration)
+    };
+  });
+  consoleTable(table);
+}
+
+function printInclusive(flushHistory) {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  var stats = getInclusive(flushHistory);
+  var table = stats.map(function (item) {
+    var key = item.key,
+        instanceCount = item.instanceCount,
+        inclusiveRenderDuration = item.inclusiveRenderDuration,
+        renderCount = item.renderCount;
+
+    return {
+      'Owner > Component': key,
+      'Inclusive render time (ms)': roundFloat(inclusiveRenderDuration),
+      'Instance count': instanceCount,
+      'Render count': renderCount
+    };
+  });
+  consoleTable(table);
+}
+
+function printWasted(flushHistory) {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  var stats = getWasted(flushHistory);
+  var table = stats.map(function (item) {
+    var key = item.key,
+        instanceCount = item.instanceCount,
+        inclusiveRenderDuration = item.inclusiveRenderDuration,
+        renderCount = item.renderCount;
+
+    return {
+      'Owner > Component': key,
+      'Inclusive wasted time (ms)': roundFloat(inclusiveRenderDuration),
+      'Instance count': instanceCount,
+      'Render count': renderCount
+    };
+  });
+  consoleTable(table);
+}
+
+function printOperations(flushHistory) {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  var stats = getOperations(flushHistory);
+  var table = stats.map(function (stat) {
+    return {
+      'Owner > Node': stat.key,
+      'Operation': stat.type,
+      'Payload': typeof stat.payload === 'object' ? JSON.stringify(stat.payload) : stat.payload,
+      'Flush index': stat.flushIndex,
+      'Owner Component ID': stat.ownerID,
+      'DOM Component ID': stat.instanceID
+    };
+  });
+  consoleTable(table);
+}
+
+var warnedAboutPrintDOM = false;
+function printDOM(measurements) {
+  process.env.NODE_ENV !== 'production' ? warning(warnedAboutPrintDOM, '`ReactPerf.printDOM(...)` is deprecated. Use ' + '`ReactPerf.printOperations(...)` instead.') : void 0;
+  warnedAboutPrintDOM = true;
+  return printOperations(measurements);
+}
+
+var warnedAboutGetMeasurementsSummaryMap = false;
+function getMeasurementsSummaryMap(measurements) {
+  process.env.NODE_ENV !== 'production' ? warning(warnedAboutGetMeasurementsSummaryMap, '`ReactPerf.getMeasurementsSummaryMap(...)` is deprecated. Use ' + '`ReactPerf.getWasted(...)` instead.') : void 0;
+  warnedAboutGetMeasurementsSummaryMap = true;
+  return getWasted(measurements);
+}
+
+function start() {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  ReactDebugTool.beginProfiling();
+}
+
+function stop() {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return;
+  }
+
+  ReactDebugTool.endProfiling();
+}
+
+function isRunning() {
+  if (!(process.env.NODE_ENV !== 'production')) {
+    warnInProduction();
+    return false;
+  }
+
+  return ReactDebugTool.isProfiling();
+}
+
+var ReactPerfAnalysis = {
+  getLastMeasurements: getLastMeasurements,
+  getExclusive: getExclusive,
+  getInclusive: getInclusive,
+  getWasted: getWasted,
+  getOperations: getOperations,
+  printExclusive: printExclusive,
+  printInclusive: printInclusive,
+  printWasted: printWasted,
+  printOperations: printOperations,
+  start: start,
+  stop: stop,
+  isRunning: isRunning,
+  // Deprecated:
+  printDOM: printDOM,
+  getMeasurementsSummaryMap: getMeasurementsSummaryMap
+};
+
+module.exports = ReactPerfAnalysis;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2016-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var _prodInvariant = __webpack_require__(214);
+
+var ReactCurrentOwner = __webpack_require__(213);
+
+var invariant = __webpack_require__(203);
+var warning = __webpack_require__(200);
+
+function isNative(fn) {
+  // Based on isNative() from Lodash
+  var funcToString = Function.prototype.toString;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var reIsNative = RegExp('^' + funcToString
+  // Take an example native function source for comparison
+  .call(hasOwnProperty)
+  // Strip regex characters so we can use it for regex
+  .replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+  // Remove hasOwnProperty from the template to make it generic
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$');
+  try {
+    var source = funcToString.call(fn);
+    return reIsNative.test(source);
+  } catch (err) {
+    return false;
+  }
+}
+
+var canUseCollections =
+// Array.from
+typeof Array.from === 'function' &&
+// Map
+typeof Map === 'function' && isNative(Map) &&
+// Map.prototype.keys
+Map.prototype != null && typeof Map.prototype.keys === 'function' && isNative(Map.prototype.keys) &&
+// Set
+typeof Set === 'function' && isNative(Set) &&
+// Set.prototype.keys
+Set.prototype != null && typeof Set.prototype.keys === 'function' && isNative(Set.prototype.keys);
+
+var setItem;
+var getItem;
+var removeItem;
+var getItemIDs;
+var addRoot;
+var removeRoot;
+var getRootIDs;
+
+if (canUseCollections) {
+  var itemMap = new Map();
+  var rootIDSet = new Set();
+
+  setItem = function (id, item) {
+    itemMap.set(id, item);
+  };
+  getItem = function (id) {
+    return itemMap.get(id);
+  };
+  removeItem = function (id) {
+    itemMap['delete'](id);
+  };
+  getItemIDs = function () {
+    return Array.from(itemMap.keys());
+  };
+
+  addRoot = function (id) {
+    rootIDSet.add(id);
+  };
+  removeRoot = function (id) {
+    rootIDSet['delete'](id);
+  };
+  getRootIDs = function () {
+    return Array.from(rootIDSet.keys());
+  };
+} else {
+  var itemByKey = {};
+  var rootByKey = {};
+
+  // Use non-numeric keys to prevent V8 performance issues:
+  // https://github.com/facebook/react/pull/7232
+  var getKeyFromID = function (id) {
+    return '.' + id;
+  };
+  var getIDFromKey = function (key) {
+    return parseInt(key.substr(1), 10);
+  };
+
+  setItem = function (id, item) {
+    var key = getKeyFromID(id);
+    itemByKey[key] = item;
+  };
+  getItem = function (id) {
+    var key = getKeyFromID(id);
+    return itemByKey[key];
+  };
+  removeItem = function (id) {
+    var key = getKeyFromID(id);
+    delete itemByKey[key];
+  };
+  getItemIDs = function () {
+    return Object.keys(itemByKey).map(getIDFromKey);
+  };
+
+  addRoot = function (id) {
+    var key = getKeyFromID(id);
+    rootByKey[key] = true;
+  };
+  removeRoot = function (id) {
+    var key = getKeyFromID(id);
+    delete rootByKey[key];
+  };
+  getRootIDs = function () {
+    return Object.keys(rootByKey).map(getIDFromKey);
+  };
+}
+
+var unmountedIDs = [];
+
+function purgeDeep(id) {
+  var item = getItem(id);
+  if (item) {
+    var childIDs = item.childIDs;
+
+    removeItem(id);
+    childIDs.forEach(purgeDeep);
+  }
+}
+
+function describeComponentFrame(name, source, ownerName) {
+  return '\n    in ' + (name || 'Unknown') + (source ? ' (at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + ')' : ownerName ? ' (created by ' + ownerName + ')' : '');
+}
+
+function getDisplayName(element) {
+  if (element == null) {
+    return '#empty';
+  } else if (typeof element === 'string' || typeof element === 'number') {
+    return '#text';
+  } else if (typeof element.type === 'string') {
+    return element.type;
+  } else {
+    return element.type.displayName || element.type.name || 'Unknown';
+  }
+}
+
+function describeID(id) {
+  var name = ReactComponentTreeHook.getDisplayName(id);
+  var element = ReactComponentTreeHook.getElement(id);
+  var ownerID = ReactComponentTreeHook.getOwnerID(id);
+  var ownerName;
+  if (ownerID) {
+    ownerName = ReactComponentTreeHook.getDisplayName(ownerID);
+  }
+  process.env.NODE_ENV !== 'production' ? warning(element, 'ReactComponentTreeHook: Missing React element for debugID %s when ' + 'building stack', id) : void 0;
+  return describeComponentFrame(name, element && element._source, ownerName);
+}
+
+var ReactComponentTreeHook = {
+  onSetChildren: function (id, nextChildIDs) {
+    var item = getItem(id);
+    !item ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
+    item.childIDs = nextChildIDs;
+
+    for (var i = 0; i < nextChildIDs.length; i++) {
+      var nextChildID = nextChildIDs[i];
+      var nextChild = getItem(nextChildID);
+      !nextChild ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected hook events to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('140') : void 0;
+      !(nextChild.childIDs != null || typeof nextChild.element !== 'object' || nextChild.element == null) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onSetChildren() to fire for a container child before its parent includes it in onSetChildren().') : _prodInvariant('141') : void 0;
+      !nextChild.isMounted ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onMountComponent() to fire for the child before its parent includes it in onSetChildren().') : _prodInvariant('71') : void 0;
+      if (nextChild.parentID == null) {
+        nextChild.parentID = id;
+        // TODO: This shouldn't be necessary but mounting a new root during in
+        // componentWillMount currently causes not-yet-mounted components to
+        // be purged from our tree data so their parent id is missing.
+      }
+      !(nextChild.parentID === id) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected onBeforeMountComponent() parent and onSetChildren() to be consistent (%s has parents %s and %s).', nextChildID, nextChild.parentID, id) : _prodInvariant('142', nextChildID, nextChild.parentID, id) : void 0;
+    }
+  },
+  onBeforeMountComponent: function (id, element, parentID) {
+    var item = {
+      element: element,
+      parentID: parentID,
+      text: null,
+      childIDs: [],
+      isMounted: false,
+      updateCount: 0
+    };
+    setItem(id, item);
+  },
+  onBeforeUpdateComponent: function (id, element) {
+    var item = getItem(id);
+    if (!item || !item.isMounted) {
+      // We may end up here as a result of setState() in componentWillUnmount().
+      // In this case, ignore the element.
+      return;
+    }
+    item.element = element;
+  },
+  onMountComponent: function (id) {
+    var item = getItem(id);
+    !item ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Item must have been set') : _prodInvariant('144') : void 0;
+    item.isMounted = true;
+    var isRoot = item.parentID === 0;
+    if (isRoot) {
+      addRoot(id);
+    }
+  },
+  onUpdateComponent: function (id) {
+    var item = getItem(id);
+    if (!item || !item.isMounted) {
+      // We may end up here as a result of setState() in componentWillUnmount().
+      // In this case, ignore the element.
+      return;
+    }
+    item.updateCount++;
+  },
+  onUnmountComponent: function (id) {
+    var item = getItem(id);
+    if (item) {
+      // We need to check if it exists.
+      // `item` might not exist if it is inside an error boundary, and a sibling
+      // error boundary child threw while mounting. Then this instance never
+      // got a chance to mount, but it still gets an unmounting event during
+      // the error boundary cleanup.
+      item.isMounted = false;
+      var isRoot = item.parentID === 0;
+      if (isRoot) {
+        removeRoot(id);
+      }
+    }
+    unmountedIDs.push(id);
+  },
+  purgeUnmountedComponents: function () {
+    if (ReactComponentTreeHook._preventPurging) {
+      // Should only be used for testing.
+      return;
+    }
+
+    for (var i = 0; i < unmountedIDs.length; i++) {
+      var id = unmountedIDs[i];
+      purgeDeep(id);
+    }
+    unmountedIDs.length = 0;
+  },
+  isMounted: function (id) {
+    var item = getItem(id);
+    return item ? item.isMounted : false;
+  },
+  getCurrentStackAddendum: function (topElement) {
+    var info = '';
+    if (topElement) {
+      var name = getDisplayName(topElement);
+      var owner = topElement._owner;
+      info += describeComponentFrame(name, topElement._source, owner && owner.getName());
+    }
+
+    var currentOwner = ReactCurrentOwner.current;
+    var id = currentOwner && currentOwner._debugID;
+
+    info += ReactComponentTreeHook.getStackAddendumByID(id);
+    return info;
+  },
+  getStackAddendumByID: function (id) {
+    var info = '';
+    while (id) {
+      info += describeID(id);
+      id = ReactComponentTreeHook.getParentID(id);
+    }
+    return info;
+  },
+  getChildIDs: function (id) {
+    var item = getItem(id);
+    return item ? item.childIDs : [];
+  },
+  getDisplayName: function (id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (!element) {
+      return null;
+    }
+    return getDisplayName(element);
+  },
+  getElement: function (id) {
+    var item = getItem(id);
+    return item ? item.element : null;
+  },
+  getOwnerID: function (id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (!element || !element._owner) {
+      return null;
+    }
+    return element._owner._debugID;
+  },
+  getParentID: function (id) {
+    var item = getItem(id);
+    return item ? item.parentID : null;
+  },
+  getSource: function (id) {
+    var item = getItem(id);
+    var element = item ? item.element : null;
+    var source = element != null ? element._source : null;
+    return source;
+  },
+  getText: function (id) {
+    var element = ReactComponentTreeHook.getElement(id);
+    if (typeof element === 'string') {
+      return element;
+    } else if (typeof element === 'number') {
+      return '' + element;
+    } else {
+      return null;
+    }
+  },
+  getUpdateCount: function (id) {
+    var item = getItem(id);
+    return item ? item.updateCount : 0;
+  },
+
+
+  getRootIDs: getRootIDs,
+  getRegisteredIDs: getItemIDs
+};
+
+module.exports = ReactComponentTreeHook;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(199)))
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+/**
+ * Keeps track of the current owner.
+ *
+ * The current owner is the component who should own any components that are
+ * currently being constructed.
+ */
+var ReactCurrentOwner = {
+
+  /**
+   * @internal
+   * @type {ReactComponent}
+   */
+  current: null
+
+};
+
+module.exports = ReactCurrentOwner;
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+/**
+ * WARNING: DO NOT manually require this module.
+ * This is a replacement for `invariant(...)` used by the error code system
+ * and will _only_ be required by the corresponding babel pass.
+ * It always throws.
+ */
+
+function reactProdInvariant(code) {
+  var argCount = arguments.length - 1;
+
+  var message = 'Minified React error #' + code + '; visit ' + 'http://facebook.github.io/react/docs/error-decoder.html?invariant=' + code;
+
+  for (var argIdx = 0; argIdx < argCount; argIdx++) {
+    message += '&args[]=' + encodeURIComponent(arguments[argIdx + 1]);
+  }
+
+  message += ' for the full message or use the non-minified dev environment' + ' for full errors and additional helpful warnings.';
+
+  var error = new Error(message);
+  error.name = 'Invariant Violation';
+  error.framesToPop = 1; // we don't care about reactProdInvariant's own frame
+
+  throw error;
+}
+
+module.exports = reactProdInvariant;
 
 /***/ })
 /******/ ]);
