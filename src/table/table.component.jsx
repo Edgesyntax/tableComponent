@@ -5,7 +5,7 @@
 
 // React Modules
 import React from "react";
-import Radium, {Style} from "radium";
+import {Style} from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
@@ -20,7 +20,7 @@ import sortTableAction      from "../helpers/sort.js";
 import filterTableAction    from "../helpers/filter.js";
 import limitTableAction     from "../helpers/limit.js";
 
-class Table extends React.Component{
+class Table extends React.PureComponent{
   constructor(){
     super();
     this.state = {
@@ -218,8 +218,7 @@ Table.propTypes = {
   devMode: React.PropTypes.bool
 }
 
-const TableComponent = Radium(Table);
-export default TableComponent;
+export default Table;
 
 
 

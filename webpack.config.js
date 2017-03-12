@@ -37,11 +37,6 @@ module.exports = {
   //     }
   //   })
   // ],
-  devServer:{
-    contentBase: "storybook",
-    publicPath: "/dist/",
-    filename: "storybook.js"
-  },
   externals: {
     react: "react",
     "react-dom": "react-dom",
