@@ -1,4 +1,5 @@
 // TODO: Add propTypes check to all components
+// TODO: Update storybook
 
 // React Modules
 import React from "react";
