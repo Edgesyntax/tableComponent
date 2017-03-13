@@ -5,7 +5,7 @@ import JsonTree from "react-json-tree";
 // Application Modules
 import {brand} from "./table.stylesheet.js";
 
-const Td = ({td, activeRow, className, children}) => {
+const Td = ({td, activeRow, className}) => {
   var transformTd;
   const renderObject = () => <JsonTree data={td} hideRoot={true} theme={{
     tree: ({style}) => ({ style: Object.assign({}, style, {backgroundColor: undefined})}),
@@ -19,14 +19,13 @@ const Td = ({td, activeRow, className, children}) => {
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (typeof td !== "undefined") transformTd = td.toString();
 
-  return <td className={(activeRow ? `${className} activeIndex` : className)}>{transformTd}{children}</td>;
+  return <td className={(activeRow ? `${className} activeIndex` : className)}>{transformTd}</td>;
 }
 
 Td.propTypes = {
   td: React.PropTypes.any,
   activeRow: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  children: React.PropTypes.any
+  className: React.PropTypes.string
 }
 
 export default Td;

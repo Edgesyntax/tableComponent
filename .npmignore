@@ -10,4 +10,5 @@ npm-debug.log
 lib
 .storybook
 stories
+storybook-static
 webpack.config.js

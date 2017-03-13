@@ -1,8 +1,5 @@
-// Node Modules
-import Color from "color";
-
 const brand = {
-  primaryColor    : "#27ae60",
+  primaryColor    : "#c0392b",
   secondaryColor  : "#f9f9f9",
   borderColor			: "#E1E1E1"
 };
@@ -66,7 +63,7 @@ const tableStylesheet = {
   },
   ".activeRow": {
     //borderLeft: `3px solid ${brand.primaryColor}`,
-    background: Color(brand.primaryColor).alpha(0.1).lighten(0.1).hslString()
+    background: "rgba(209, 67, 51, 0.1)"
   },
   ".index":{
     backgroundColor: brand.secondaryColor,
