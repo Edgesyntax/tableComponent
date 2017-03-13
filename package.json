@@ -1,6 +1,6 @@
 {
   "name": "tableComponent",
-  "version": "0.6.12",
+  "version": "0.6.13",
   "description": "A flexible and performant table component for react",
   "main": "./dist/table.js",
   "scripts": {
