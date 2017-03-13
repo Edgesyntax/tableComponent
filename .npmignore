@@ -8,9 +8,6 @@
 .eslintrc
 npm-debug.log
 lib
-.git
 .storybook
-node_modules
 stories
-storybook-static
 webpack.config.js
