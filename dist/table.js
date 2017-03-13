@@ -1929,7 +1929,7 @@ var Table = function (_React$Component) {
           }
         });
 
-        rowObject = { data: tableRow };
+        rowObject = { data: tableRow, _activeRow: false };
         // Add active row metadata
         if (_this2.props.activeRow && _this2.props.activeRow.id && _this2.props.activeRow.value) {
           var activeRowKey = row[_this2.props.activeRow.id];

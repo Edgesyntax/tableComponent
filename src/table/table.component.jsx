@@ -72,7 +72,7 @@ class Table extends React.Component{
         }
       });
 
-      rowObject = {data: tableRow};
+      rowObject = {data: tableRow, _activeRow: false};
       // Add active row metadata
       if (this.props.activeRow && this.props.activeRow.id && this.props.activeRow.value) {
         var activeRowKey = row[this.props.activeRow.id];
