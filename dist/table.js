@@ -1931,7 +1931,7 @@ var Table = function (_React$Component) {
 
         rowObject = { data: tableRow };
         // Add active row metadata
-        if (_this2.props.activeRow && _this2.props.activeRow.id) {
+        if (_this2.props.activeRow && _this2.props.activeRow.id && _this2.props.activeRow.value) {
           var activeRowKey = row[_this2.props.activeRow.id];
           if (activeRowKey === _this2.props.activeRow.value && !_react2.default.isValidElement(activeRowKey)) {
             rowObject = Object.assign({}, rowObject, { _activeRow: true });
