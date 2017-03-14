@@ -92,7 +92,7 @@ const tableStylesheet = {
   ".jsonNestedNodeItemString": {
     color: "#999"
   },
-  ".actionBtn": {
+  actionBtn: {
     fontSize: "1.4em",
     margin: "0",//"0 12px 0 0"
     overflow: "hidden"
