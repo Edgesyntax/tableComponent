@@ -397,7 +397,25 @@ var brand = {
   secondaryColor: "#f9f9f9",
   borderColor: "#E1E1E1"
 };
-
+var tableControls = {
+  button: {
+    display: "inline-block",
+    height: "20px",
+    width: "auto",
+    margin: 0,
+    padding: 0,
+    lineHeight: 0,
+    overflow: "hidden",
+    background: "transparent",
+    border: 0,
+    cursor: "pointer"
+  },
+  actionBtn: {
+    fontSize: "1.4em",
+    margin: "0", //"0 12px 0 0"
+    overflow: "hidden"
+  }
+};
 var tableStylesheet = {
   table: {
     borderCollapse: "collapse"
@@ -485,11 +503,6 @@ var tableStylesheet = {
   ".jsonNestedNodeItemString": {
     color: "#999"
   },
-  actionBtn: {
-    fontSize: "1.4em",
-    margin: "0", //"0 12px 0 0"
-    overflow: "hidden"
-  },
   ".funnel": {
     fill: brand.borderColor
   }
@@ -497,6 +510,7 @@ var tableStylesheet = {
 
 exports.default = tableStylesheet;
 exports.brand = brand;
+exports.tableControls = tableControls;
 
 /***/ }),
 /* 23 */
@@ -8077,7 +8091,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tableStylesheet = exports.Td = exports.Tr = undefined;
+exports.tableControls = exports.Td = exports.Tr = undefined;
 
 var _tableComponent = __webpack_require__(68);
 
@@ -8093,15 +8107,13 @@ var _tdComponent2 = _interopRequireDefault(_tdComponent);
 
 var _tableStylesheet = __webpack_require__(22);
 
-var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Application Modules
 exports.default = _tableComponent2.default;
 exports.Tr = _trComponent2.default;
 exports.Td = _tdComponent2.default;
-exports.tableStylesheet = _tableStylesheet2.default;
+exports.tableControls = _tableStylesheet.tableControls;
 
 /***/ })
 /******/ ]);
