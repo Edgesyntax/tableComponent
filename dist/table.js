@@ -1886,6 +1886,7 @@ var Table = function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
+      console.log(nextProps);
       this.init(nextProps);
     }
   }, {
@@ -1923,6 +1924,7 @@ var Table = function (_React$Component) {
           filter = _ref.filter,
           sort = _ref.sort;
 
+      console.log(this.props.activeRow, this.props.activeRow.id, this.props.activeRow.value);
       if (!data || !data.length) var data = [];
       // Add child Tr nodes to table data
       var cTableData = data.concat(this.childrenNodes.tr);

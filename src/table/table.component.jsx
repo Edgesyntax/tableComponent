@@ -31,6 +31,7 @@ class Table extends React.Component{
     this.init(this.props);
   }
   componentWillReceiveProps(nextProps){
+    console.log(nextProps);
     this.init(nextProps);
   }
   init(props){
@@ -54,6 +55,7 @@ class Table extends React.Component{
     this.setState({sort, sortable, limit, filter});
   }
   generateTableData({data, devMode, limit, filter, sort}){
+    console.log(this.props.activeRow, this.props.activeRow.id, this.props.activeRow.value);
     if (!data || !data.length) var data = [];
     // Add child Tr nodes to table data
     const cTableData = data.concat(this.childrenNodes.tr);

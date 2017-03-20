@@ -6,9 +6,14 @@ import Table, {Tr, Td, tableStylesheet} from "../dist/table.js";
 import tableMock from "./table.mock.yaml";
 
 class Default extends React.Component{
+  constructor(){
+    super();
+    this.state = {}
+  }
   renderTableList(){
     return tableMock.map((item, index) => {
       return (<Tr key={index}>
+        <Td column="_id">{item._id}</Td>
         <Td column="name">{item.name}</Td>
         <Td column="email">{item.email}</Td>
         <Td column="balance">{item.balance}</Td>
@@ -16,10 +21,11 @@ class Default extends React.Component{
         <Td column="registered">{item.registered}</Td>
         <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>
         <Td column="action">
-            <center>
-              <button> edit </button>
-              <button> delete </button>
-            </center>
+          <center>
+            <button
+              onClick={(event) => this.setState({editItem: item._id})}> edit </button>
+            <button> delete </button>
+          </center>
         </Td>
         <Td column="json">
           {[
@@ -34,12 +40,14 @@ class Default extends React.Component{
     return <Table
       limit={25}
       columns={[
+        {id: "_id"},
         {id: "balance"},
         {id: "age"},
         {id: "name"},
         {id: "email"},
         {id: this.props.dataType === "jsx" ? "action" : "json"}
-      ]}>{this.renderTableList()}</Table>
+      ]}
+      activeRow={{id: "_id", value: this.state.editItem}}>{this.renderTableList()}</Table>
   }
 }
 
