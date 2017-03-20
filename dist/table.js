@@ -567,7 +567,7 @@ var Td = function Td(_ref) {
       } });
   };
 
-  if (td && _react2.default.isValidElement(td)) transformTd = td;else if (td && (typeof td === "undefined" ? "undefined" : _typeof(td)) === "object") transformTd = renderObject();else if (typeof td !== "undefined") transformTd = td.toString();
+  if (td && _react2.default.isValidElement(td)) transformTd = td;else if (td && (typeof td === "undefined" ? "undefined" : _typeof(td)) === "object") transformTd = renderObject();else if (typeof td !== "undefined" || typeof td === "boolean") transformTd = td.toString();
 
   return _react2.default.createElement(
     "td",

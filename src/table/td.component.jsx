@@ -17,7 +17,7 @@ const Td = ({td, activeRow, className}) => {
 
   if (td && React.isValidElement(td)) transformTd = td;
   else if (td && typeof td === "object") transformTd = renderObject();
-  else if (typeof td !== "undefined") transformTd = td.toString();
+  else if (typeof td !== "undefined" || typeof td === "boolean") transformTd = td.toString();
 
   return <td className={(activeRow ? `${className} activeIndex` : className)}>{transformTd}</td>;
 }
