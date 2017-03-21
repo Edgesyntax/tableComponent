@@ -1886,7 +1886,6 @@ var Table = function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      console.log(nextProps);
       this.init(nextProps);
     }
   }, {

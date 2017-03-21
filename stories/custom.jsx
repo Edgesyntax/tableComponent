@@ -19,7 +19,7 @@ class Default extends React.Component{
         <Td column="balance">{item.balance}</Td>
         <Td column="age">{item.age}</Td>
         <Td column="registered">{item.registered}</Td>
-        <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>
+        <Td column="status">{item.isActive}</Td>
         <Td column="action">
           <center>
             <button
@@ -45,6 +45,7 @@ class Default extends React.Component{
         {id: "age"},
         {id: "name"},
         {id: "email"},
+        {id: "status"},
         {id: this.props.dataType === "jsx" ? "action" : "json"}
       ]}
       activeRow={{id: "_id", value: this.state.editItem}}>{this.renderTableList()}</Table>

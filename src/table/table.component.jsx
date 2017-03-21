@@ -31,7 +31,6 @@ class Table extends React.Component{
     this.init(this.props);
   }
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
     this.init(nextProps);
   }
   init(props){
