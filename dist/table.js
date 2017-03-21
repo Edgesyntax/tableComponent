@@ -1909,7 +1909,7 @@ var Table = function (_React$Component) {
       // Check/Render child components
       this.childrenNodes = this.renderChildren(props);
       // Generate table data
-      this.vTableData = this.generateTableData({ data: props.data, sort: sort, limit: limit, filter: filter });
+      this.vTableData = this.generateTableData({ props: props, sort: sort, limit: limit, filter: filter });
       // Set application state
       this.setState({ sort: sort, sortable: sortable, limit: limit, filter: filter });
     }
@@ -1918,13 +1918,15 @@ var Table = function (_React$Component) {
     value: function generateTableData(_ref) {
       var _this2 = this;
 
-      var data = _ref.data,
+      var props = _ref.props,
           devMode = _ref.devMode,
           limit = _ref.limit,
           filter = _ref.filter,
           sort = _ref.sort;
 
-      console.log(this.props.activeRow, this.props.activeRow.id, this.props.activeRow.value);
+      var data = props.data,
+          activeRow = props.activeRow;
+
       if (!data || !data.length) var data = [];
       // Add child Tr nodes to table data
       var cTableData = data.concat(this.childrenNodes.tr);
@@ -1946,9 +1948,9 @@ var Table = function (_React$Component) {
 
         rowObject = { data: tableRow };
         // Add active row metadata
-        if (_this2.props.activeRow && _this2.props.activeRow.id && _this2.props.activeRow.value) {
-          var activeRowKey = row[_this2.props.activeRow.id];
-          if (activeRowKey === _this2.props.activeRow.value && !_react2.default.isValidElement(activeRowKey)) {
+        if (activeRow && activeRow.id && activeRow.value) {
+          var activeRowKey = row[activeRow.id];
+          if (activeRowKey === activeRow.value && !_react2.default.isValidElement(activeRowKey)) {
             rowObject = Object.assign({}, rowObject, { _activeRow: true });
           }
         }
@@ -1993,7 +1995,7 @@ var Table = function (_React$Component) {
 
       // Generate table
       this.vTableData = this.generateTableData({
-        data: this.props.data,
+        props: this.props,
         limit: state.limit,
         filter: state.filter,
         sort: state.sort

@@ -50,12 +50,13 @@ class Table extends React.Component{
     // Check/Render child components
     this.childrenNodes = this.renderChildren(props);
     // Generate table data
-    this.vTableData = this.generateTableData({data: props.data, sort, limit, filter});
+    this.vTableData = this.generateTableData({props, sort, limit, filter});
     // Set application state
     this.setState({sort, sortable, limit, filter});
   }
-  generateTableData({data, devMode, limit, filter, sort}){
-    console.log(this.props.activeRow, this.props.activeRow.id, this.props.activeRow.value);
+  generateTableData({props, devMode, limit, filter, sort}){
+    var data = props.data, activeRow = props.activeRow;
+
     if (!data || !data.length) var data = [];
     // Add child Tr nodes to table data
     const cTableData = data.concat(this.childrenNodes.tr);
@@ -76,9 +77,9 @@ class Table extends React.Component{
 
       rowObject = {data: tableRow};
       // Add active row metadata
-      if (this.props.activeRow && this.props.activeRow.id && this.props.activeRow.value) {
-        var activeRowKey = row[this.props.activeRow.id];
-        if (activeRowKey === this.props.activeRow.value && !React.isValidElement(activeRowKey)) {
+      if (activeRow && activeRow.id && activeRow.value) {
+        var activeRowKey = row[activeRow.id];
+        if (activeRowKey === activeRow.value && !React.isValidElement(activeRowKey)) {
           rowObject = Object.assign({}, rowObject, {_activeRow: true});
         }
       }
@@ -121,7 +122,7 @@ class Table extends React.Component{
 
     // Generate table
     this.vTableData = this.generateTableData({
-      data: this.props.data,
+      props: this.props,
       limit: state.limit,
       filter: state.filter,
       sort:state.sort
