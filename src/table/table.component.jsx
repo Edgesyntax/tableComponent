@@ -3,9 +3,10 @@
 
 // React Modules
 import React from "react";
+import CSSModules from "react-css-modules";
 
 // Application Modules
-import tableStylesheet from "./table.stylesheet.js";
+import tableStylesheet from "./table.stylesheet.css";
 import Th from "./th.component.jsx";
 import Tr from "./tr.component.jsx";
 import Td from "./td.component.jsx";
@@ -214,7 +215,7 @@ Table.propTypes = {
   devMode: React.PropTypes.bool
 }
 
-export default Table;
+export default CSSModules(Table, tableStylesheet);
 
 
 

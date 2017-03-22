@@ -1,0 +1,89 @@
+/*.primaryColor    : "#c0392b";
+.secondaryColor  : "#f9f9f9";
+.border-color		: "#E1E1E1";*/
+
+table {
+  border-collapse: collapse
+}
+th, tfoot, td {
+  border: 1px solid #E1E1E1;
+  font-weight: normal;
+  padding: 2px 12px;
+  font-size: inherit
+}
+th, tfoot {
+  background-color: #f9f9f9;
+}
+tbody tr:not(.activeRow):hover {
+  background-color: #f9f9f9
+}
+td {
+  border: 1px solid #E1E1E1;
+  padding: 2px 12px
+}
+thead button {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit
+}
+
+select {
+  height: 100%;
+  margin: 0;
+  border: 1px solid #E1E1E1
+}
+.formControl {
+  height: 100%;
+  width: auto;
+  margin: 0;
+  border: 1px solid #E1E1E1
+}
+i {
+  pointer-events: none
+}
+.icon {
+  pointer-events: none;
+  width: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.activeRow {
+  background: rgba(209, 67, 51, 0.1)
+}
+.index {
+  background-color: #f9f9f9;
+  border: 1px solid #E1E1E1;
+  font-weight: normal;
+  padding: 2px 12px;
+  text-align: center
+}
+.activeIndex {
+  background-color: #c0392b;
+  color: #fff
+}
+.pages {
+  display: inline-block;
+  margin: 0
+}
+.activePage {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff
+}
+.jsonValueText {
+  color: #c0392b
+}
+.jsonNestedNodeItemString {
+  color: #999
+}
+.funnel {
+  fill: #E1E1E1
+}

@@ -26,6 +26,11 @@ module.exports = {
         test: /\.yaml$/,
         loader: 'yml',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css/,
+        loaders: ['style-loader', 'css-loader'],
+        include: __dirname + '/src/table'
       }
     ]
   },
