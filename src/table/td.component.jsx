@@ -1,6 +1,5 @@
 // React Modules
 import React from "react";
-import Radium from "radium";
 import JsonTree from "react-json-tree";
 
 // Application Modules
@@ -29,4 +28,4 @@ Td.propTypes = {
   className: React.PropTypes.string
 }
 
-export default Radium(Td);
+export default Td;

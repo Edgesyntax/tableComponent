@@ -534,10 +534,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(21);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 var _reactJsonTree = __webpack_require__(182);
 
 var _reactJsonTree2 = _interopRequireDefault(_reactJsonTree);
@@ -586,7 +582,7 @@ Td.propTypes = {
   className: _react2.default.PropTypes.string
 };
 
-exports.default = (0, _radium2.default)(Td);
+exports.default = Td;
 
 /***/ }),
 /* 24 */
@@ -2310,10 +2306,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(21);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var style = {
@@ -2325,12 +2317,12 @@ var style = {
 var IosFunnel = function IosFunnel(props) {
   return _react2.default.createElement(
     "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: Object.assign({}, style, props.style) }),
     _react2.default.createElement("path", { d: "M32 64v32l176 192v128l96 32V288L480 96V64H32z" })
   );
 };
 
-exports.default = (0, _radium2.default)(IosFunnel);
+exports.default = IosFunnel;
 
 /***/ }),
 /* 74 */
@@ -2350,10 +2342,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(21);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var style = {
@@ -2365,12 +2353,12 @@ var style = {
 var MdArrowDropdown = function MdArrowDropdown(props) {
   return _react2.default.createElement(
     "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
     _react2.default.createElement("path", { d: "M128 192l128 128 128-128z" })
   );
 };
 
-exports.default = (0, _radium2.default)(MdArrowDropdown);
+exports.default = MdArrowDropdown;
 
 /***/ }),
 /* 75 */
@@ -2390,10 +2378,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(21);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var style = {
@@ -2405,12 +2389,12 @@ var style = {
 var MdArrowDropup = function MdArrowDropup(props) {
   return _react2.default.createElement(
     "svg",
-    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: [style, props.style] }),
+    _extends({ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 512 512" }, props, { style: style }),
     _react2.default.createElement("path", { d: "M128 320l128-128 128 128z" })
   );
 };
 
-exports.default = (0, _radium2.default)(MdArrowDropup);
+exports.default = MdArrowDropup;
 
 /***/ }),
 /* 76 */
