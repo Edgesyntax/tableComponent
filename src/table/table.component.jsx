@@ -3,7 +3,6 @@
 
 // React Modules
 import React from "react";
-import {Style} from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
@@ -198,9 +197,6 @@ class Table extends React.Component{
             paginateTable={this.onChangeAction}
             showIndex={this.props.showIndex}/>
         </table>
-        <Style
-          scopeSelector=".tableComponent"
-          rules={tableStylesheet}/>
       </component>
     );
   }

@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("radium"));
+		module.exports = factory(require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "radium"], factory);
+		define(["react"], factory);
 	else if(typeof exports === 'object')
-		exports["tableComponent"] = factory(require("react"), require("radium"));
+		exports["tableComponent"] = factory(require("react"));
 	else
-		root["tableComponent"] = factory(root["react"], root["radium"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_21__) {
+		root["tableComponent"] = factory(root["react"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -377,12 +377,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
-
-/***/ }),
+/* 21 */,
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1805,8 +1800,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(21);
-
 var _tableStylesheet = __webpack_require__(22);
 
 var _tableStylesheet2 = _interopRequireDefault(_tableStylesheet);
@@ -2087,10 +2080,7 @@ var Table = function (_React$Component) {
             pagination: this.state.pagination,
             paginateTable: this.onChangeAction,
             showIndex: this.props.showIndex })
-        ),
-        _react2.default.createElement(_radium.Style, {
-          scopeSelector: ".tableComponent",
-          rules: _tableStylesheet2.default })
+        )
       );
     }
   }]);
