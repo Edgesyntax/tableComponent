@@ -534,6 +534,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _radium = __webpack_require__(21);
+
+var _radium2 = _interopRequireDefault(_radium);
+
 var _reactJsonTree = __webpack_require__(182);
 
 var _reactJsonTree2 = _interopRequireDefault(_reactJsonTree);
@@ -582,7 +586,7 @@ Td.propTypes = {
   className: _react2.default.PropTypes.string
 };
 
-exports.default = Td;
+exports.default = (0, _radium2.default)(Td);
 
 /***/ }),
 /* 24 */
