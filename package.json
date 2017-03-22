@@ -23,10 +23,7 @@
   ],
   "author": "Kwame Adjei",
   "license": "MIT",
-  "dependencies": {
-    "react-css-modules": "^4.1.0",
-    "react-json-tree": "^0.10.5"
-  },
+  "dependencies": {},
   "babel": {
     "presets": [
       "es2015",
@@ -45,6 +42,8 @@
     "raw-loader": "^0.5.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-json-tree": "^0.10.5",
+    "react-css-modules": "^4.1.0",
     "storybook-readme": "^1.3.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
