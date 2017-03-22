@@ -1,9 +1,23 @@
-/*.primaryColor    : "#c0392b";
-.secondaryColor  : "#f9f9f9";
-.border-color		: "#E1E1E1";*/
-
 .tableComponent table {
   border-collapse: collapse
+}
+.tableComponent thead button {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit
+}
+.tableComponent select {
+  height: 100%;
+  margin: 0;
+  border: 1px solid #E1E1E1
 }
 .tableComponent th, .tableComponent tfoot, .tableComponent td {
   border: 1px solid #E1E1E1;
@@ -21,24 +35,8 @@
   border: 1px solid #E1E1E1;
   padding: 2px 12px
 }
-.tableComponent thead button {
-  display: inline-block;
-  width: auto;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  white-space: nowrap;
-  font: inherit;
-  color: inherit
-}
-
-.tableComponent select {
-  height: 100%;
-  margin: 0;
-  border: 1px solid #E1E1E1
+.tableComponent tfoot {
+  border: 0
 }
 .tableComponent .formControl {
   height: 100%;
