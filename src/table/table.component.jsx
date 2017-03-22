@@ -3,7 +3,7 @@
 
 // React Modules
 import React from "react";
-import {Style} from "radium";
+import Radium, {Style} from "radium";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.js";
@@ -218,7 +218,7 @@ Table.propTypes = {
   devMode: React.PropTypes.bool
 }
 
-export default Table;
+export default Radium(Table);
 
 
 
