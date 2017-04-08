@@ -1,7 +1,6 @@
-// React Modules
+```js
 import React from "react";
 
-// Application Modules
 import Table, {Tr, Td, tableStylesheet} from "../dist/table.js";
 import data from "./table.mock.yaml";
 
@@ -28,3 +27,5 @@ class Custom extends React.Component{
 }
 
 export default Custom;
+
+```

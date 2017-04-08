@@ -3,7 +3,7 @@ import { setOptions } from '@kadira/storybook-addon-options';
 
 setOptions({
   name: 'tableComponent',
-  url: 'https://github.com/kadirahq/storybook-addon-options', // TODO: use github url
+  url: 'https://github.com/Edgesyntax/tableComponent',
   goFullScreen: false,
   showLeftPanel: true,
   showDownPanel: true,

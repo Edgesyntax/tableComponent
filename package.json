@@ -6,14 +6,13 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "watch": "webpack --progress --colors --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/edgeadjei/tableComponent.git"
+    "url": "https://github.com/Edgesyntax/tableComponent"
   },
   "keywords": [
     "react",

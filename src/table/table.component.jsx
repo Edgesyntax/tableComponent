@@ -1,5 +1,8 @@
 // TODO: Add propTypes check to all components
-// TODO: Update storybook
+// TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
+// TODO: Add ability to filter specific columns
+// TODO: Expose action events [onFilter, onSort, onLimit, onPaginate]
+// TODO: Remove radium as a dependency 
 
 // React Modules
 import React from "react";
@@ -134,11 +137,8 @@ class Table extends React.Component{
       if (child.type.name === "Tr") {
         if (!child.props.children) return children.tr.push(child.props.row);
 
-        //return children.tr.push(child.props);
-
         var obj = {};
         React.Children.forEach(child.props.children, (nestedChild) => {
-          // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
           if (nestedChild.props.column && !nestedChild.props.children) return;
           obj[nestedChild.props.column] = nestedChild.props.children;
         });
@@ -217,42 +217,3 @@ Table.propTypes = {
 }
 
 export default Table;
-
-
-
-
-
-
-
-// renderChildren(props){
-//   const children = {tr:[]};
-//   if (!React.Children.count(props.children)) return children;
-//
-//   React.Children.map(props.children, (child) => {
-//     // Add table rows to children object
-//     if (!child.type || child.type.name !== "Tr") {
-//       console.warn("Invalid Table child element expected Tr");
-//       return;
-//     }
-//     if (!child.props.children || !child.props.children.type || child.props.children.type.displayName !== "_Td") {
-//       console.warn("Invalid Tr child element expected Td");
-//       return;
-//     }
-//
-//     const td = {};
-//     React.Children.forEach(child.props.children, (nestedChild) => {
-//       const nestedChildChildren = nestedChild.props.children;
-//
-//       if (nestedChild.props.column && !nestedChildChildren) return;
-//
-//       if (typeof nestedChildChildren === "object" && !nestedChildChildren[0].trim() && !nestedChildChildren[2].trim()) {
-//         // Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-//         td[nestedChild.props.column] = nestedChildChildren[1];
-//         return;
-//       }
-//       td[nestedChild.props.column] = nestedChildChildren;
-//     });
-//     children.tr.push(td);
-//   });
-//   return children;
-// }

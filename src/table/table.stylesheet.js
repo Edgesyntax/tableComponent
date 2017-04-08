@@ -36,32 +36,15 @@ const tableStylesheet = {
     font: "inherit",
     color: "inherit"
   },
-  pre: {
-    display: "none",
-    position: "absolute"
-  },
   select:{
     height: "100%",
-    margin: 0,
-    border: `1px solid ${brand.borderColor}`
-  },
-  ".formControl":{
-    height: "100%",
-    width: "auto",
     margin: 0,
     border: `1px solid ${brand.borderColor}`
   },
   i: {
     pointerEvents: "none"
   },
-  ".icon": {
-    pointerEvents: "none",
-    width: "15px",
-    display: "inline-block",
-    verticalAlign: "middle",
-  },
   ".activeRow": {
-    //borderLeft: `3px solid ${brand.primaryColor}`,
     background: "rgba(209, 67, 51, 0.1)"
   },
   ".index":{
@@ -73,8 +56,7 @@ const tableStylesheet = {
   },
   ".activeIndex": {
     backgroundColor: brand.primaryColor,
-    color: "#fff",
-    //border: `1px solid ${brand.primaryColor}`,
+    color: "#fff"
   },
   ".pages": {
     display: "inline-block",
@@ -112,7 +94,7 @@ const tableControls = Object.assign({}, tableStylesheet, {
   },
   actionBtn: {
     fontSize: "1.4em",
-    margin: "0",//"0 12px 0 0"
+    margin: "0",
     overflow: "hidden"
   }
 });
