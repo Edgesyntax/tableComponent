@@ -1,11 +1,11 @@
-# tableComponent <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+# tableComponent
 A flexible and performant table component for react
 
-[![npm badge][npm-badge-png]][package-url]
+[![NPM](https://nodei.co/npm/tableComponent.png)](https://npmjs.org/package/tableComponent)
 
 ## Live Playground
 
-For examples of the tableComponent in action, go to ./storybook-static/index.html.
+For examples of the tableComponent in action, go to [storybook](https://github.com/Edgesyntax/tableComponent/storybook-static/index.html)
 
 OR
 
