@@ -5,7 +5,7 @@ A flexible and performant table component for react
 
 ## Live Playground
 
-For examples of the tableComponent in action, go to [storybook](https://github.com/Edgesyntax/tableComponent/storybook-static/index.html)
+For examples of the tableComponent in action, go to [storybook](https://edgesyntax.github.io/tableComponent/)
 
 OR
 
