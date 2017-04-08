@@ -1,5 +1,21 @@
-# tableComponent
-A react table component designed to be flexible and performant
+# tableComponent <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
+A flexible and performant table component for react
+
+[![npm badge][npm-badge-png]][package-url]
+
+## Live Playground
+
+For examples of the tableComponent in action, go to ./storybook-static/index.html.
+
+OR
+
+To run that demo on your own computer:
+* Clone this repository
+* `npm install`
+* `npm run storybook`
+* Visit http://localhost:6006/
+
+## Getting Started
 
 # Install
 ____
