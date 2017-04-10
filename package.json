@@ -4,7 +4,7 @@
   "description": "A flexible and performant table component for react",
   "main": "./dist/table.js",
   "scripts": {
-    "build": "webpack --progress --colors",
+    "build": "webpack --progress",
     "watch": "webpack --progress --colors --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -22,10 +22,7 @@
   ],
   "author": "Kwame Adjei",
   "license": "MIT",
-  "dependencies": {
-    "radium": "^0.18.1",
-    "react-json-tree": "^0.10.5"
-  },
+  "dependencies": {},
   "babel": {
     "presets": [
       "es2015",
@@ -33,17 +30,19 @@
     ]
   },
   "devDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
     "@kadira/storybook": "^2.21.0",
     "@kadira/storybook-addon-options": "^1.0.1",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "css-loader": "^0.27.1",
+    "css-loader": "^0.27.3",
     "json-loader": "^0.5.4",
     "raw-loader": "^0.5.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-json-tree": "^0.10.5",
+    "react-css-modules": "^4.1.0",
     "storybook-readme": "^1.3.2",
     "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
@@ -51,7 +50,6 @@
     "yml-loader": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "* || ^15.4.1",
-    "radium": "^0.18.0"
+    "react": "* || ^15.4.1"
   }
 }

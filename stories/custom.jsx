@@ -9,6 +9,7 @@ class Custom extends React.Component{
   renderTableList(){
     return data.map((item, index) => {
       return (<Tr key={index}>
+        <Td column="_id">{item._id}</Td>
         <Td column="name">{item.name}</Td>
         <Td column="email">{item.email}</Td>
         <Td column="status">{item.isActive ? "Active" : "Inactive"}</Td>

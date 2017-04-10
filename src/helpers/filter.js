@@ -3,7 +3,8 @@ const filterTable = ({tableData, filter}) => {
   if (!filter) return tableData;
   return tableData.filter((row) => {
     var formatedRow = row.data.join("").toLowerCase();
-    return formatedRow.indexOf(filter.toLowerCase()) !== -1;
+    var filterValue = filter.toLowerCase().trim();
+    return formatedRow.indexOf(filterValue) !== -1;
   });
 };
 

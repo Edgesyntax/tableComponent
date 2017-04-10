@@ -26,6 +26,11 @@ module.exports = {
         test: /\.yaml$/,
         loader: 'yml',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css/,
+        loaders: ['style-loader', 'css-loader'],
+        include: __dirname + '/src/table'
       }
     ]
   },
@@ -38,7 +43,6 @@ module.exports = {
   // ],
   externals: {
     react: "react",
-    "react-dom": "react-dom",
-    radium: "radium"
+    "react-dom": "react-dom"
   }
 };
