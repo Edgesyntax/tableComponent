@@ -7,6 +7,7 @@
 // React Modules
 import React from "react";
 import CSSModules from "react-css-modules";
+import PropTypes from "prop-types";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.css";
@@ -204,15 +205,15 @@ class Table extends React.Component{
 }
 
 Table.propTypes = {
-  data: React.PropTypes.array,
-  showIndex: React.PropTypes.bool,
-  columns: React.PropTypes.array,
-  filter: React.PropTypes.string,
-  filterable: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.array]),
-  sortable: React.PropTypes.array,
-  limit: React.PropTypes.number,
-  activeRow: React.PropTypes.object,
-  devMode: React.PropTypes.bool
+  data: PropTypes.array,
+  showIndex: PropTypes.bool,
+  columns: PropTypes.array,
+  filter: PropTypes.string,
+  filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  sortable: PropTypes.array,
+  limit: PropTypes.number,
+  activeRow: PropTypes.object,
+  devMode: PropTypes.bool
 }
 
 export default CSSModules(Table, tableStylesheet);

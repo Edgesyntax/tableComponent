@@ -1,5 +1,6 @@
 // React Modules
 import React from "react";
+import PropTypes from "prop-types";
 
 const Tfoot = ({
   columns,
@@ -67,12 +68,12 @@ const Tfoot = ({
 }
 
 Tfoot.propTypes = {
-  columns: React.PropTypes.array.isRequired,
-  tableLength: React.PropTypes.number.isRequired,
-  limit: React.PropTypes.number,
-  pagination: React.PropTypes.number,
-  showIndex: React.PropTypes.bool,
-  paginateTable: React.PropTypes.func
+  columns: PropTypes.array.isRequired,
+  tableLength: PropTypes.number.isRequired,
+  limit: PropTypes.number,
+  pagination: PropTypes.number,
+  showIndex: PropTypes.bool,
+  paginateTable: PropTypes.func
 }
 
 export default Tfoot;

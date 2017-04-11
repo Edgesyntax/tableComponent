@@ -1,6 +1,7 @@
 // React Modules
 import React from "react";
 import JsonTree from "react-json-tree";
+import PropTypes from "prop-types";
 
 // Application Modules
 import {brand} from "./table.stylesheet.js";
@@ -23,9 +24,9 @@ const Td = ({td, activeRow, className}) => {
 }
 
 Td.propTypes = {
-  td: React.PropTypes.any,
-  activeRow: React.PropTypes.bool,
-  className: React.PropTypes.string
+  td: PropTypes.any,
+  activeRow: PropTypes.bool,
+  className: PropTypes.string
 }
 
 export default Td;
