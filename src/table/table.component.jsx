@@ -2,7 +2,6 @@
 // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
 // TODO: Add ability to filter specific columns
 // TODO: Expose action events [onFilter, onSort, onLimit, onPaginate]
-// TODO: Remove radium as a dependency
 
 // React Modules
 import React from "react";

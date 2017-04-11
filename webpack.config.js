@@ -1,11 +1,12 @@
 const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
   entry: {
     table: "./src/table/table.control.jsx"
   },
   output: {
-    path: "./dist",
+    path: path.join(__dirname,"dist"),
     filename: "[name].js",
     library: "tableComponent",
     libraryTarget: "umd"
