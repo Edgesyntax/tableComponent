@@ -2,7 +2,7 @@
 import React from "react";
 
 // Application Modules
-import Table, {Tr, Td, tableStylesheet} from "../dist/table.js";
+import Table, { Tr, Td, tableStylesheet } from "../src/table/table.control.jsx";
 import data from "./table.mock.json";
 
 class Custom extends React.Component{
