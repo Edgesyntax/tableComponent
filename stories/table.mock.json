@@ -632,14 +632,6 @@
     "isActive": true
   },
   {
-    "_id": "5844822bcf4da4413d851943",
-    "balance": "$2,058.03",
-    "age": 20,
-    "name": "Avila Scott",
-    "email": "avilascott@poochies.com",
-    "isActive": true
-  },
-  {
     "_id": "5844822b6e043a8bdc50d1c8",
     "balance": "$2,023.11",
     "age": 22,
