@@ -1,0 +1,61 @@
+{
+  "name": "tableComponent",
+  "version": "0.8.4",
+  "description": "A flexible and performant table component for react",
+  "main": "./dist/table.js",
+  "scripts": {
+    "build": "webpack --progress",
+    "watch": "webpack --progress --colors --watch",
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "build-storybook": "build-storybook -o docs -c .storybook",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Edgesyntax/tableComponent"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "tableComponent",
+    "react-table",
+    "table",
+    "data-table"
+  ],
+  "author": "Kwame Adjei",
+  "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/addon-options": "3.2.17",
+    "@storybook/addons": "^3.2.17",
+    "@storybook/react": "3.2.17",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "exenv": "^1.2.2",
+    "json-loader": "^0.5.7",
+    "radium": "^0.19.6",
+    "raw-loader": "^0.5.1",
+    "react": "^16.2.0",
+    "react-css-modules": "^4.7.1",
+    "react-dom": "^16.2.0",
+    "react-json-tree": "^0.11.0",
+    "storybook-readme": "^3.1.1",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "peerDependencies": {
+    "react": "* || ^15.4.1"
+  }
+}

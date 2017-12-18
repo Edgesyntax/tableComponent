@@ -1,0 +1,87 @@
+.tableComponent table {
+  border-collapse: collapse
+}
+.tableComponent thead button {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit
+}
+.tableComponent select {
+  height: 100%;
+  margin: 0;
+  border: 1px solid #E1E1E1
+}
+.tableComponent th, .tableComponent tfoot, .tableComponent td {
+  border: 1px solid #E1E1E1;
+  font-weight: normal;
+  padding: 2px 12px;
+  font-size: inherit
+}
+.tableComponent th, .tableComponent tfoot {
+  background-color: #f9f9f9;
+}
+.tableComponent tbody tr:not(.activeRow):hover {
+  background-color: #f9f9f9
+}
+.tableComponent td {
+  border: 1px solid #E1E1E1;
+  padding: 2px 12px
+}
+.tableComponent tfoot {
+  border: 0
+}
+.tableComponent .formControl {
+  height: 100%;
+  width: auto;
+  margin: 0;
+  border: 1px solid #E1E1E1
+}
+.tableComponent i {
+  pointer-events: none
+}
+.tableComponent .icon {
+  pointer-events: none;
+  width: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.tableComponent .activeRow {
+  background: rgba(209, 67, 51, 0.1)
+}
+.tableComponent .index {
+  background-color: #f9f9f9;
+  border: 1px solid #E1E1E1;
+  font-weight: normal;
+  padding: 2px 12px;
+  text-align: center
+}
+.tableComponent .activeIndex {
+  background-color: #c0392b;
+  color: #fff
+}
+.tableComponent .pages {
+  display: inline-block;
+  margin: 0
+}
+.tableComponent .activePage {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff
+}
+.tableComponent .jsonValueText {
+  color: #c0392b
+}
+.tableComponent .jsonNestedNodeItemString {
+  color: #999
+}
+.tableComponent .funnel {
+  fill: #E1E1E1
+}
