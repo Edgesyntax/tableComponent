@@ -1,6 +1,5 @@
 // TODO: Add propTypes check to all components
 // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-// TODO: Add ability to filter specific columns
 // TODO: Expose action events [onFilter, onSort, onLimit, onPaginate]
 
 // React Modules
@@ -25,10 +24,12 @@ class Table extends React.Component{
   constructor(){
     super();
     this.state = {
-      pagination: 0,
-      filter: ""
+      filter: null
     }
-    this.onChangeAction = this.onChangeAction.bind(this);
+    this.onSortAction = this.onSortAction.bind(this);
+    this.onFilterAction = this.onFilterAction.bind(this);
+    this.onLimitAction = this.onLimitAction.bind(this);
+    this.onPaginateAction = this.onPaginateAction.bind(this);
   }
   componentWillMount(){
     this.init(this.props);
@@ -37,36 +38,46 @@ class Table extends React.Component{
     this.init(nextProps);
   }
   init(props){
-    var sortable,sort,limit,filter;
+    var sortable,filterable,sort,limit,filter,page,table;
     // Assign user defined columns or generate columns
     this.columns   = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
-    sortable  = (props.sortable ? props.sortable : this.columns.map((column) => column.id));
+    const columns = this.columns.map((column) => column.id)
+    sortable  = (props.sortable ? props.sortable : columns);
+    // Make all columns filterable if no user defined filterable array
+    if(props.filterable && props.filterable.length) filterable = props.filterable
+    else if (props.filterable) filterable = columns;
     // Assign default sort column or use state
     sort      = (this.state.sort ? this.state.sort : props.sort);
     // Assign default limit or show all data
     limit     = (this.state.limit ? this.state.limit : props.limit);
     // Assign user defined filter or use state filter
-    filter    = (this.state.filter ? this.state.filter : props.filter ? props.filter : "");
+    filter    = (this.state.filter ? this.state.filter : props.filter);
+    // Assign user defined page or use state page
+    page      = (this.state.page ? this.state.page : props.page ? props.page : 0);
 
     // Check/Render child components
     this.childrenNodes = this.renderChildren(props);
     // Generate table data
-    this.vTableData = this.generateTableData({props, sort, limit, filter});
+    table = this.generateTableData({props, sort, limit, filter});
     // Set application state
-    this.setState({sort, sortable, limit, filter});
+    this.setState({sort, sortable, filterable, limit, filter, page, table});
   }
-  generateTableData({props, devMode, limit, filter, sort}){
+  generateTableData({props, dev, limit, filter, sort}){
     var data = props.data, activeRow = props.activeRow;
 
     if (!data || !data.length) var data = [];
     // Add child Tr nodes to table data
-    const cTableData = data.concat(this.childrenNodes.tr);
+    var cTableData = data.concat(this.childrenNodes.tr);
 
     if (!cTableData) return;
 
-    (this.props.devMode ? console.time('Generating table data') : null);
+    // Filter table data
+    (this.props.dev ? console.time('Filtering table data') : null);
+    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable}) : null);
+    (this.props.dev ? console.timeEnd('Filtering table data') : null);
 
+    (this.props.dev ? console.time('Generating table data') : null);
     var tableData = cTableData.map((row) => {
       // Add child Td nodes to table data
       var Tr = Object.assign({}, row, this.childrenNodes.td), rowObject;
@@ -87,47 +98,96 @@ class Table extends React.Component{
       }
       return rowObject;
     });
-
-    (this.props.devMode ? console.timeEnd('Generating table data') : null);
-
-    // Filter table data
-    (this.props.devMode ? console.time('Filtering table data') : null);
-    if(filter ? tableData = filterTableAction({tableData, filter, filterable: this.props.filterable}) : null);
-    (this.props.devMode ? console.timeEnd('Filtering table data') : null);
+    (this.props.dev ? console.timeEnd('Generating table data') : null);
 
     // Sort table data
-    (this.props.devMode ? console.time('Sorting table data') : null);
+    (this.props.dev ? console.time('Sorting table data') : null);
     if(sort ? tableData = sortTableAction({tableData, sort}) : null);
-    (this.props.devMode ? console.timeEnd('Sorting table data') : null);
+    (this.props.dev ? console.timeEnd('Sorting table data') : null);
 
     this.fTableData = tableData;
 
     // Limit table data
-    (this.props.devMode ? console.time('Limiting table data') : null);
-    if(limit ? tableData = limitTableAction({tableData, limit, pagination: this.state.pagination}) : null);
-    (this.props.devMode ? console.timeEnd('Limiting table data') : null);
+    (this.props.dev ? console.time('Limiting table data') : null);
+    if(limit ? tableData = limitTableAction({tableData, limit, page: this.state.page}) : null);
+    (this.props.dev ? console.timeEnd('Limiting table data') : null);
 
     return tableData;
   }
-  onChangeAction(event){
+  onSortAction(event) {
     var name = event.target.name;
     var state = this.state;
     var value = event.target.value;
-    if (name === "sort") value = JSON.parse(event.target.value);
-    if (name === "limit" || name === "pagination") value = parseInt(event.target.value);
-
-    // Reset pagination
-    state.pagination = 0;
-
+    // Reset page
+    state.page = 0;
     // Set action vale
-    state[name] = value;
+    state.sort = JSON.parse(value);
 
+    if (this.props.onSortChange) this.props.onSortChange(state.sort)
+    if (this.props.manual) return;
     // Generate table
-    this.vTableData = this.generateTableData({
+    state.table = this.generateTableData({
       props: this.props,
       limit: state.limit,
       filter: state.filter,
-      sort:state.sort
+      sort: state.sort
+    });
+    this.setState(state);
+  }
+  onFilterAction(event) {
+    const name = event.target.name;
+    const state = this.state;
+    const value = event.target.value;
+    // Reset page
+    state.page = 0;
+    // Set filter vale
+    state.filter = {...state.filter, [name]: value};
+
+    if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
+    if (this.props.manual) return;
+    // Generate table
+    state.table = this.generateTableData({ 
+      props: this.props, 
+      limit: state.limit,
+      filter: state.filter,
+      sort: state.sort 
+    });
+    this.setState(state);
+  }
+  onLimitAction(event) {
+    var name = event.target.name;
+    var state = this.state;
+    var value = event.target.value;
+    // Reset page
+    state.page = 0;
+    // Set action vale
+    state.limit = parseInt(value);
+
+    if (this.props.onLimitChange) this.props.onLimitChange(state.limit)
+    if (this.props.manual) return;
+    // Generate table
+    state.table = this.generateTableData({
+      props: this.props,
+      limit: state.limit,
+      filter: state.filter,
+      sort: state.sort
+    });
+    this.setState(state);
+  }
+  onPaginateAction(event) {
+    var name = event.target.name;
+    var state = this.state;
+    var value = event.target.value;
+    // Set action vale
+    state.page = parseInt(value);
+    if (this.props.onPageChange) this.props.onPageChange(state.page)
+    if (this.props.manual) return;
+    // Generate table
+    state.table = this.generateTableData({
+      props: this.props,
+      limit: state.limit,
+      filter: state.filter,
+      sort: state.sort
     });
     this.setState(state);
   }
@@ -153,50 +213,51 @@ class Table extends React.Component{
     return children;
   }
   renderTr(){
-    if (!this.vTableData) return;
-    return this.vTableData.map((row, index) => {
+    const {table, page, limit} = this.state;
+    if (!table || !table.length) return;
+    return table.map((row, index) => {
       return <Tr
         key={index}
         row={row.data}
-        index={(this.state.pagination ? index + (this.state.pagination * this.state.limit) : index)}
+        index={(page ? index + (page * limit) : index)}
         showIndex={this.props.showIndex}
         activeRow={row._activeRow}/>
     })
   }
   render(){
+    const { table, sortable, sort, filterable, filter, limit, page } = this.state;
+    const { hideHeader, showIndex, noDataText, pages} = this.props;
     return(
       <main className="tableComponent">
         <table>
-          {!this.props.hideHeader ?
+          {!hideHeader ?
             <Thead
               columns={this.columns}
-              showIndex={this.props.showIndex}
-              sortable={this.state.sortable}
-              hideFilter={this.props.hideFilter}
-              limit={this.state.limit}
-              limitTable={this.onChangeAction}
-              filter={this.state.filter}
-              filterable={this.props.filterable}
-              filterTable={this.onChangeAction}
-              sort={this.state.sort}
-              sortTable={this.onChangeAction}/>
+              showIndex={showIndex}
+              filter={filter}
+              filterable={filterable}
+              filterTable={this.onFilterAction}
+              sort={sort}
+              sortable={sortable}
+              sortTable={this.onSortAction}/>
           : null }
           <tbody>
-            {this.vTableData && this.vTableData.length ? this.renderTr() :
+            {table && table.length ? this.renderTr() :
               <tr>
-                <td colSpan={this.props.showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
-                  <h3>{this.props.noDataText ? this.props.noDataText : "No records found."}</h3>
+                <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
+                  <h3>{noDataText ? noDataText : "No records found."}</h3>
                 </td>
               </tr>
             }
           </tbody>
           <Tfoot
             columns={this.columns}
-            tableLength={this.fTableData.length}
-            limit={this.state.limit}
-            pagination={this.state.pagination}
-            paginateTable={this.onChangeAction}
-            showIndex={this.props.showIndex}/>
+            tableLength={pages || this.fTableData.length}
+            limit={limit}
+            limitTable={this.onLimitAction}
+            page={page}
+            paginateTable={this.onPaginateAction}
+            showIndex={showIndex}/>
         </table>
       </main>
     );
@@ -207,12 +268,12 @@ Table.propTypes = {
   data: PropTypes.array,
   showIndex: PropTypes.bool,
   columns: PropTypes.array,
-  filter: PropTypes.string,
+  filter: PropTypes.object,
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   sortable: PropTypes.array,
   limit: PropTypes.number,
   activeRow: PropTypes.object,
-  devMode: PropTypes.bool
+  dev: PropTypes.bool
 }
 
 export default CSSModules(Table, tableStylesheet);

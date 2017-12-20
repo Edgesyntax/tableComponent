@@ -8,7 +8,7 @@ const Default = () => {
   return (
     <Table
       data={data}
-      filterable={true}/>
+      filterable />
   )
 }
 

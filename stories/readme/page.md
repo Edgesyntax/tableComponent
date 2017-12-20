@@ -5,13 +5,10 @@ import Table from "tableComponent";
 import data from "./table.mock.json";
 
 const Default = () => {
-  return (
-    <Table
-      data={data}
-      filterable 
-      filter={{name: "brittany", age: 100}}/>
-  )
+  return <Table page={4} />
 }
 
 export default Default;
 ```
+
+*Mainly used for server rendered tables*

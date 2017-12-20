@@ -13,11 +13,10 @@ const Thead = ({
   filter,
   filterable,
   filterTable,
-  limit,
-  limitTable,
   sortTable
 }) => {
   const renderThead = () => {
+    if (!columns || !columns.length) return null;
     return columns.map((column, index) => {
       const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
 
@@ -30,65 +29,32 @@ const Thead = ({
         sortTable={sortTable}/>
     });
   }
-  const colSpan = showIndex ? columns.length + 1 : columns.length;
-  const renderFilter = () => {
-    const width = limit ? "50%" : "100%"
-    return (
-      <div
-        style={{display: "inline-block",width,textAlign: "left"}}>
-        <div style={{position: "relative"}}>
+  const renderFilters = () => {
+    if(!columns || !columns.length) return null;
+    return columns.map((column, index) => {
+      const filterValue = column && filter && filter[column.id];
+      const shouldFilter = filterable && filterable.length && filterable.indexOf(column.id) !== -1 ? 1 : !filterable || !filterable.length ? 1 : 0;
+      return <Th name="filter"
+        value={index}
+        key={index}>
+        {shouldFilter ? 
           <input
-            name="filter"
+            name={column.id}
             type="text"
-            value={filter}
+            value={(filterValue ? filterValue : "")}
             onChange={filterTable}
-            placeholder="Filter"
-            className="formControl filter"
-            style={{
-              display: "inline-block",
-              paddingLeft: "24px"
-            }}/>
-            <Funnel className="funnel" style={{
-              height: "100%",
-              position: "absolute",
-              left: "7px",
-              textAlign: "center",
-              top: 0
-            }}/>
-        </div>
-      </div>
-    );
-  }
-  const renderLimiter = () => {
-    const options = [25, 50, 100];
-    const width = filterable ? "50%" : "100%";
-    if (options.indexOf(limit) === -1) options.unshift(limit);
-
-    const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option}</option>)
-    return (
-      <div
-        style={{display: "inline-block",width,textAlign: "right"}}>
-        <select name="limit" value={limit} onChange={limitTable}>
-          {renderOptions()}
-        </select>
-      </div>
-    );
+            className="formControl filter" />
+        : null }
+        </Th>
+    });
   }
   return(
     <thead>
-      {filterable || filter || limit ?
-        <tr>
-          <Th
-            colSpan={colSpan}>
-            {filterable || filter ? renderFilter() : null}
-            {limit ? renderLimiter() : null}
-          </Th>
-        </tr>
-      : null }
       <tr>
         {showIndex ? <Th /> : null}
         {renderThead()}
       </tr>
+      {filterable ? <tr>{renderFilters()}</tr> : null}
     </thead>
   )
 }

@@ -6,20 +6,31 @@ const Tfoot = ({
   columns,
   tableLength,
   limit,
-  pagination,
+  limitTable,
+  page,
   showIndex,
   paginateTable
 }) => {
   if (!tableLength || !limit || tableLength < limit) return null;
-  const renderPageInfo = () => {
-    return <span>{pagination + 1} - {Math.ceil(tableLength / limit)} of {tableLength} Items</span>
+  const renderPageInfo = () => <span>Page {page + 1} of {Math.ceil(tableLength / limit)} - {tableLength} Items</span>;
+
+  const renderLimiter = () => {
+    const options = [25, 50, 100];
+    if (options.indexOf(limit) === -1) options.unshift(limit);
+
+    const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option} rows</option>)
+    return (
+      <select name="limit" value={limit} onChange={limitTable}>
+        {renderOptions()}
+      </select>
+    );
   }
   const renderPagination = () => {
     const paginationArray = [];
     var offset;
     for (var i = 0; i < tableLength; i = i+limit) {
       const paginationIndex = Math.ceil(i/limit);
-      switch (pagination) {
+      switch (page) {
         case 0:
         case Math.ceil(tableLength/limit) - 1:
           offset = 5;
@@ -31,21 +42,19 @@ const Tfoot = ({
         default:
           offset = 3;
       }
-      if (pagination - offset < paginationIndex && paginationIndex < pagination + offset) {
-        paginationArray.push(paginationIndex);
-      }
+      if (page - offset < paginationIndex && paginationIndex < page + offset) paginationArray.push(paginationIndex);
     }
 
-    return paginationArray.map((page) => {
+    return paginationArray.map((currentPage) => {
       return (
         <button
-          key={page}
-          name="pagination"
+          key={currentPage}
+          name="page"
           type="button"
-          value={page}
+          value={currentPage}
           onClick={paginateTable}
-          className={(pagination === page ? `pages activePage` : "pages")}>
-          {page + 1}
+          className={(page === currentPage ? `pages activePage` : "pages")}>
+          {currentPage + 1}
         </button>
       );
     });
@@ -55,11 +64,16 @@ const Tfoot = ({
       <tr>
         <td
           colSpan={showIndex ? columns.length + 1 : columns.length}>
-          <div style={{display: "inline-block",width: "50%",textAlign: "left"}}>
-            {renderPageInfo()}
-          </div>
-          <div style={{display: "inline-block",width: "50%",textAlign: "right",whiteSpace: "nowrap"}}>
-            {renderPagination()}
+          <div style={{ display: "flex", alignItems: "center"}}>
+            <span style={{flex: 1,textAlign: "left"}}>
+              {renderPageInfo()}
+            </span>
+            <span style={{ display: "flex", flex: 1, justifyContent: "center"}}>
+              {renderLimiter()}
+            </span>
+            <span style={{flex: 1,textAlign: "right",whiteSpace: "nowrap"}}>
+              {renderPagination()}
+            </span>
           </div>
         </td>
       </tr>
@@ -71,7 +85,7 @@ Tfoot.propTypes = {
   columns: PropTypes.array.isRequired,
   tableLength: PropTypes.number.isRequired,
   limit: PropTypes.number,
-  pagination: PropTypes.number,
+  page: PropTypes.number,
   showIndex: PropTypes.bool,
   paginateTable: PropTypes.func
 }

@@ -8,8 +8,7 @@ const Default = () => {
   return (
     <Table
       data={data}
-      filterable 
-      filter={{name: "brittany", age: 100}}/>
+      filterable={["age"]} />
   )
 }
 

@@ -1,9 +1,9 @@
-const limitTable = ({tableData,limit, pagination}) => {
+const limitTable = ({tableData,limit, page}) => {
   if (!limit) return;
-  // check if pagination
-  if (pagination > 0) {
-    const page = limit * pagination;
-    return tableData.slice(page, limit + page);
+  // check if page
+  if (page > 0) {
+    const currentPage = limit * page;
+    return tableData.slice(currentPage, limit + currentPage);
   }
   return tableData.slice(0,limit);
 };
