@@ -18,7 +18,7 @@
   {
     "_id": "5844822b26f2fd9d3a0e02db",
     "balance": "$3,519.32",
-    "age": 32,
+    
     "name": "Stacie Vasquez",
     "email": "stacievasquez@frosnex.com",
     "isActive": true
@@ -26,7 +26,7 @@
   {
     "_id": "5844822bc2e103f1ae91fc4a",
     "balance": "$2,015.24",
-    "age": 28,
+    
     "name": "Wood Kemp",
     "email": "woodkemp@pathways.com",
     "isActive": false
@@ -34,7 +34,7 @@
   {
     "_id": "5844822b5913d7ec0efb189b",
     "balance": "$1,303.73",
-    "age": 22,
+    
     "name": "Hendrix Moody",
     "email": "hendrixmoody@moreganic.com",
     "isActive": false
@@ -42,7 +42,7 @@
   {
     "_id": "5844822b34c95031effdc7ed",
     "balance": "$1,408.34",
-    "age": 40,
+    
     "name": "Latonya Garcia",
     "email": "latonyagarcia@wazzu.com",
     "isActive": true
@@ -89,7 +89,7 @@
   },
   {
     "_id": "5844822b46ce60ce87a5e2d6",
-    "balance": "$1,220.52",
+    "balance": "",
     "age": 35,
     "name": "Ferguson Copeland",
     "email": "fergusoncopeland@shopabout.com",
@@ -107,7 +107,7 @@
     "_id": "5844822b278ee4d7b44525c1",
     "balance": "$3,497.52",
     "age": 33,
-    "name": "Evelyn Watkins",
+    "name": "",
     "email": "evelynwatkins@rockyard.com",
     "isActive": false
   },
@@ -116,7 +116,7 @@
     "balance": "$2,005.29",
     "age": 26,
     "name": "Goldie Mcmillan",
-    "email": "goldiemcmillan@rodemco.com",
+    "email": "",
     "isActive": true
   },
   {
@@ -196,7 +196,7 @@
     "balance": "$2,557.83",
     "age": 34,
     "name": "Sonia Dale",
-    "email": "soniadale@filodyne.com",
+    "email": "",
     "isActive": false
   },
   {
