@@ -48,7 +48,12 @@ const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterT
         {showIndex ? <Th /> : null}
         {renderThead()}
       </tr>
-      {filterable ? <tr>{renderFilters()}</tr> : null}
+      {filterable ? 
+        <tr>
+          {showIndex ? <Th /> : null}
+          {renderFilters()}
+        </tr> 
+      : null}
     </thead>
   )
 }
