@@ -59,7 +59,7 @@ storiesOf("Columns", module)
     ]}/>));
 
 storiesOf("Filtering", module)
-  .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable showIndex />))
+  .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable />))
   .add("Filter specific columns", withReadme(FilterSpecificColumnsReadme, () => <Main filterable={["age"]} />))
   .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Main filterable filter={{name: "brittany", age: 100}} />));
 

@@ -44,6 +44,9 @@
   margin: 0;
   border: 1px solid #E1E1E1
 }
+.tableComponent .formControl.filter {
+  width: 100%;
+}
 .tableComponent i {
   pointer-events: none
 }
