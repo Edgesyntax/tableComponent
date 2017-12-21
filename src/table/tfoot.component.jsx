@@ -2,17 +2,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({
-  columns,
-  tableLength,
-  limit,
-  limitTable,
-  page,
-  showIndex,
-  paginateTable
-}) => {
+const Tfoot = ({ columns, tableLength, limit, limitTable, page, showIndex, paginateTable }) => {
   if (!tableLength || !limit || tableLength < limit) return null;
-  const renderPageInfo = () => <span>Page {page + 1} of {Math.ceil(tableLength / limit)} - {tableLength} Items</span>;
+  const renderPageInfo = () => <span>Page {page} of {Math.ceil(tableLength / limit)} - {tableLength} Items</span>;
 
   const renderLimiter = () => {
     const options = [25, 50, 100];
@@ -28,15 +20,15 @@ const Tfoot = ({
   const renderPagination = () => {
     const paginationArray = [];
     var offset;
-    for (var i = 0; i < tableLength; i = i+limit) {
+    for (var i = 1; i < tableLength; i = i+limit) {
       const paginationIndex = Math.ceil(i/limit);
       switch (page) {
-        case 0:
-        case Math.ceil(tableLength/limit) - 1:
+        case 1:
           offset = 5;
           break;
-        case 1:
-        case Math.ceil(tableLength/limit) - 2:
+        case 2:
+        case Math.ceil(tableLength / limit) - 1: //4.28
+        // case Math.ceil(tableLength/limit) - 2: // 3.28
           offset = 4;
           break;
         default:
@@ -44,7 +36,6 @@ const Tfoot = ({
       }
       if (page - offset < paginationIndex && paginationIndex < page + offset) paginationArray.push(paginationIndex);
     }
-
     return paginationArray.map((currentPage) => {
       return (
         <button
@@ -54,7 +45,7 @@ const Tfoot = ({
           value={currentPage}
           onClick={paginateTable}
           className={(page === currentPage ? `pages activePage` : "pages")}>
-          {currentPage + 1}
+          {currentPage}
         </button>
       );
     });
@@ -85,6 +76,7 @@ Tfoot.propTypes = {
   columns: PropTypes.array.isRequired,
   tableLength: PropTypes.number.isRequired,
   limit: PropTypes.number,
+  limitTable: PropTypes.func,
   page: PropTypes.number,
   showIndex: PropTypes.bool,
   paginateTable: PropTypes.func

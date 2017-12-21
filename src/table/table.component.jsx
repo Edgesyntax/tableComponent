@@ -1,6 +1,4 @@
-// TODO: Add propTypes check to all components
 // TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-// TODO: Expose action events [onFilter, onSort, onLimit, onPaginate]
 
 // React Modules
 import React from "react";
@@ -16,9 +14,9 @@ import Thead from "./thead.component.jsx";
 import Tfoot from "./tfoot.component.jsx";
 
 import generateTableColumns, {validateColumns}  from "../helpers/columns.js";
-import sortTableAction      from "../helpers/sort.js";
-import filterTableAction    from "../helpers/filter.js";
-import limitTableAction     from "../helpers/limit.js";
+import sortTableAction   from "../helpers/sort.js";
+import filterTableAction from "../helpers/filter.js";
+import limitTableAction  from "../helpers/limit.js";
 
 class Table extends React.Component{
   constructor(){
@@ -40,7 +38,7 @@ class Table extends React.Component{
   init(props){
     var sortable,filterable,sort,limit,filter,page,table;
     // Assign user defined columns or generate columns
-    this.columns   = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
+    this.columns = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
     const columns = this.columns.map((column) => column.id)
     sortable  = (props.sortable ? props.sortable : columns);
@@ -54,7 +52,7 @@ class Table extends React.Component{
     // Assign user defined filter or use state filter
     filter    = (this.state.filter ? this.state.filter : props.filter);
     // Assign user defined page or use state page
-    page      = (this.state.page ? this.state.page : props.page ? props.page : 0);
+    page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
 
     // Check/Render child components
     this.childrenNodes = this.renderChildren(props);
@@ -77,6 +75,20 @@ class Table extends React.Component{
     if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable}) : null);
     (this.props.dev ? console.timeEnd('Filtering table data') : null);
 
+    // Sort table data
+    (this.props.dev ? console.time('Sorting table data') : null);
+    if (sort ? cTableData = sortTableAction({ cTableData, sort }) : null);
+    (this.props.dev ? console.timeEnd('Sorting table data') : null);
+
+    // Set full table data
+    this.fTableData = cTableData;
+
+    // Limit table data
+    (this.props.dev ? console.time('Limiting table data') : null);
+    if (limit ? cTableData = limitTableAction({ cTableData, limit, page: this.state.page }) : null);
+    (this.props.dev ? console.timeEnd('Limiting table data') : null);
+
+    // Generate table data
     (this.props.dev ? console.time('Generating table data') : null);
     var tableData = cTableData.map((row) => {
       // Add child Td nodes to table data
@@ -100,18 +112,6 @@ class Table extends React.Component{
     });
     (this.props.dev ? console.timeEnd('Generating table data') : null);
 
-    // Sort table data
-    (this.props.dev ? console.time('Sorting table data') : null);
-    if(sort ? tableData = sortTableAction({tableData, sort}) : null);
-    (this.props.dev ? console.timeEnd('Sorting table data') : null);
-
-    this.fTableData = tableData;
-
-    // Limit table data
-    (this.props.dev ? console.time('Limiting table data') : null);
-    if(limit ? tableData = limitTableAction({tableData, limit, page: this.state.page}) : null);
-    (this.props.dev ? console.timeEnd('Limiting table data') : null);
-
     return tableData;
   }
   onSortAction(event) {
@@ -119,7 +119,7 @@ class Table extends React.Component{
     var state = this.state;
     var value = event.target.value;
     // Reset page
-    state.page = 0;
+    state.page = 1;
     // Set action vale
     state.sort = JSON.parse(value);
 
@@ -139,9 +139,9 @@ class Table extends React.Component{
     const state = this.state;
     const value = event.target.value;
     // Reset page
-    state.page = 0;
+    state.page = 1;
     // Set filter vale
-    state.filter = {...state.filter, [name]: value};
+    state.filter = (state.filter ? Object.assign(state.filter, {[name]: value}) : {[name] : value});
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
     if (this.props.manual) return;
@@ -159,7 +159,7 @@ class Table extends React.Component{
     var state = this.state;
     var value = event.target.value;
     // Reset page
-    state.page = 0;
+    state.page = 1;
     // Set action vale
     state.limit = parseInt(value);
 
@@ -178,6 +178,8 @@ class Table extends React.Component{
     var name = event.target.name;
     var state = this.state;
     var value = event.target.value;
+
+    if (state.page === parseInt(value)) return;
     // Set action vale
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
@@ -219,7 +221,7 @@ class Table extends React.Component{
       return <Tr
         key={index}
         row={row.data}
-        index={(page ? index + (page * limit) : index)}
+        index={(limit ? ((page - 1) * limit) + index : index)}
         showIndex={this.props.showIndex}
         activeRow={row._activeRow}/>
     })
@@ -244,7 +246,7 @@ class Table extends React.Component{
           <tbody>
             {table && table.length ? this.renderTr() :
               <tr>
-                <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0}>
+                <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{textAlign: "center"}}>
                   <h3>{noDataText ? noDataText : "No records found."}</h3>
                 </td>
               </tr>
@@ -266,14 +268,25 @@ class Table extends React.Component{
 
 Table.propTypes = {
   data: PropTypes.array,
-  showIndex: PropTypes.bool,
   columns: PropTypes.array,
   filter: PropTypes.object,
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  sort: PropTypes.object,
   sortable: PropTypes.array,
   limit: PropTypes.number,
+  // Events
+  onSortChange: PropTypes.func,
+  onFilterChange: PropTypes.func,
+  onLimitChange: PropTypes.func,
+  onPageChange: PropTypes.func,
+  // Other Props
+  showIndex: PropTypes.bool,
   activeRow: PropTypes.object,
-  dev: PropTypes.bool
+  manual: PropTypes.bool,
+  pages: PropTypes.number,
+  page: PropTypes.number,
+  dev: PropTypes.bool,
+  noDataText: PropTypes.string
 }
 
 export default CSSModules(Table, tableStylesheet);

@@ -5,10 +5,13 @@ import Table from "tableComponent";
 import data from "./table.mock.json";
 
 const Default = () => {
-  return <Table dev />
+  return <Table 
+    filterable
+    limit={25} 
+    onFilterChange={(response) => console.log(response)} />) />
 }
 
 export default Default;
 ```
 
-Open browser console for insight on rendering performance
+Open browser console to view response

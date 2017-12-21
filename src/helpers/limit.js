@@ -1,11 +1,12 @@
-const limitTable = ({tableData,limit, page}) => {
+const limitTable = ({cTableData,limit, page}) => {
+  const resetPage = page - 1
   if (!limit) return;
   // check if page
-  if (page > 0) {
-    const currentPage = limit * page;
-    return tableData.slice(currentPage, limit + currentPage);
+  if (resetPage > 0) {
+    const currentPage = limit * resetPage;
+    return cTableData.slice(currentPage, limit + currentPage);
   }
-  return tableData.slice(0,limit);
+  return cTableData.slice(0,limit);
 };
 
 export default limitTable;

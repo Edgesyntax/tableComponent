@@ -1,4 +1,3 @@
-// TODO: Add events story
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withReadme } from 'storybook-readme';
@@ -21,13 +20,15 @@ import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
 import SortingSortableReadme from "./readme/sorting-sortable.md";
 import SortingInitialSortReadme from "./readme/sorting-initial-sort.md";
 import LimitingInitialLimitReadme from "./readme/limiting-initial-limit.md";
-import ShowIndexReadme from "./readme/showIndex.md";
-import ActiveRowReadme from "./readme/activeRow.md";
-import NoDataTextReadme from "./readme/noDataText.md";
-import DevReadme from "./readme/dev.md";
-import PagesReadme from "./readme/pages.md";
-import PageReadme from "./readme/page.md";
-import ManualReadme from "./readme/manual.md";
+
+// Other Option
+import ShowIndexReadme from "./readme/option-showIndex.md";
+import ActiveRowReadme from "./readme/option-activeRow.md";
+import ManualReadme from "./readme/option-manual.md";
+import PagesReadme from "./readme/option-pages.md";
+import PageReadme from "./readme/option-page.md";
+import DevReadme from "./readme/option-dev.md";
+import NoDataTextReadme from "./readme/option-noDataText.md";
 
 // Events
 import EventSortReadme from "./readme/event-sort.md";
@@ -64,10 +65,10 @@ storiesOf("Filtering", module)
 
 storiesOf("Sorting", module)
   .add("Sortable", withReadme(SortingSortableReadme, () => <Main sortable={["name","balance"]}/>))
-  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Main sort={{column: 1, direction: "DES"}}/>));
+  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Main sort={{column: "name", direction: "DES"}}/>));
 
 storiesOf("Limiting", module)
-  .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Main limit={25}/>));
+  .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Main limit={25} />));
 
 storiesOf("Events", module)
   .add("Sort", withReadme(EventSortReadme, () => <Main limit={25} onSortChange={(response) => console.log(response)} />))
@@ -75,7 +76,7 @@ storiesOf("Events", module)
   .add("Limit", withReadme(EventLimitReadme, () => <Main limit={25} onLimitChange={(response) => console.log(response)} />))
   .add("Page", withReadme(EventPageReadme, () => <Main limit={25} onPageChange={(response) => console.log(response)} />));
 
-storiesOf("All Options", module)
+storiesOf("Other Props", module)
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex/>))
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>))
   .add("Manual", withReadme(ManualReadme, () => <Main limit={25} manual />))

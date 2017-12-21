@@ -8,7 +8,7 @@ const Default = () => {
   return (
     <Table
       data={data}
-      sort={{column: 1, direction: "DES"}}/>
+      sort={{column: "name", direction: "DES"}}/>
   )
 }
 
