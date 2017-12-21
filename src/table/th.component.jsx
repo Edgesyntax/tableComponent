@@ -26,7 +26,8 @@ const Th = ({ th, name, value, sort, sortTable, sortable, children }) => {
       <button
         name={name}
         value={`{"column": "${value}", "direction": "${sortDirection}"}`}
-        onClick={sortTable}>
+        onClick={sortTable}
+        style={{width: "100%"}}>
         {transformTh}
         {sortColumn === value && sort.direction === "DES"?
           <DownArrow className="icon" />

@@ -31,7 +31,7 @@ const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterT
         name="filter"
         value={index}
         key={index}>
-        {shouldFilter ? 
+        {shouldFilter && !column.filter? 
           <input
             name={column.id}
             type="text"
@@ -39,6 +39,10 @@ const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterT
             onChange={filterTable}
             className="formControl filter" />
         : null }
+        {shouldFilter && column.filter ? <column.filter 
+          columnName={column.id}
+          onChange={filterTable} 
+          filter={filterValue}/> : null}
         </Th>
     });
   }

@@ -17,6 +17,7 @@ import ColumnsCustomLabelsReadme from "./readme/columns-custom-labels.md";
 import FilterAllColumnsReadme from "./readme/filter-all-columns.md";
 import FilterSpecificColumnsReadme from "./readme/filter-specific-columns.md";
 import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
+import FilterCustomComponentReadme from "./readme/filter-custom-component.md";
 import SortingSortableReadme from "./readme/sorting-sortable.md";
 import SortingInitialSortReadme from "./readme/sorting-initial-sort.md";
 import LimitingInitialLimitReadme from "./readme/limiting-initial-limit.md";
@@ -61,7 +62,27 @@ storiesOf("Columns", module)
 storiesOf("Filtering", module)
   .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable />))
   .add("Filter specific columns", withReadme(FilterSpecificColumnsReadme, () => <Main filterable={["age"]} />))
-  .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Main filterable filter={{name: "brittany", age: 100}} />));
+  .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Main filterable filter={{name: "brittany", age: 100}} />))
+  .add("Custom Filter", withReadme(FilterCustomComponentReadme, () => <Main 
+    columns={[
+      { id: "_id"},
+      { id: "balance" },
+      { id: "age" },
+      { id: "name" },
+      { id: "email"},
+      {
+        id: "isActive", label: "user status", filter: ({columnName, onChange, filter}) => (
+        <select
+          name={columnName}
+          onChange={(event) => onChange(event)}
+          value={filter}>
+          <option value="">Show All</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+        </select>
+      )}
+    ]}
+    filterable />));
 
 storiesOf("Sorting", module)
   .add("Sortable", withReadme(SortingSortableReadme, () => <Main sortable={["name","balance"]}/>))
