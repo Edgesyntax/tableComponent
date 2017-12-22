@@ -103,7 +103,7 @@ storiesOf("Other Props", module)
   .add("Manual", withReadme(ManualReadme, () => <Main limit={25} manual />))
   .add("Pages", withReadme(PagesReadme, () => <Main limit={25} pages={400} />))
   .add("Page", withReadme(PageReadme, () => <Main limit={25} page={4} />))
-  .add("Dev", withReadme(DevReadme, () => <Main dev />))
+  .add("Dev", withReadme(DevReadme, () => <Main dev filterable limit={50}/>))
   .add("No matching records", withReadme(NoDataTextReadme, () => <Main
     data={[]}
     columns={[

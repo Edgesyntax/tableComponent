@@ -1,4 +1,4 @@
-const filterTable = ({ cTableData, filter, filterable }) => {
+const filterTable = ({ cTableData, filter, filterable, columns }) => {
   // Get filter keys
   const filterKeys = Object.keys(filter);
   if (!filterKeys || !filterKeys.length) return cTableData;
@@ -7,15 +7,15 @@ const filterTable = ({ cTableData, filter, filterable }) => {
   cTableData.map((row) => {
     var match = true
     if(!filterKeys || !filterKeys.length) return cTableDataFiltered = cTableDataFiltered.concat(row);
-    for(var key in row){
-      var tableValue = row[key] && String(row[key]).toLowerCase().trim();
-      var fitlerValue = filter[key] && String(filter[key]).toLowerCase().trim();
+    columns.map((column) => {
+      var tableValue = (row[column.id] ? String(row[column.id]).toLowerCase().trim(): "");
+      var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim(): "");
       // Convert boolean values
       if (typeof tableValue === "boolean" && tableValue) tableValue = "true";
       if (typeof tableValue === "boolean" && !tableValue) tableValue = "false";
 
       if(fitlerValue && !tableValue.includes(fitlerValue)) match = false;
-    }
+    })
     if (match) cTableDataFiltered = cTableDataFiltered.concat(row);
   });
   return cTableDataFiltered;

@@ -72,7 +72,7 @@ class Table extends React.Component{
 
     // Filter table data
     (this.props.dev ? console.time('Filtering table data') : null);
-    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable}) : null);
+    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable, columns: this.columns}) : null);
     (this.props.dev ? console.timeEnd('Filtering table data') : null);
 
     // Sort table data

@@ -9,9 +9,7 @@ const sortTable = ({cTableData, sort}) => {
     if(!a || !b) return;
     if (sort.direction === "ASC") return a > b ? 1 : a < b ? -1 : 0;
     else if (sort.direction === "DES") return b > a ? 1 : b < a ? -1 : 0;
-    else{
-      return 0;
-    }
+    else return 0;
   });
 };
 
