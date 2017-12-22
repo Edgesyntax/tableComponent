@@ -77,7 +77,7 @@ class Table extends React.Component{
 
     // Sort table data
     (this.props.dev ? console.time('Sorting table data') : null);
-    if (sort ? cTableData = sortTableAction({ cTableData, sort }) : null);
+    if (sort ? cTableData = sortTableAction({ cTableData, sort, columns: this.columns }) : null);
     (this.props.dev ? console.timeEnd('Sorting table data') : null);
 
     // Set full table data

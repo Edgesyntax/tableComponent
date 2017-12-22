@@ -116,8 +116,7 @@
     "balance": "$2,005.29",
     "age": 26,
     "name": "Goldie Mcmillan",
-    "email": "goldiemcmillan@rodemco.com",
-    "isActive": true
+    "email": "goldiemcmillan@rodemco.com"
   },
   {
     "_id": "5844822b62fc234f2d36e419",
