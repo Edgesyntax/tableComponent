@@ -20,6 +20,7 @@ import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
 import FilterCustomComponentReadme from "./readme/filter-custom-component.md";
 import SortingSortableReadme from "./readme/sorting-sortable.md";
 import SortingInitialSortReadme from "./readme/sorting-initial-sort.md";
+import SortingCustomSortMethodReadme from "./readme/sorting-custom-sort-method.md";
 import LimitingInitialLimitReadme from "./readme/limiting-initial-limit.md";
 
 // Other Option
@@ -63,7 +64,7 @@ storiesOf("Filtering", module)
   .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable />))
   .add("Filter specific columns", withReadme(FilterSpecificColumnsReadme, () => <Main filterable={["age"]} />))
   .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Main filterable filter={{name: "brittany", age: 100}} />))
-  .add("Custom Filter", withReadme(FilterCustomComponentReadme, () => <Main 
+  .add("Custom Filter Component", withReadme(FilterCustomComponentReadme, () => <Main 
     columns={[
       { id: "_id"},
       { id: "balance" },
@@ -86,7 +87,16 @@ storiesOf("Filtering", module)
 
 storiesOf("Sorting", module)
   .add("Sortable", withReadme(SortingSortableReadme, () => <Main sortable={["name","balance"]}/>))
-  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Main sort={{column: "name", direction: "DES"}}/>));
+  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Main sort={{column: "name", direction: "DES"}}/>))
+  .add("Custom Sort Method", withReadme(SortingCustomSortMethodReadme, () => <Main
+    columns={[
+      { id: "_id" },
+      { id: "balance" },
+      { id: "age", sortMethod: (a, b) => console.log(a, b)},
+      { id: "name" },
+      { id: "email" },
+      { id: "isActive"}
+    ]} />));
 
 storiesOf("Limiting", module)
   .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Main limit={25} />));

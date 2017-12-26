@@ -22,19 +22,16 @@ const Th = ({ th, name, value, sort, sortTable, sortable, children }) => {
   if(sort && sortColumn === value && sort.direction === "ASC" ) sortDirection = "DES";
 
   if (sortable) {
+    var sortValue = { column: value, direction: sortDirection };
     transformTh =
       <button
         name={name}
-        value={`{"column": "${value}", "direction": "${sortDirection}"}`}
+        value={JSON.stringify(sortValue)}
         onClick={sortTable}
         style={{width: "100%"}}>
         {transformTh}
-        {sortColumn === value && sort.direction === "DES"?
-          <DownArrow className="icon" />
-          : null}
-        {sortColumn === value && sort.direction === "ASC"?
-          <UpArrow className="icon" />
-          : null}
+        {sortColumn === value && sort.direction === "DES"? <DownArrow className="icon" /> : null}
+        {sortColumn === value && sort.direction === "ASC"? <UpArrow className="icon" /> : null}
       </button>
   }
   return <th>{transformTh}{children}</th>;
