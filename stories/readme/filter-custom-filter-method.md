@@ -9,22 +9,12 @@ const Default = () => {
     <Table
       data={data}
       columns={[
-        { id: "_id"},
+        { id: "_id" },
         { id: "balance" },
         { id: "age" },
         { id: "name" },
-        { id: "email"},
-        {
-          id: "isActive", label: "user status", filter: ({columnName, onChange, filter}) => (
-          <select
-            name={columnName}
-            onChange={(event) => onChange(event)}
-            value={filter}>
-            <option value="">Show All</option>
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
-          </select>
-        )}
+        { id: "email" },
+        { id: "isActive", filterMethod:(value) => console.log(value)}
       ]}
       filterable />
   )

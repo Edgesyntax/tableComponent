@@ -85,16 +85,16 @@ storiesOf("Filtering", module)
       )}
     ]}
     filterable />))
-  .add("Custom Filter Method", withReadme(FilterCustomFilterMethodReadme, () => <Main
-    columns={[
-      { id: "_id" },
-      { id: "balance" },
-      { id: "age" },
-      { id: "name" },
-      { id: "email" },
-      { id: "isActive"}
-    ]}
-    filterable />));
+  // .add("Custom Filter Method", withReadme(FilterCustomFilterMethodReadme, () => <Main
+  //   columns={[
+  //     { id: "_id" },
+  //     { id: "balance" },
+  //     { id: "age" },
+  //     { id: "name" },
+  //     { id: "email" },
+  //     { id: "isActive", filterMethod:(value) => console.log(value)}
+  //   ]}
+  //   filterable />));
 
 storiesOf("Sorting", module)
   .add("Sortable", withReadme(SortingSortableReadme, () => <Main sortable={["name","balance"]}/>))
