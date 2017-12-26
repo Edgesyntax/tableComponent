@@ -11,9 +11,9 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
       var tableValue = (row[column.id] ? String(row[column.id]).toLowerCase().trim(): "");
       var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim(): "");
       // Convert boolean values
-      if (typeof tableValue === "boolean" && tableValue) tableValue = "true";
-      if (typeof tableValue === "boolean" && !tableValue) tableValue = "false";
-
+      if (typeof row[column.id] === "boolean" && row[column.id]) tableValue = "true";
+      if (typeof row[column.id] === "boolean" && !row[column.id]) tableValue = "false";
+      
       if(fitlerValue && !tableValue.includes(fitlerValue)) match = false;
     })
     if (match) cTableDataFiltered = cTableDataFiltered.concat(row);

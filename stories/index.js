@@ -18,6 +18,7 @@ import FilterAllColumnsReadme from "./readme/filter-all-columns.md";
 import FilterSpecificColumnsReadme from "./readme/filter-specific-columns.md";
 import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
 import FilterCustomComponentReadme from "./readme/filter-custom-component.md";
+import FilterCustomFilterMethodReadme from "./readme/filter-custom-filter-method.md";
 import SortingSortableReadme from "./readme/sorting-sortable.md";
 import SortingInitialSortReadme from "./readme/sorting-initial-sort.md";
 import SortingCustomSortMethodReadme from "./readme/sorting-custom-sort-method.md";
@@ -82,6 +83,16 @@ storiesOf("Filtering", module)
           <option value="false">Inactive</option>
         </select>
       )}
+    ]}
+    filterable />))
+  .add("Custom Filter Method", withReadme(FilterCustomFilterMethodReadme, () => <Main
+    columns={[
+      { id: "_id" },
+      { id: "balance" },
+      { id: "age" },
+      { id: "name" },
+      { id: "email" },
+      { id: "isActive"}
     ]}
     filterable />));
 
