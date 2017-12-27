@@ -31,6 +31,7 @@ import ManualReadme from "./readme/option-manual.md";
 import PagesReadme from "./readme/option-pages.md";
 import PageReadme from "./readme/option-page.md";
 import DevReadme from "./readme/option-dev.md";
+import LoadingReadme from "./readme/option-loading.md";
 import NoDataTextReadme from "./readme/option-noDataText.md";
 
 // Events
@@ -125,6 +126,7 @@ storiesOf("Other Props", module)
   .add("Pages", withReadme(PagesReadme, () => <Main limit={25} pages={400} />))
   .add("Page", withReadme(PageReadme, () => <Main limit={25} page={4} />))
   .add("Dev", withReadme(DevReadme, () => <Main dev filterable limit={50}/>))
+  .add("Loading", withReadme(LoadingReadme, () => <Main loading={true} loadingText="Loading Users..." limit={25}/>))
   .add("No matching records", withReadme(NoDataTextReadme, () => <Main
     data={[]}
     columns={[

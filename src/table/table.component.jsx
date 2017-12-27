@@ -226,9 +226,22 @@ class Table extends React.Component{
         activeRow={row._activeRow}/>
     })
   }
+  renderTableBody(){
+    const { table } = this.state;
+    const {showIndex, noDataText } = this.props;
+    
+    if(table && table.length) return this.renderTr()
+    return(
+      <tr>
+        <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{ textAlign: "center" }}>
+          <h3>{noDataText ? noDataText : "No records found."}</h3>
+        </td>
+      </tr>
+    )
+  }
   render(){
     const { table, sortable, sort, filterable, filter, limit, page } = this.state;
-    const { hideHeader, showIndex, noDataText, pages} = this.props;
+    const { hideHeader, showIndex, noDataText, pages, loading, loadingText} = this.props;
     return(
       <main className="tableComponent">
         <table>
@@ -243,15 +256,7 @@ class Table extends React.Component{
               sortable={sortable}
               sortTable={this.onSortAction}/>
           : null }
-          <tbody>
-            {table && table.length ? this.renderTr() :
-              <tr>
-                <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{textAlign: "center"}}>
-                  <h3>{noDataText ? noDataText : "No records found."}</h3>
-                </td>
-              </tr>
-            }
-          </tbody>
+          <tbody>{this.renderTableBody()}</tbody>
           <Tfoot
             columns={this.columns}
             tableLength={pages || this.fTableData.length}
@@ -261,6 +266,7 @@ class Table extends React.Component{
             paginateTable={this.onPaginateAction}
             showIndex={showIndex}/>
         </table>
+          {loading ? <div className="loading">{loadingText ? loadingText : <h3>Loading...</h3>}</div> : null }
       </main>
     );
   }

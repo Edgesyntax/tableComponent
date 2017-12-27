@@ -27,6 +27,9 @@ All table styles are scoped using the `.tableComponent` prefix making it extreme
 ```
 **CSS Styles**
 ```css
+.tableComponent {
+  position: relative;
+}
 table {
   borderCollapse: collapse;
 }
@@ -98,6 +101,17 @@ i {
 }
 .funnel {
   fill: #E1E1E1;
+}
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, .8);
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 ```
 
