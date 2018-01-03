@@ -5,7 +5,6 @@ import { withReadme } from 'storybook-readme';
 // Stories
 import Main from "./main.jsx";
 import Styling from "./styling.jsx";
-import Custom from "./custom.jsx";
 
 // Readme
 import MainReadme from "./readme/main.md";
@@ -46,7 +45,25 @@ import tableJSON from "./tableJSON.mock.json";
 
 storiesOf('Welcome', module)
   .add("Default", withReadme(MainReadme, () => <Main />))
-  .add("Custom", withReadme(CustomReadme, () => <Custom />))
+  .add("Custom", withReadme(CustomReadme, () => <Main columns={[
+    { id: "_id" },
+    { id: "balance" },
+    { id: "age", render: (value, row) => {
+      console.log(value, row)
+      return <span style={{color: "red"}}>{value}</span> 
+    }},
+    { id: "name" },
+    { id: "email" },
+    { id: "isActive", label: "status", render: (value, row) => <span>{value === true ? "Active" : value === false ? "Inactive" : ""}</span>},
+    { id: "action", render: (value, row) => {
+      return (
+        <center>
+          <button> edit </button>
+          <button> delete </button>
+        </center>
+      )
+    }}
+  ]} />))
   .add("Json", withReadme(JSONReadme, () => <Main data={tableJSON} />))
   .add("Styling", withReadme(StylingReadme, () => <Styling />));
 storiesOf("Columns", module)

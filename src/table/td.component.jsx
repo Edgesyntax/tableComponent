@@ -6,8 +6,10 @@ import PropTypes from "prop-types";
 // Application Modules
 import {brand} from "./table.stylesheet.js";
 
-const Td = ({td, activeRow, className}) => {
+const Td = ({td, activeRow, column, row}) => {
   var transformTd;
+  if (column && column.render) return <td>{column.render(td, row)}</td>
+
   const renderObject = () => <JsonTree data={td} hideRoot={true} theme={{
     tree: ({style}) => ({ style: Object.assign({}, style, {backgroundColor: undefined})}),
     label: ({style}) => {},
@@ -20,7 +22,7 @@ const Td = ({td, activeRow, className}) => {
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (td != null || typeof td === "boolean") transformTd = td.toString();
 
-  return <td className={(activeRow ? `${className} activeIndex` : className)}>{transformTd}</td>;
+  return <td className={(activeRow ? "activeIndex" : null)}>{transformTd}</td>;
 }
 
 Td.propTypes = {

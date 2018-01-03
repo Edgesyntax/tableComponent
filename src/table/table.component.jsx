@@ -1,5 +1,3 @@
-// TODO: Fix td value string converting into object -> cause <td> {value} </td> instead of <td>{value}</td>
-
 // React Modules
 import React from "react";
 import CSSModules from "react-css-modules";
@@ -54,21 +52,15 @@ class Table extends React.Component{
     // Assign user defined page or use state page
     page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
 
-    // Check/Render child components
-    this.childrenNodes = this.renderChildren(props);
     // Generate table data
     table = this.generateTableData({props, sort, limit, filter});
     // Set application state
     this.setState({sort, sortable, filterable, limit, filter, page, table});
   }
   generateTableData({props, dev, limit, filter, sort}){
-    var data = props.data, activeRow = props.activeRow;
+    var cTableData = props.data, activeRow = props.activeRow;
 
-    if (!data || !data.length) var data = [];
-    // Add child Tr nodes to table data
-    var cTableData = data.concat(this.childrenNodes.tr);
-
-    if (!cTableData) return;
+    if (!cTableData || !cTableData.length) return;
 
     // Filter table data
     (this.props.dev ? console.time('Filtering table data') : null);
@@ -92,7 +84,7 @@ class Table extends React.Component{
     (this.props.dev ? console.time('Generating table data') : null);
     var tableData = cTableData.map((row) => {
       // Add child Td nodes to table data
-      var Tr = Object.assign({}, row, this.childrenNodes.td), rowObject;
+      var Tr = row, rowObject;
       // Map table rows
       const tableRow = this.columns.map((column) => {
         for (var variable in Tr) {
@@ -193,32 +185,12 @@ class Table extends React.Component{
     });
     this.setState(state);
   }
-  renderChildren(props){
-    var children = {tr:[]};
-    if (!React.Children.count(props.children)) return children;
-    React.Children.map(props.children, (child) => {
-      // Add table rows to children object
-      if (child.type.name === "Tr") {
-        if (!child.props.children) return children.tr.push(child.props.row);
-
-        var obj = {};
-        React.Children.forEach(child.props.children, (nestedChild) => {
-          if (nestedChild.props.column && !nestedChild.props.children) return;
-          obj[nestedChild.props.column] = nestedChild.props.children;
-        });
-        children.tr.push(obj)
-      }
-    });
-
-    // Generate table columns if not specified columns
-    if (!this.columns || !this.columns.length) this.columns = generateTableColumns({data: children.tr});
-    return children;
-  }
   renderTr(){
     const {table, page, limit} = this.state;
     if (!table || !table.length) return;
     return table.map((row, index) => {
       return <Tr
+        columns={this.columns}
         key={index}
         row={row.data}
         index={(limit ? ((page - 1) * limit) + index : index)}

@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 // Application Modules
 import Td from "./td.component.jsx";
 
-const Tr = ({ showIndex, row, index, activeRow}) => {
+const Tr = ({ columns, showIndex, row, index, activeRow}) => {
   const renderTd = () => {
     if (!row) return;
-    return row.map((td, index) => <Td key={index} td={td}/>)
+    return row.map((td, index) => <Td key={index} td={td} column={columns[index]} row={row}/>)
   }
 
   return (
