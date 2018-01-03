@@ -3,6 +3,7 @@
 }
 .tableComponent table {
   border-collapse: collapse;
+  position: relative;
 }
 .tableComponent thead button {
   display: inline-block;
@@ -91,14 +92,24 @@
 .tableComponent .funnel {
   fill: #E1E1E1
 }
-.tableComponent .loading {
+.tableComponent tbody.loading {
   position: absolute;
-  top: 0;
+  top: 1px;
   bottom: 0;
-  left: 0;
+  left: 1px;
   right: 0;
   background: rgba(255, 255, 255, .8);
-  justify-content: center;
-  align-items: center;
   display: flex;
+}
+.tableComponent tbody.loading tr{
+  background : transparent !important;
+  width: 100%;
+}
+.tableComponent tbody.loading tr td{
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  border: 0
 }

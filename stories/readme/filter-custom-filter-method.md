@@ -14,7 +14,10 @@ const Default = () => {
         { id: "age" },
         { id: "name" },
         { id: "email" },
-        { id: "isActive", filterMethod:(value) => console.log(value)}
+        { id: "isActive", filterMethod:(value, filter) => {
+          console.log(value, filter)
+          return String(value) === filter
+        }}
       ]}
       filterable />
   )
@@ -22,3 +25,8 @@ const Default = () => {
 
 export default Default;
 ```
+`value` is the current table value
+
+`filter` is the current filter value
+
+Open browser console for insight on the filterMethod variables value and filter after filtering the isActive column.

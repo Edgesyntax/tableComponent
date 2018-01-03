@@ -6,14 +6,22 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
   const filterMethod = (row) => {
     var match = true
     columns.map((column) => {
-      var tableValue = (row[column.id] ? String(row[column.id]).toLowerCase().trim() : "");
-      var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim() : "");
+      const customFilter = column.filterMethod;
+      const customFilterValue = filter[column.id];
+      if (customFilter && customFilterValue) {
+        const filtered = customFilter(row[column.id], customFilterValue);
+        if (!filtered) match = false;
+      }
+      else {
+        var tableValue = (row[column.id] ? String(row[column.id]).toLowerCase().trim() : "");
+        var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim() : "");
 
-      // Convert boolean values
-      if (typeof row[column.id] === "boolean" && row[column.id]) tableValue = "true";
-      if (typeof row[column.id] === "boolean" && !row[column.id]) tableValue = "false";
+        // Convert boolean values
+        if (typeof row[column.id] === "boolean" && row[column.id]) tableValue = "true";
+        if (typeof row[column.id] === "boolean" && !row[column.id]) tableValue = "false";
 
-      if (fitlerValue && !tableValue.includes(fitlerValue)) match = false;
+        if (fitlerValue && !tableValue.includes(fitlerValue)) match = false;
+      }
     })
     if (match) return row;
   };

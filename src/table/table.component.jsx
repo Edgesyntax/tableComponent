@@ -105,7 +105,7 @@ class Table extends React.Component{
       if (activeRow && activeRow.id && activeRow.value) {
         var activeRowKey = row[activeRow.id];
         if (activeRowKey === activeRow.value && !React.isValidElement(activeRowKey)) {
-          rowObject = Object.assign({}, rowObject, {_activeRow: true});
+          rowObject = Object.assign({},rowObject, {_activeRow: true});
         }
       }
       return rowObject;
@@ -120,7 +120,7 @@ class Table extends React.Component{
     var value = event.target.value;
     // Reset page
     state.page = 1;
-    // Set action vale
+    // Set action value
     state.sort = JSON.parse(value);
 
     if (this.props.onSortChange) this.props.onSortChange(state.sort)
@@ -137,11 +137,11 @@ class Table extends React.Component{
   onFilterAction(event) {
     const name = event.target.name;
     const state = this.state;
-    const value = event.target.value;
+    const value = (event.target.value ? event.target.value : undefined);
     // Reset page
     state.page = 1;
-    // Set filter vale
-    state.filter = (state.filter ? Object.assign(state.filter, {[name]: value}) : {[name] : value});
+    // Set filter value
+    state.filter = (state.filter ? Object.assign({},state.filter, {[name]: value}) : {[name] : value});
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
     if (this.props.manual) return;
@@ -160,7 +160,7 @@ class Table extends React.Component{
     var value = event.target.value;
     // Reset page
     state.page = 1;
-    // Set action vale
+    // Set action value
     state.limit = parseInt(value);
 
     if (this.props.onLimitChange) this.props.onLimitChange(state.limit)
@@ -180,7 +180,7 @@ class Table extends React.Component{
     var value = event.target.value;
 
     if (state.page === parseInt(value)) return;
-    // Set action vale
+    // Set action value
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
     if (this.props.manual) return;
@@ -226,6 +226,16 @@ class Table extends React.Component{
         activeRow={row._activeRow}/>
     })
   }
+  renderLoading() {
+    const { showIndex, loadingText } = this.props;
+    return (
+      <tr>
+        <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{ textAlign: "center" }}>
+          <h3>{loadingText ? loadingText : <h3>Loading...</h3>}</h3>
+        </td>
+      </tr>
+    )
+  }
   renderTableBody(){
     const { table } = this.state;
     const {showIndex, noDataText } = this.props;
@@ -241,7 +251,7 @@ class Table extends React.Component{
   }
   render(){
     const { table, sortable, sort, filterable, filter, limit, page } = this.state;
-    const { hideHeader, showIndex, noDataText, pages, loading, loadingText} = this.props;
+    const { hideHeader, showIndex, noDataText, pages, loading} = this.props;
     return(
       <main className="tableComponent">
         <table>
@@ -256,6 +266,7 @@ class Table extends React.Component{
               sortable={sortable}
               sortTable={this.onSortAction}/>
           : null }
+          {loading ? <tbody className="loading">{this.renderLoading()}</tbody> : null}
           <tbody>{this.renderTableBody()}</tbody>
           <Tfoot
             columns={this.columns}
@@ -266,7 +277,6 @@ class Table extends React.Component{
             paginateTable={this.onPaginateAction}
             showIndex={showIndex}/>
         </table>
-          {loading ? <div className="loading">{loadingText ? loadingText : <h3>Loading...</h3>}</div> : null }
       </main>
     );
   }
