@@ -18,3 +18,5 @@ const Default = () => {
 
 export default Default;
 ```
+
+Only the specified column ids will be rendered

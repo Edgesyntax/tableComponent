@@ -8,11 +8,11 @@ import Styling from "./styling.jsx";
 
 // Readme
 import MainReadme from "./readme/main.md";
-import CustomReadme from "./readme/custom.md";
 import JSONReadme from "./readme/json.md";
 import StylingReadme from "./readme/styling.md";
 import ColumnsRenderedReadme from "./readme/columns-rendered.md";
 import ColumnsCustomLabelsReadme from "./readme/columns-custom-labels.md";
+import ColumnsCustomReadme from "./readme/columns-custom.md";
 import FilterAllColumnsReadme from "./readme/filter-all-columns.md";
 import FilterSpecificColumnsReadme from "./readme/filter-specific-columns.md";
 import FilterInitialFilterReadme from "./readme/filter-initial-filter.md";
@@ -45,25 +45,6 @@ import tableJSON from "./tableJSON.mock.json";
 
 storiesOf('Welcome', module)
   .add("Default", withReadme(MainReadme, () => <Main />))
-  .add("Custom", withReadme(CustomReadme, () => <Main columns={[
-    { id: "_id" },
-    { id: "balance" },
-    { id: "age", render: (value, row) => {
-      console.log(value, row)
-      return <span style={{color: "red"}}>{value}</span> 
-    }},
-    { id: "name" },
-    { id: "email" },
-    { id: "isActive", label: "status", render: (value, row) => <span>{value === true ? "Active" : value === false ? "Inactive" : ""}</span>},
-    { id: "action", render: (value, row) => {
-      return (
-        <center>
-          <button> edit </button>
-          <button> delete </button>
-        </center>
-      )
-    }}
-  ]} />))
   .add("Json", withReadme(JSONReadme, () => <Main data={tableJSON} />))
   .add("Styling", withReadme(StylingReadme, () => <Styling />));
 storiesOf("Columns", module)
@@ -77,7 +58,30 @@ storiesOf("Columns", module)
       {id: "balance", label: "Remaining Balance"},
       {id: "email", label: "Company email"},
       {id: "age", label: "Current Age"}
-    ]}/>));
+    ]}/>))
+  .add("Custom Column Cell", withReadme(ColumnsCustomReadme, () => <Main columns={[
+    { id: "_id" },
+    { id: "balance" },
+    {
+      id: "age", render: (value, row) => {
+        console.log(value, row)
+        return <span style={{ color: "red" }}>{value}</span>
+      }
+    },
+    { id: "name" },
+    { id: "email" },
+    { id: "isActive", label: "status", render: (value, row) => <span>{value === true ? "Active" : value === false ? "Inactive" : ""}</span> },
+    {
+      id: "action", render: (value, row) => {
+        return (
+          <center>
+            <button> edit </button>
+            <button> delete </button>
+          </center>
+        )
+      }
+    }
+  ]} />))
 
 storiesOf("Filtering", module)
   .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable />))
