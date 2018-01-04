@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // Application Modules
 import {brand} from "./table.stylesheet.js";
 
-const Td = ({td, activeRow, column, row}) => {
+const Td = ({td, activeRow, column, row, className}) => {
   var transformTd;
   if (column && column.render) return <td>{column.render(td, row)}</td>
 
@@ -22,7 +22,7 @@ const Td = ({td, activeRow, column, row}) => {
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (td != null || typeof td === "boolean") transformTd = td.toString();
 
-  return <td className={(activeRow ? "activeIndex" : null)}>{transformTd}</td>;
+  return <td className={(activeRow ? "activeIndex" : className)}>{transformTd}</td>;
 }
 
 Td.propTypes = {

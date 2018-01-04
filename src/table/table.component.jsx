@@ -51,13 +51,14 @@ class Table extends React.Component{
     filter    = (this.state.filter ? this.state.filter : props.filter);
     // Assign user defined page or use state page
     page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
-
     // Generate table data
     table = this.generateTableData({props, sort, limit, filter});
     // Set application state
     this.setState({sort, sortable, filterable, limit, filter, page, table});
   }
   generateTableData({props, dev, limit, filter, sort}){
+    // Generate table data
+    (this.props.dev ? console.time('Generating table data') : null);
     var cTableData = props.data, activeRow = props.activeRow;
     this.fTableData = []
     
@@ -81,31 +82,9 @@ class Table extends React.Component{
     if (limit ? cTableData = limitTableAction({ cTableData, limit, page: this.state.page }) : null);
     (this.props.dev ? console.timeEnd('Limiting table data') : null);
 
-    // Generate table data
-    (this.props.dev ? console.time('Generating table data') : null);
-    var tableData = cTableData.map((row) => {
-      // Add child Td nodes to table data
-      var Tr = row, rowObject;
-      // Map table rows
-      const tableRow = this.columns.map((column) => {
-        for (var variable in Tr) {
-          if (column.id === variable)  return Tr[variable];
-        }
-      });
-
-      rowObject = {data: tableRow};
-      // Add active row metadata
-      if (activeRow && activeRow.id && activeRow.value) {
-        var activeRowKey = row[activeRow.id];
-        if (activeRowKey === activeRow.value && !React.isValidElement(activeRowKey)) {
-          rowObject = Object.assign({},rowObject, {_activeRow: true});
-        }
-      }
-      return rowObject;
-    });
     (this.props.dev ? console.timeEnd('Generating table data') : null);
 
-    return tableData;
+    return cTableData;
   }
   onSortAction(event) {
     var name = event.target.name;
@@ -188,15 +167,19 @@ class Table extends React.Component{
   }
   renderTr(){
     const {table, page, limit} = this.state;
+    const {activeRow} = this.props;
     if (!table || !table.length) return;
     return table.map((row, index) => {
+      const hasActiveRow = activeRow && activeRow.id && activeRow.value;
+      const activeRowValue = hasActiveRow && row[activeRow.id];
+      const isActiveRow = hasActiveRow && activeRow.value === activeRowValue;
       return <Tr
         columns={this.columns}
         key={index}
-        row={row.data}
+        row={row}
         index={(limit ? ((page - 1) * limit) + index : index)}
         showIndex={this.props.showIndex}
-        activeRow={row._activeRow}/>
+        activeRow={isActiveRow}/>
     })
   }
   renderLoading() {
