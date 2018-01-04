@@ -59,7 +59,8 @@ class Table extends React.Component{
   }
   generateTableData({props, dev, limit, filter, sort}){
     var cTableData = props.data, activeRow = props.activeRow;
-
+    this.fTableData = []
+    
     if (!cTableData || !cTableData.length) return;
 
     // Filter table data
