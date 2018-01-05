@@ -2,17 +2,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({ columns, tableLength, limit, limitTable, page, showIndex, paginateTable }) => {
-  if (!tableLength || !limit || tableLength < limit) return null;
-  const renderPageInfo = () => <span>Page {page} of {Math.ceil(tableLength / limit)} - {tableLength} Items</span>;
+const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, showIndex, paginateTable }) => {
+  if (!tableLength || !pageSize || tableLength < pageSize) return null;
+  const renderPageInfo = () => <span>Page {page} of {Math.ceil(tableLength / pageSize)} - {tableLength} Items</span>;
 
-  const renderLimiter = () => {
+  const renderPageSize = () => {
     const options = [25, 50, 100];
-    if (options.indexOf(limit) === -1) options.unshift(limit);
+    if (options.indexOf(pageSize) === -1) options.unshift(pageSize);
 
     const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option} rows</option>)
     return (
-      <select name="limit" value={limit} onChange={limitTable}>
+      <select name="pageSize" value={pageSize} onChange={setPageSize}>
         {renderOptions()}
       </select>
     );
@@ -20,15 +20,15 @@ const Tfoot = ({ columns, tableLength, limit, limitTable, page, showIndex, pagin
   const renderPagination = () => {
     const paginationArray = [];
     var offset;
-    for (var i = 1; i < tableLength; i = i+limit) {
-      const paginationIndex = Math.ceil(i/limit);
+    for (var i = 1; i < tableLength; i = i+pageSize) {
+      const paginationIndex = Math.ceil(i/pageSize);
       switch (page) {
         case 1:
           offset = 5;
           break;
         case 2:
-        case Math.ceil(tableLength / limit) - 1: //4.28
-        // case Math.ceil(tableLength/limit) - 2: // 3.28
+        case Math.ceil(tableLength / pageSize) - 1: //4.28
+        // case Math.ceil(tableLength/pageSize) - 2: // 3.28
           offset = 4;
           break;
         default:
@@ -60,7 +60,7 @@ const Tfoot = ({ columns, tableLength, limit, limitTable, page, showIndex, pagin
               {renderPageInfo()}
             </span>
             <span style={{ display: "flex", flex: 1, justifyContent: "center"}}>
-              {renderLimiter()}
+              {renderPageSize()}
             </span>
             <span style={{flex: 1,textAlign: "right",whiteSpace: "nowrap"}}>
               {renderPagination()}
@@ -75,8 +75,8 @@ const Tfoot = ({ columns, tableLength, limit, limitTable, page, showIndex, pagin
 Tfoot.propTypes = {
   columns: PropTypes.array.isRequired,
   tableLength: PropTypes.number.isRequired,
-  limit: PropTypes.number,
-  limitTable: PropTypes.func,
+  pageSize: PropTypes.number,
+  setPageSize: PropTypes.func,
   page: PropTypes.number,
   showIndex: PropTypes.bool,
   paginateTable: PropTypes.func

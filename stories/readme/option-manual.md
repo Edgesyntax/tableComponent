@@ -10,6 +10,6 @@ const Default = () => {
 
 export default Default;
 ```
-**Prevents table from managing internal state i.e, Filtering, Sorting, Limiting, Pagination**
+**Prevents table from managing internal state i.e, Filtering, Sorting, Page Size, Pagination**
 
 *Mainly used for server rendered tables*

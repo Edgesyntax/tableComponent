@@ -134,23 +134,23 @@ storiesOf("Sorting", module)
       { id: "isActive"}
     ]} />));
 
-storiesOf("Limiting", module)
-  .add("Initial Limit", withReadme(LimitingInitialLimitReadme, () => <Main limit={25} />));
+storiesOf("Paging", module)
+  .add("Initial Page Size", withReadme(LimitingInitialLimitReadme, () => <Main pageSize={25} />));
 
 storiesOf("Events", module)
-  .add("Sort", withReadme(EventSortReadme, () => <Main limit={25} onSortChange={(response) => console.log(response)} />))
-  .add("Filter", withReadme(EventFilterReadme, () => <Main limit={25} filterable onFilterChange={(response) => console.log(response)} />))
-  .add("Limit", withReadme(EventLimitReadme, () => <Main limit={25} onLimitChange={(response) => console.log(response)} />))
-  .add("Page", withReadme(EventPageReadme, () => <Main limit={25} onPageChange={(response) => console.log(response)} />));
+  .add("Sort", withReadme(EventSortReadme, () => <Main pageSize={25} onSortChange={(response) => console.log(response)} />))
+  .add("Filter", withReadme(EventFilterReadme, () => <Main pageSize={25} filterable onFilterChange={(response) => console.log(response)} />))
+  .add("Page size", withReadme(EventLimitReadme, () => <Main pageSize={25} onPageSizeChange={(response) => console.log(response)} />))
+  .add("Page", withReadme(EventPageReadme, () => <Main pageSize={25} onPageChange={(response) => console.log(response)} />));
 
 storiesOf("Other Props", module)
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex/>))
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>))
-  .add("Manual", withReadme(ManualReadme, () => <Main limit={25} manual />))
-  .add("Pages", withReadme(PagesReadme, () => <Main limit={25} pages={400} />))
-  .add("Page", withReadme(PageReadme, () => <Main limit={25} page={4} />))
+  .add("Manual", withReadme(ManualReadme, () => <Main pageSize={25} manual />))
+  .add("Pages", withReadme(PagesReadme, () => <Main pageSize={25} pages={400} />))
+  .add("Page", withReadme(PageReadme, () => <Main pageSize={25} page={4} />))
   .add("Dev", withReadme(DevReadme, () => <Main dev filterable limit={50}/>))
-  .add("Loading", withReadme(LoadingReadme, () => <Main loading={true} loadingText="Loading Users..." limit={25}/>))
+  .add("Loading", withReadme(LoadingReadme, () => <Main loading={true} loadingText="Loading Users..."pageSizet={25}/>))
   .add("No matching records", withReadme(NoDataTextReadme, () => <Main
     data={[]}
     columns={[

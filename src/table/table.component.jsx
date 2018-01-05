@@ -14,7 +14,7 @@ import Tfoot from "./tfoot.component.jsx";
 import generateTableColumns, {validateColumns}  from "../helpers/columns.js";
 import sortTableAction   from "../helpers/sort.js";
 import filterTableAction from "../helpers/filter.js";
-import limitTableAction  from "../helpers/limit.js";
+import setPageSizeAction  from "../helpers/limit.js";
 
 class Table extends React.Component{
   constructor(){
@@ -24,7 +24,7 @@ class Table extends React.Component{
     }
     this.onSortAction = this.onSortAction.bind(this);
     this.onFilterAction = this.onFilterAction.bind(this);
-    this.onLimitAction = this.onLimitAction.bind(this);
+    this.onPageSizeAction = this.onPageSizeAction.bind(this);
     this.onPaginateAction = this.onPaginateAction.bind(this);
   }
   componentWillMount(){
@@ -34,7 +34,7 @@ class Table extends React.Component{
     this.init(nextProps);
   }
   init(props){
-    var sortable,filterable,sort,limit,filter,page,table;
+    var sortable,filterable,sort,pageSize,filter,page,table;
     // Assign user defined columns or generate columns
     this.columns = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
@@ -45,18 +45,18 @@ class Table extends React.Component{
     else if (props.filterable) filterable = columns;
     // Assign default sort column or use state
     sort      = (this.state.sort ? this.state.sort : props.sort);
-    // Assign default limit or show all data
-    limit     = (this.state.limit ? this.state.limit : props.limit);
+    // Assign default pageSize or show all data
+    pageSize     = (this.state.pageSize ? this.state.pageSize : props.pageSize);
     // Assign user defined filter or use state filter
     filter    = (this.state.filter ? this.state.filter : props.filter);
     // Assign user defined page or use state page
     page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
     // Generate table data
-    table = this.generateTableData({props, sort, limit, filter});
+    table = this.generateTableData({props, sort, pageSize, filter});
     // Set application state
-    this.setState({sort, sortable, filterable, limit, filter, page, table});
+    this.setState({sort, sortable, filterable, pageSize, filter, page, table});
   }
-  generateTableData({props, dev, limit, filter, sort}){
+  generateTableData({props, dev, pageSize, filter, sort}){
     // Generate table data
     (this.props.dev ? console.time('Generating table data') : null);
     var cTableData = props.data, activeRow = props.activeRow;
@@ -77,10 +77,10 @@ class Table extends React.Component{
     // Set full table data
     this.fTableData = cTableData;
 
-    // Limit table data
-    (this.props.dev ? console.time('Limiting table data') : null);
-    if (limit ? cTableData = limitTableAction({ cTableData, limit, page: this.state.page }) : null);
-    (this.props.dev ? console.timeEnd('Limiting table data') : null);
+    // Set table page size
+    (this.props.dev ? console.time('Setting page size') : null);
+    if (pageSize ? cTableData = setPageSizeAction({ cTableData, pageSize, page: this.state.page }) : null);
+    (this.props.dev ? console.timeEnd('Setting page size') : null);
 
     (this.props.dev ? console.timeEnd('Generating table data') : null);
 
@@ -100,7 +100,7 @@ class Table extends React.Component{
     // Generate table
     state.table = this.generateTableData({
       props: this.props,
-      limit: state.limit,
+      pageSize: state.pageSize,
       filter: state.filter,
       sort: state.sort
     });
@@ -120,27 +120,27 @@ class Table extends React.Component{
     // Generate table
     state.table = this.generateTableData({ 
       props: this.props, 
-      limit: state.limit,
+      pageSize: state.pageSize,
       filter: state.filter,
       sort: state.sort 
     });
     this.setState(state);
   }
-  onLimitAction(event) {
+  onPageSizeAction(event) {
     var name = event.target.name;
     var state = this.state;
     var value = event.target.value;
     // Reset page
     state.page = 1;
     // Set action value
-    state.limit = parseInt(value);
+    state.pageSize = parseInt(value);
 
-    if (this.props.onLimitChange) this.props.onLimitChange(state.limit)
+    if (this.props.onPageSizeChange) this.props.onPageSizeChange(state.pageSize)
     if (this.props.manual) return;
     // Generate table
     state.table = this.generateTableData({
       props: this.props,
-      limit: state.limit,
+      pageSize: state.pageSize,
       filter: state.filter,
       sort: state.sort
     });
@@ -159,14 +159,14 @@ class Table extends React.Component{
     // Generate table
     state.table = this.generateTableData({
       props: this.props,
-      limit: state.limit,
+      pageSize: state.pageSize,
       filter: state.filter,
       sort: state.sort
     });
     this.setState(state);
   }
   renderTr(){
-    const {table, page, limit} = this.state;
+    const {table, page, pageSize} = this.state;
     const {activeRow} = this.props;
     if (!table || !table.length) return;
     return table.map((row, index) => {
@@ -177,7 +177,7 @@ class Table extends React.Component{
         columns={this.columns}
         key={index}
         row={row}
-        index={(limit ? ((page - 1) * limit) + index : index)}
+        index={(pageSize ? ((page - 1) * pageSize) + index : index)}
         showIndex={this.props.showIndex}
         activeRow={isActiveRow}/>
     })
@@ -206,7 +206,7 @@ class Table extends React.Component{
     )
   }
   render(){
-    const { table, sortable, sort, filterable, filter, limit, page } = this.state;
+    const { table, sortable, sort, filterable, filter, pageSize, page } = this.state;
     const { hideHeader, showIndex, noDataText, pages, loading} = this.props;
     return(
       <main className="tableComponent">
@@ -227,8 +227,8 @@ class Table extends React.Component{
           <Tfoot
             columns={this.columns}
             tableLength={pages || this.fTableData.length}
-            limit={limit}
-            limitTable={this.onLimitAction}
+            pageSize={pageSize}
+            setPageSize={this.onPageSizeAction}
             page={page}
             paginateTable={this.onPaginateAction}
             showIndex={showIndex}/>
@@ -245,11 +245,11 @@ Table.propTypes = {
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   sort: PropTypes.object,
   sortable: PropTypes.array,
-  limit: PropTypes.number,
+  pageSize: PropTypes.number,
   // Events
   onSortChange: PropTypes.func,
   onFilterChange: PropTypes.func,
-  onLimitChange: PropTypes.func,
+  onPageSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
   // Other Props
   showIndex: PropTypes.bool,

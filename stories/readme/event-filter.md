@@ -7,7 +7,7 @@ import data from "./table.mock.json";
 const Default = () => {
   return <Table 
     filterable
-    limit={25} 
+    pageSize={25} 
     onFilterChange={(response) => console.log(response)} />) />
 }
 
