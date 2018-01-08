@@ -5,10 +5,12 @@ import Table from "tableComponent";
 import data from "./table.mock.json";
 
 const Default = () => {
-  return <Table pages={400} />
+  return <Table total={400} />
 }
 
 export default Default;
 ```
+
+Used to override the table generated row count.
 
 *Mainly used for server rendered tables*

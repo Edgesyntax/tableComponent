@@ -9,29 +9,29 @@ import UpArrow from "../icons/mdArrowDropup.component.jsx";
 const Th = ({ th, name, value, sort, sortTable, sortable, children }) => {
   // Sort table using index
   var transformTh = (th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : "");
-  var sortColumn      = (sort && sort.column.toString() ? sort.column : null); // Add to string to capture 0 index
-  var sortDirection   = "ASC"; // Set default sort to ASC on `sortTable`
 
+  const sortColumn = sort && Object.keys(sort)[0]
+  const currentSortDirection = sort && Object.values(sort)[0];
+  
+  var sortDirection = "ASC"; // Set default sort to ASC on `sortTable`
+  
   // Check if sorting is in dec order
-  if (sort && sortColumn === value && sort.direction === "DES") sortDirection = "INI";
-
+  if (sort && sortColumn === value && currentSortDirection === "DES") sortDirection = "INI";
   // Check if sorting is in reset order
-  if(sort && sortColumn === value && sort.direction === "INI" ) sortDirection = "ASC";
-
+  else if (sort && sortColumn === value && currentSortDirection === "INI") sortDirection = "ASC";
   // Check if sorting is in asc order
-  if(sort && sortColumn === value && sort.direction === "ASC" ) sortDirection = "DES";
-
+  else if (sort && sortColumn === value && currentSortDirection === "ASC") sortDirection = "DES";
+  
   if (sortable) {
-    var sortValue = { column: value, direction: sortDirection };
     transformTh =
       <button
         name={name}
-        value={JSON.stringify(sortValue)}
+        value={JSON.stringify({ [value]: sortDirection })}
         onClick={sortTable}
-        style={{width: "100%"}}>
+        style={{ width: "100%" }}>
         {transformTh}
-        {sortColumn === value && sort.direction === "DES"? <DownArrow className="icon" /> : null}
-        {sortColumn === value && sort.direction === "ASC"? <UpArrow className="icon" /> : null}
+        {sortColumn === value && currentSortDirection === "DES" ? <DownArrow className="icon" /> : null}
+        {sortColumn === value && currentSortDirection === "ASC" ? <UpArrow className="icon" /> : null}
       </button>
   }
   return <th>{transformTh}{children}</th>;

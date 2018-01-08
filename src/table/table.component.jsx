@@ -19,9 +19,7 @@ import setPageSizeAction  from "../helpers/limit.js";
 class Table extends React.Component{
   constructor(){
     super();
-    this.state = {
-      filter: null
-    }
+    this.state = {}
     this.onSortAction = this.onSortAction.bind(this);
     this.onFilterAction = this.onFilterAction.bind(this);
     this.onPageSizeAction = this.onPageSizeAction.bind(this);
@@ -95,7 +93,8 @@ class Table extends React.Component{
     // Set action value
     state.sort = JSON.parse(value);
 
-    if (this.props.onSortChange) this.props.onSortChange(state.sort)
+    if (this.props.onSortChange) this.props.onSortChange(state.sort) //{ [state.sort.column]: state.sort.direction}
+    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
     // Generate table
     state.table = this.generateTableData({
@@ -113,9 +112,15 @@ class Table extends React.Component{
     // Reset page
     state.page = 1;
     // Set filter value
-    state.filter = (state.filter ? Object.assign({},state.filter, {[name]: value}) : {[name] : value});
+    if (state.filter && value) state.filter = Object.assign({}, state.filter, { [name]: value })
+    else if (state.filter && !value) { 
+      delete state.filter[name]
+      state.filter = Object.assign({}, state.filter)
+    }
+    else state.filter = { [name]: value };
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
+    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
     // Generate table
     state.table = this.generateTableData({ 
@@ -136,6 +141,7 @@ class Table extends React.Component{
     state.pageSize = parseInt(value);
 
     if (this.props.onPageSizeChange) this.props.onPageSizeChange(state.pageSize)
+    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
     // Generate table
     state.table = this.generateTableData({
@@ -155,6 +161,7 @@ class Table extends React.Component{
     // Set action value
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
+    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
     // Generate table
     state.table = this.generateTableData({

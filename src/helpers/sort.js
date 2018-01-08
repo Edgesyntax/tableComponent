@@ -1,22 +1,25 @@
-const sortTable = ({cTableData, sort, columns}) => {
+const sortTable = ({ cTableData, sort, columns }) => {
   if (!sort) return cTableData;
   var sortMethod = (dataA, dataB) => {
     const _a = dataA, _b = dataB;
-    if (_a[sort.column] && typeof _a[sort.column] === "object" || _b[sort.column] && _b[sort.column] === "object") return;
+    var sortColumn = Object.keys(sort)[0]
+    var sortDirection = Object.values(sort)[0]
 
-    var a = (typeof _a[sort.column] === "string" ? _a[sort.column].toLowerCase() : _a[sort.column]);
-    var b = (typeof _b[sort.column] === "string" ? _b[sort.column].toLowerCase() : _b[sort.column]);
+    if (_a[sortColumn] && typeof _a[sortColumn] === "object" || _b[sortColumn] && _b[sortColumn] === "object") return;
+
+    var a = (typeof _a[sortColumn] === "string" ? _a[sortColumn].toLowerCase() : _a[sortColumn]);
+    var b = (typeof _b[sortColumn] === "string" ? _b[sortColumn].toLowerCase() : _b[sortColumn]);
 
     // Check sorting of undefined or null values
-    if (_a[sort.column] == null || _b[sort.column] == null) a = String(a), b = String(b);
+    if (_a[sortColumn] == null || _b[sortColumn] == null) a = String(a), b = String(b);
 
-    if (sort.direction === "ASC") return a > b ? 1 : a < b ? -1 : 0;
-    else if (sort.direction === "DES") return b > a ? 1 : b < a ? -1 : 0;
+    if (sortDirection === "ASC") return a > b ? 1 : a < b ? -1 : 0;
+    else if (sortDirection === "DES") return b > a ? 1 : b < a ? -1 : 0;
     else return 0;
   };
 
-  
-  const sortColumn = columns.filter((column) => column.id === sort.column)[0];
+
+  const sortColumn = columns.filter((column) => column.id === sortColumn)[0];
   if (sortColumn && sortColumn.sortMethod) sortMethod = sortColumn.sortMethod;
   return cTableData.sort(sortMethod);
 };
