@@ -5,11 +5,13 @@ import { withReadme } from 'storybook-readme';
 // Stories
 import Main from "./main.jsx";
 import Styling from "./styling.jsx";
+import ServerSideData from "./server-side-data.jsx";
 
 // Readme
 import MainReadme from "./readme/main.md";
 import JSONReadme from "./readme/json.md";
 import StylingReadme from "./readme/styling.md";
+import ServerRenderReadme from "./readme/server-render.md";
 import ColumnsRenderedReadme from "./readme/columns-rendered.md";
 import ColumnsCustomLabelsReadme from "./readme/columns-custom-labels.md";
 import ColumnsCustomReadme from "./readme/columns-custom.md";
@@ -48,7 +50,8 @@ import tableJSON from "./tableJSON.mock.json";
 storiesOf('Welcome', module)
   .add("Default", withReadme(MainReadme, () => <Main />))
   .add("Json", withReadme(JSONReadme, () => <Main data={tableJSON} />))
-  .add("Styling", withReadme(StylingReadme, () => <Styling />));
+  .add("Styling", withReadme(StylingReadme, () => <Styling />))
+  // .add("Server Side Data", withReadme(ServerRenderReadme, () => <ServerSideData />));
 storiesOf("Columns", module)
   .add("Rendered Columns", withReadme(ColumnsRenderedReadme, () => <Main columns={[
     {id: "balance"},
@@ -150,10 +153,10 @@ storiesOf("Other Props", module)
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex/>))
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{id: "_id", value: "5844822b3e9c1401b8db0871"}}/>))
   .add("Manual", withReadme(ManualReadme, () => <Main pageSize={25} manual />))
-  .add("Total", withReadme(TotalReadme, () => <Main pageSize={25} pages={400} />))
+  .add("Total", withReadme(TotalReadme, () => <Main pageSize={25} total={400} />))
   .add("Page", withReadme(PageReadme, () => <Main pageSize={25} page={4} />))
-  .add("Dev", withReadme(DevReadme, () => <Main dev filterable limit={50}/>))
-  .add("Loading", withReadme(LoadingReadme, () => <Main loading={true} loadingText="Loading Users..."pageSizet={25}/>))
+  .add("Dev", withReadme(DevReadme, () => <Main dev filterable pageSize={50}/>))
+  .add("Loading", withReadme(LoadingReadme, () => <Main loading={true} loadingText="Loading Users..." pageSize={25}/>))
   .add("No matching records", withReadme(NoDataTextReadme, () => <Main
     data={[]}
     columns={[
