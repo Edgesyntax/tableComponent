@@ -19,7 +19,7 @@ const Td = ({td, activeRow, column, row, className}) => {
   }}/>
 
   // Apply Accessor
-  if (column.accessor) td = column.accessor(td);
+  if (column && column.accessor) td = column.accessor(td);
 
   // Check td type
   if (td && React.isValidElement(td)) transformTd = td;
