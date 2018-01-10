@@ -115,7 +115,7 @@ storiesOf("Columns", module)
     ]}
     filterable
     columns={[
-      { id: "accounts", label: "Remaining Balance" },
+      { id: "accounts", label: "Remaining Balance", accessor: (obj) => obj[0] },
       { id: "user", accessor: (obj) => obj.name },
       { id: "isActive", label: "Active" }
     ]} />))

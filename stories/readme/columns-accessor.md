@@ -1,3 +1,6 @@
+The `accessor` column property enables the selection of values from embedded data structures.
+The returned value will then be used for rendering, sorting and filtering.
+
 ```js
 import React from "react";
 
@@ -50,9 +53,16 @@ const data = {[
   }
 ]};
 
-const Objects = () => {
-  return <Table data={data}/>
+const Accessor = () => {
+  return <Table 
+    data={data}
+    filterable
+    columns={[
+      { id: "accounts", label: "Remaining Balance", accessor: (obj) => obj[0] },
+      { id: "user", accessor: (obj) => obj.name },
+      { id: "isActive", label: "Active" }
+    ]} />
 }
 
-export default Objects;
+export default Accessor;
 ```

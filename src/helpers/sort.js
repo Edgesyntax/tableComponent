@@ -1,5 +1,6 @@
 const sortTable = ({ cTableData, sort, columns }) => {
   if (!sort) return cTableData;
+  const sortTable = [...cTableData]
 
   const sortColumn = Object.keys(sort)[0]
   const sortDirection = Object.values(sort)[0]
@@ -12,16 +13,16 @@ const sortTable = ({ cTableData, sort, columns }) => {
     var b = (typeof _b[sortColumn] === "string" ? _b[sortColumn].toLowerCase() : _b[sortColumn]);
 
     // Apply accessor
-    if (sortKey && sortKey.accessor) {
+    if (sortColumn && sortKey && sortKey.accessor) {
       a = sortKey.accessor(a)
       b = sortKey.accessor(b)
     }
 
     // Check if sort datas are abjects
-    if (a && typeof b === "object" || _b && _b === "object") return;
+    if (a && typeof a === "object" || b && typeof b === "object") return;
 
     // Check sorting of undefined or null values
-    if (_a[sortColumn] == null || _b[sortColumn] == null) a = String(a), b = String(b);
+    if (a == null || b == null) a = String(a), b = String(b);
 
     // Sort a and b
     if (sortDirection === "ASC") return a > b ? 1 : a < b ? -1 : 0;
@@ -30,9 +31,9 @@ const sortTable = ({ cTableData, sort, columns }) => {
   };
 
   // Check if custom sort method is available
-  if (sortKey && sortKey.sortMethod) sortMethod = sortKey.sortMethod;
+  if (sortKey && sortKey.sortMethod) return sortTable.sort(sortKey.sortMethod);
 
-  return cTableData.sort(sortMethod);
+  return sortTable.sort(sortMethod);
 };
 
 export default sortTable;

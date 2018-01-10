@@ -2,6 +2,7 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
   // Get filter keys
   const filterKeys = Object.keys(filter);
   if (!filterKeys || !filterKeys.length) return cTableData;
+  const filterTable = [...cTableData]
 
   const filterMethod = (row) => {
     var match = true
@@ -34,7 +35,7 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
     if (match) return row;
   };
 
-  return cTableData.filter(filterMethod);
+  return filterTable.filter(filterMethod);
 };
 
 export default filterTable;
