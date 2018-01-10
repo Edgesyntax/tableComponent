@@ -14,6 +14,7 @@ import StylingReadme from "./readme/styling.md";
 import ServerRenderReadme from "./readme/server-render.md";
 import ColumnsRenderedReadme from "./readme/columns-rendered.md";
 import ColumnsCustomLabelsReadme from "./readme/columns-custom-labels.md";
+import ColumnsAccessorReadme from "./readme/columns-accessor.md";
 import ColumnsCustomReadme from "./readme/columns-custom.md";
 import FilterAllColumnsReadme from "./readme/filter-all-columns.md";
 import FilterSpecificColumnsReadme from "./readme/filter-specific-columns.md";
@@ -64,6 +65,60 @@ storiesOf("Columns", module)
       {id: "email", label: "Company email"},
       {id: "age", label: "Current Age"}
     ]}/>))
+  .add("Accessor", withReadme(ColumnsAccessorReadme, () => <Main
+    data={[
+      {
+        "_id": "5844822be1ea02fe2b261ab1",
+        "accounts": [
+          {
+            "balance": "$3,422.52"
+          }
+        ],
+        "user": {
+          "age": 100,
+          "name": "Brittany Torres",
+          "email": "brittanytorres@zenolux.com"
+        },
+        "isActive": false
+      },
+      {
+        "_id": "5844822b3e9c1401b8db0871",
+        "accounts": [
+          {
+            "balance": "$2,122.79"
+          },
+          {
+            "balance": "$1,162.92"
+          }
+        ],
+        "user": {
+          "age": 34,
+          "name": "Dorothy Phillips",
+          "email": "dorothyphillips@quilm.com"
+        },
+        "isActive": false
+      },
+      {
+        "_id": "5844822b26f2fd9d3a0e02db",
+        "accounts": [
+          {
+            "balance": "$3,519.32"
+          }
+        ],
+        "user": {
+          "age": 32,
+          "name": "Stacie Vasquez",
+          "email": "stacievasquez@frosnex.com"
+        },
+        "isActive": true
+      }
+    ]}
+    filterable
+    columns={[
+      { id: "accounts", label: "Remaining Balance" },
+      { id: "user", accessor: (obj) => obj.name },
+      { id: "isActive", label: "Active" }
+    ]} />))
   .add("Custom Column Cell", withReadme(ColumnsCustomReadme, () => <Main columns={[
     { id: "_id" },
     { id: "balance" },

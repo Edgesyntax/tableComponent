@@ -18,6 +18,10 @@ const Td = ({td, activeRow, column, row, className}) => {
     valueText: () => ({ className: "jsonValueText"})
   }}/>
 
+  // Apply Accessor
+  if (column.accessor) td = column.accessor(td);
+
+  // Check td type
   if (td && React.isValidElement(td)) transformTd = td;
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (td != null || typeof td === "boolean") transformTd = td.toString();

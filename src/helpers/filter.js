@@ -13,8 +13,16 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
         if (!filtered) match = false;
       }
       else {
-        var tableValue = (row[column.id] ? String(row[column.id]).toLowerCase().trim() : "");
+        var tableValue = row[column.id];
         var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim() : "");
+
+        // Apply accessor
+        if (tableValue && column.accessor) {
+          var accessor = column.accessor(tableValue)
+          tableValue = String(accessor).toLowerCase().trim();
+        }
+        // Default value
+        else tableValue = String(tableValue).toLowerCase().trim();
 
         // Convert boolean values
         if (typeof row[column.id] === "boolean" && row[column.id]) tableValue = "true";
