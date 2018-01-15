@@ -10,7 +10,14 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
       const customFilter = column.filterMethod;
       const customFilterValue = filter[column.id];
       if (customFilter && customFilterValue) {
-        const filtered = customFilter(row[column.id], customFilterValue);
+        var tableValue = row[column.id];
+        
+        // Apply accessor
+        if (column.accessor) {
+          var accessor = column.accessor(row)
+          tableValue = String(accessor).toLowerCase().trim();
+        }
+        const filtered = customFilter(tableValue, customFilterValue);
         if (!filtered) match = false;
       }
       else {
