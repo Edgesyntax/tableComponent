@@ -58,8 +58,8 @@ const Accessor = () => {
     data={data}
     filterable
     columns={[
-      { id: "accounts", label: "Remaining Balance", accessor: (obj) => obj[0] },
-      { id: "user", accessor: (obj) => obj.name },
+      { id: "balance", label: "Remaining Balance", accessor: (row) => row.accounts[0].balance},
+      { id: "user", accessor: (row) => row.user.name },
       { id: "isActive", label: "Active" }
     ]} />
 }

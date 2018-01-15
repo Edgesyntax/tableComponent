@@ -18,8 +18,8 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
         var fitlerValue = (filter[column.id] ? String(filter[column.id]).toLowerCase().trim() : "");
 
         // Apply accessor
-        if (tableValue && column.accessor) {
-          var accessor = column.accessor(tableValue)
+        if (column.accessor) {
+          var accessor = column.accessor(row)
           tableValue = String(accessor).toLowerCase().trim();
         }
         // Default value

@@ -8,14 +8,18 @@ const sortTable = ({ cTableData, sort, columns }) => {
 
   var sortMethod = (dataA, dataB) => {
     var _a = dataA, _b = dataB;
-
-    var a = (typeof _a[sortColumn] === "string" ? _a[sortColumn].toLowerCase() : _a[sortColumn]);
-    var b = (typeof _b[sortColumn] === "string" ? _b[sortColumn].toLowerCase() : _b[sortColumn]);
-
+    
     // Apply accessor
     if (sortColumn && sortKey && sortKey.accessor) {
-      a = sortKey.accessor(a)
-      b = sortKey.accessor(b)
+      var a = sortKey.accessor(_a)
+      var b = sortKey.accessor(_b)
+
+      a = (typeof a === "string" ? a.toLowerCase() : a);
+      b = (typeof b === "string" ? b.toLowerCase() : b);
+    }
+    else{
+      var a = (typeof _a[sortColumn] === "string" ? _a[sortColumn].toLowerCase() : _a[sortColumn]);
+      var b = (typeof _b[sortColumn] === "string" ? _b[sortColumn].toLowerCase() : _b[sortColumn]);
     }
 
     // Check if sort datas are abjects
