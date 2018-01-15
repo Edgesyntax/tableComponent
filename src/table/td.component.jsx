@@ -8,7 +8,7 @@ import {brand} from "./table.stylesheet.js";
 
 const Td = ({td, activeRow, column, row, className}) => {
   var transformTd;
-  if (column && column.render && column.accessor) return <td>{column.render(column.accessor(td), row)}</td>
+  if (column && column.render && column.accessor) return <td>{column.render(column.accessor(row), row)}</td>
   else if (column && column.render) return <td>{column.render(td, row)}</td>
 
   const renderObject = () => <JsonTree data={td} hideRoot={true} theme={{
