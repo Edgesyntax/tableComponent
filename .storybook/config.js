@@ -5,15 +5,18 @@ setOptions({
   name: 'tableComponent',
   url: 'https://github.com/Edgesyntax/tableComponent',
   goFullScreen: false,
-  showLeftPanel: true,
-  showDownPanel: true,
+  showStoriesPanel: true,
+  showAddonPanel: true,
   showSearchBox: false,
-  downPanelInRight: true,
+  addonPanelInRight: true,
   sortStoriesByKind: false,
 });
 
-function loadStories () {
-  require('../stories/index.js');
+// automatically import all files ending in *.stories.js
+const req = require.context('../stories', true, /.stories.js$/);
+function loadStories() {
+  // req.keys().forEach(filename => req(filename));
+  require("../stories/index.story.js");
 }
 
 configure(loadStories, module);

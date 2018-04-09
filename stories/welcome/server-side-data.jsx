@@ -2,8 +2,8 @@
 import React, {Component} from "react";
 
 // Application Modules
-import Table from "../src/table/table.control.jsx";
-import data from "./table.mock.json";
+import Table from "../../src/table/table.control.jsx";
+import data from "../table.mock.json";
 
 class Main extends Component{
   constructor(){

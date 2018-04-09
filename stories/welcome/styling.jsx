@@ -3,8 +3,8 @@ import React from "react";
 import {Style} from "radium";
 
 // Application Modules
-import Table from "../src/table/table.control.jsx";
-import data from "./table.mock.json";
+import Table from "../../src/table/table.control.jsx";
+import data from "../table.mock.json";
 
 const Default = (props) => {
   return (

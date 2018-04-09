@@ -18,11 +18,11 @@ To run that demo on your own computer:
 ## Getting Started
 
 # Install
-** NPM **
+NPM 
 ```
 npm install tableComponent --save
 ```
-** Yarn **
+Yarn
 ```
 yarn add tableComponent
 ```
