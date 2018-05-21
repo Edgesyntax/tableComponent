@@ -29,11 +29,3 @@ const validateColumns = (columns) => {
 
 export default generateTableColumns;
 export {validateColumns};
-
-// const containsColumn = (object, array) => {
-//   for (var i = 0; i < array.length; i++) {
-//     // console.log(array[i].id === object.id, array[i], object);
-//     if (array[i].id === object.id) return true;
-//   }
-// };
-// if (!containsColumn(column,tableColumns)) tableColumns.push(column);

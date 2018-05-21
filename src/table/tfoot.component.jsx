@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, showIndex, paginateTable }) => {
+const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, paginateTable }) => {
   if (!tableLength || !pageSize || tableLength < pageSize) return null;
   const renderPageInfo = () => <span>Page {page} of {Math.ceil(tableLength / pageSize)} - {tableLength} Items</span>;
 
@@ -51,24 +51,17 @@ const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, showIndex, p
     });
   }
   return (
-    <tfoot>
-      <tr>
-        <td
-          colSpan={showIndex ? columns.length + 1 : columns.length}>
-          <div style={{ display: "flex", alignItems: "center"}}>
-            <span style={{flex: 1,textAlign: "left"}}>
-              {renderPageInfo()}
-            </span>
-            <span style={{ display: "flex", flex: 1, justifyContent: "center"}}>
-              {renderPageSize()}
-            </span>
-            <span style={{flex: 1,textAlign: "right",whiteSpace: "nowrap"}}>
-              {renderPagination()}
-            </span>
-          </div>
-        </td>
-      </tr>
-    </tfoot>
+    <main className="tc-tfoot">
+      <span style={{flex: 1,textAlign: "left"}}>
+        {renderPageInfo()}
+      </span>
+      <span style={{ display: "flex", flex: 1, justifyContent: "center"}}>
+        {renderPageSize()}
+      </span>
+      <span style={{flex: 1,textAlign: "right",whiteSpace: "nowrap"}}>
+        {renderPagination()}
+      </span>
+    </main>
   )
 }
 
@@ -78,7 +71,6 @@ Tfoot.propTypes = {
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
   page: PropTypes.number,
-  showIndex: PropTypes.bool,
   paginateTable: PropTypes.func
 }
 

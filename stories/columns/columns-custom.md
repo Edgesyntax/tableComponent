@@ -11,10 +11,7 @@ class Custom extends React.Component{
       columns={[
         { id: "_id" },
         { id: "balance" },
-        { id: "age", render: (value, row) => {
-          console.log(value, row)
-          return <span style={{color: "red"}}>{value}</span> 
-        }},
+        { id: "age", render: (value, row) => <span style={{color: "red"}}>{value}</span> },
         { id: "name" },
         { id: "email" },
         { id: "isActive", label: "status", render: (value, row) => <span>{value === true ? "Active" : value === false ? "Inactive" : ""}</span>},

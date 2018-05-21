@@ -6,20 +6,23 @@ import PropTypes from "prop-types";
 import Th from "./th.component.jsx";
 import Funnel from "../icons/IosFunnel.component.jsx";
 
-const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterTable, sortTable}) => {
+const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, resizeTable, onResizeStart, onResizeEnd}) => {
   const renderThead = () => {
     if (!columns || !columns.length) return null;
     return columns.map((column, index) => {
       const shouldSort = sortable && sortable.length && sortable.indexOf(column.id) !== -1 ? 1 : !sortable || !sortable.length ? 1 : 0;
-
       return <Th 
         name="sort"
         key={index}
-        value={column.id}
-        th={column}
+        {...column}
         sort={sort}
         sortable={shouldSort}
-        sortTable={sortTable}/>
+        sortTable={sortTable}
+        resize={resize}
+        resizeTable={resizeTable}
+        onResizeStart={onResizeStart}
+        onResizeEnd={onResizeEnd}
+        isLastColumn={columns && index + 1 === columns.length}/>
     });
   }
   const renderFilters = () => {
@@ -29,8 +32,8 @@ const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterT
       const shouldFilter = filterable && filterable.length && filterable.indexOf(column.id) !== -1 ? 1 : !filterable || !filterable.length ? 1 : 0;
       return <Th 
         name="filter"
-        value={index}
-        key={index}>
+        key={index}
+        {...column}>
         {shouldFilter && !column.filter? 
           <input
             name={column.id}
@@ -46,19 +49,25 @@ const Thead = ({ columns, showIndex, sort, sortable, filter, filterable, filterT
         </Th>
     });
   }
+  
   return(
-    <thead>
-      <tr>
-        {showIndex ? <Th /> : null}
+    <main className="tc-thead">
+      <main className="tc-tr">
+        {selectable ?
+          <Th className="index select" width={20}>
+            <input type="checkbox" />
+          </Th>
+        : null}
+        {showIndex ? <Th className="index" width={50}/> : null}
         {renderThead()}
-      </tr>
+      </main>
       {filterable ? 
-        <tr>
+        <main className="tc-tr">
           {showIndex ? <Th /> : null}
           {renderFilters()}
-        </tr> 
+        </main> 
       : null}
-    </thead>
+    </main>
   )
 }
 

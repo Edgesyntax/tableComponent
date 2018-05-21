@@ -11,12 +11,9 @@ const Default = (props) => {
     <span className="styling">
       <Table data={data} {...props}/>
       <Style
-        scopeSelector=".tableComponent"
+        scopeSelector=".table-component"
         rules={{
-          "table":{
-            borderCollapse: "initial"
-          },
-          "th, tfoot td": {
+          ".tc-th, .tc-tfoot .tc-td": {
             backgroundColor: "#d1f2f4",
             borderColor: "#E1E1E1"
           }

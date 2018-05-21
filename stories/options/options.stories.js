@@ -7,6 +7,7 @@ import Main from "../main.jsx";
 
 // Readme
 import ShowIndexReadme from "./option-showIndex.md";
+import SelectableReadme from "./option-selectable.md";
 import ActiveRowReadme from "./option-activeRow.md";
 import ManualReadme from "./option-manual.md";
 import TotalReadme from "./option-total.md";
@@ -17,6 +18,7 @@ import NoDataTextReadme from "./option-noDataText.md";
 
 storiesOf("Other Props", module)
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex />))
+  .add("Selectable", withReadme(SelectableReadme, () => <Main showIndex selectable />))
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{ id: "_id", value: "5844822b3e9c1401b8db0871" }} />))
   .add("Manual", withReadme(ManualReadme, () => <Main pageSize={25} manual />))
   .add("Total", withReadme(TotalReadme, () => <Main pageSize={25} total={400} />))

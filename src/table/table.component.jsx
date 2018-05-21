@@ -20,10 +20,13 @@ class Table extends React.Component{
   constructor(){
     super();
     this.state = {}
-    this.onSortAction = this.onSortAction.bind(this);
-    this.onFilterAction = this.onFilterAction.bind(this);
+    this.onSortAction     = this.onSortAction.bind(this);
+    this.onFilterAction   = this.onFilterAction.bind(this);
     this.onPageSizeAction = this.onPageSizeAction.bind(this);
     this.onPaginateAction = this.onPaginateAction.bind(this);
+    this.onResizeStart    = this.onResizeStart.bind(this);
+    this.onResizeEnd      = this.onResizeEnd.bind(this);
+    this.onResizeAction   = this.onResizeAction.bind(this);
   }
   componentWillMount(){
     this.init(this.props);
@@ -31,16 +34,22 @@ class Table extends React.Component{
   componentWillReceiveProps(nextProps){
     this.init(nextProps);
   }
+  componentWillUnmount(){
+    document.removeEventListener('mousemove', this.onResizeAction)
+    document.removeEventListener('mouseup', this.onResizeEnd)
+    document.removeEventListener('mouseleave', this.onResizeEnd)
+  }
   init(props){
     var sortable,filterable,sort,pageSize,filter,page,table;
     // Assign user defined columns or generate columns
-    this.columns = (props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
+    const columns = (this.state.columns ? this.state.columns : props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
-    const columns = this.columns.map((column) => column.id)
-    sortable  = (props.sortable ? props.sortable : columns);
+    const columnIds = columns.map((column) => column.id);
+
+    sortable  = (props.sortable ? props.sortable : columnIds);
     // Make all columns filterable if no user defined filterable array
     if(props.filterable && props.filterable.length) filterable = props.filterable
-    else if (props.filterable) filterable = columns;
+    else if (props.filterable) filterable = columnIds;
     // Assign default sort column or use state
     sort      = (this.state.sort ? this.state.sort : props.sort);
     // Assign default pageSize or show all data
@@ -50,11 +59,11 @@ class Table extends React.Component{
     // Assign user defined page or use state page
     page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
     // Generate table data
-    table = this.generateTableData({props, sort, pageSize, filter});
+    table = this.generateTableData({props, sort, pageSize, filter, columns});
     // Set application state
-    this.setState({sort, sortable, filterable, pageSize, filter, page, table});
+    this.setState({sort, sortable, filterable, pageSize, filter, page, table, columns});
   }
-  generateTableData({props, dev, pageSize, filter, sort}){
+  generateTableData({props, dev, pageSize, filter, sort, columns}){
     // Generate table data
     (this.props.dev ? console.time('Generating table data') : null);
     var cTableData = props.data, activeRow = props.activeRow;
@@ -64,12 +73,12 @@ class Table extends React.Component{
 
     // Filter table data
     (this.props.dev ? console.time('Filtering table data') : null);
-    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable, columns: this.columns}) : null);
+    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable, columns}) : null);
     (this.props.dev ? console.timeEnd('Filtering table data') : null);
 
     // Sort table data
     (this.props.dev ? console.time('Sorting table data') : null);
-    if (sort ? cTableData = sortTableAction({ cTableData, sort, columns: this.columns }) : null);
+    if (sort ? cTableData = sortTableAction({ cTableData, sort, columns }) : null);
     (this.props.dev ? console.timeEnd('Sorting table data') : null);
 
     // Set full table data
@@ -101,7 +110,8 @@ class Table extends React.Component{
       props: this.props,
       pageSize: state.pageSize,
       filter: state.filter,
-      sort: state.sort
+      sort: state.sort,
+      columns: state.columns
     });
     this.setState(state);
   }
@@ -127,7 +137,8 @@ class Table extends React.Component{
       props: this.props, 
       pageSize: state.pageSize,
       filter: state.filter,
-      sort: state.sort 
+      sort: state.sort,
+      columns: state.columns 
     });
     this.setState(state);
   }
@@ -148,7 +159,8 @@ class Table extends React.Component{
       props: this.props,
       pageSize: state.pageSize,
       filter: state.filter,
-      sort: state.sort
+      sort: state.sort,
+      columns: state.columns
     });
     this.setState(state);
   }
@@ -168,12 +180,54 @@ class Table extends React.Component{
       props: this.props,
       pageSize: state.pageSize,
       filter: state.filter,
-      sort: state.sort
+      sort: state.sort,
+      columns: state.columns
     });
     this.setState(state);
   }
+  onResizeStart(event, column){
+    event.stopPropagation();
+    var state = this.state;
+    const parentWidth = event.target.parentElement.getBoundingClientRect().width;
+    const pageX = event.pageX;
+
+    state.resize = {
+      column,
+      startX: pageX,
+      parentWidth
+    };
+    this.setState(state, () => {
+      document.addEventListener('mousemove', this.onResizeAction)
+      document.addEventListener('mouseup', this.onResizeEnd)
+      document.addEventListener('mouseleave', this.onResizeEnd)
+    })
+  }
+  onResizeAction(event){
+    var state = this.state;
+    const pageX = event.pageX;
+    var { column, parentWidth, startX } = state.resize;
+    
+    const width = Math.max(parentWidth + pageX - startX, 13);
+    state.columns = state.columns.map((currentColumn) => {
+      if(currentColumn.id === column) {
+        currentColumn.width = width;
+        currentColumn.maxWidth = width;
+      }
+      return currentColumn
+    })
+    this.setState(state);
+  }
+  onResizeEnd(event){
+    var state = this.state;
+    state.resize = false;
+    this.setState(state, () => {
+      document.removeEventListener('mousemove', this.onResizeAction)
+      document.removeEventListener('mouseup', this.onResizeEnd)
+      document.removeEventListener('mouseleave', this.onResizeEnd)
+    })
+  }
   renderTr(){
-    const {table, page, pageSize} = this.state;
+    const {table, page, pageSize, columns} = this.state;
     const {activeRow} = this.props;
     if (!table || !table.length) return;
     return table.map((row, index) => {
@@ -181,65 +235,62 @@ class Table extends React.Component{
       const activeRowValue = hasActiveRow && row[activeRow.id];
       const isActiveRow = hasActiveRow && activeRow.value === activeRowValue;
       return <Tr
-        columns={this.columns}
+        columns={columns}
         key={index}
         row={row}
         index={(pageSize ? ((page - 1) * pageSize) + index : index)}
         showIndex={this.props.showIndex}
+        selectable={this.props.selectable}
         activeRow={isActiveRow}/>
     })
   }
-  renderLoading() {
-    const { showIndex, loadingText } = this.props;
-    return (
-      <tr>
-        <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{ textAlign: "center" }}>
-          <h3>{loadingText ? loadingText : <h3>Loading...</h3>}</h3>
-        </td>
-      </tr>
-    )
-  }
   renderTableBody(){
     const { table } = this.state;
-    const {showIndex, noDataText } = this.props;
+    const { noDataText } = this.props;
     
     if(table && table.length) return this.renderTr()
     return(
-      <tr>
-        <td colSpan={showIndex && this.columns ? this.columns.length + 1 : this.columns ? this.columns.length : 0} style={{ textAlign: "center" }}>
-          <h3>{noDataText ? noDataText : "No records found."}</h3>
-        </td>
-      </tr>
+      <center>
+        <h3>{noDataText ? noDataText : "No records found."}</h3>
+      </center>
     )
   }
   render(){
-    const { table, sortable, sort, filterable, filter, pageSize, page } = this.state;
-    const { hideHeader, showIndex, noDataText, pages, loading} = this.props;
+    const { table, sortable, sort, filterable, filter, pageSize, page, columns, resize } = this.state;
+    const { hideHeader, showIndex, noDataText, pages, loading, loadingText} = this.props;
     return(
-      <main className="tableComponent">
-        <table>
+      <main className="table-component">
+        <main className="tc-table">
           {!hideHeader ?
             <Thead
-              columns={this.columns}
+              columns={columns}
               showIndex={showIndex}
+              selectable={this.props.selectable}
               filter={filter}
               filterable={filterable}
               filterTable={this.onFilterAction}
               sort={sort}
               sortable={sortable}
-              sortTable={this.onSortAction}/>
+              sortTable={this.onSortAction}
+              onResizeStart={this.onResizeStart}
+              onResizeEnd={this.onResizeEnd}
+              resizeTable={this.onResizeAction}
+              resize={resize}/>
           : null }
-          {loading ? <tbody className="loading">{this.renderLoading()}</tbody> : null}
-          <tbody>{this.renderTableBody()}</tbody>
+          {loading ? 
+            <main className="tc-tbody" className="tc-loading">
+              <h3>{loadingText ? loadingText : <h3>Loading...</h3>}</h3>
+            </main> 
+          : null}
+          <main className="tc-tbody">{this.renderTableBody()}</main>
           <Tfoot
-            columns={this.columns}
+            columns={columns}
             tableLength={pages || this.fTableData.length}
             pageSize={pageSize}
             setPageSize={this.onPageSizeAction}
             page={page}
-            paginateTable={this.onPaginateAction}
-            showIndex={showIndex}/>
-        </table>
+            paginateTable={this.onPaginateAction}/>
+        </main>
       </main>
     );
   }

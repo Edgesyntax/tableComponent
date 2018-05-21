@@ -9,6 +9,7 @@ import Main from "../main.jsx";
 import ColumnsRenderedReadme from "./columns-rendered.md";
 import ColumnsCustomLabelsReadme from "./columns-custom-labels.md";
 import ColumnsAccessorReadme from "./columns-accessor.md";
+import ColumnsWidthReadme from "./columns-width.md";
 import ColumnsCustomReadme from "./columns-custom.md";
 
 storiesOf("Columns", module)
@@ -77,14 +78,17 @@ storiesOf("Columns", module)
       { id: "user", accessor: (row) => row.user.name },
       { id: "isActive", label: "Active" }
     ]} />))
+  .add("Custom Width", withReadme(ColumnsWidthReadme, () => < Main
+    columns={[
+      { id: "balance", label: "Remaining Balance", minWidth: 100 },
+      { id: "email", label: "Company email", width: 300 },
+      { id: "age", label: "Current Age", minWidth: 100, width: 40, maxWidth: 100 }
+    ]} />))
   .add("Custom Column Cell", withReadme(ColumnsCustomReadme, () => <Main columns={[
     { id: "_id" },
     { id: "balance" },
     {
-      id: "age", render: (value, row) => {
-        console.log(value, row)
-        return <span style={{ color: "red" }}>{value}</span>
-      }
+      id: "age", render: (value, row) => <span style={{ color: "red" }}>{value}</span>
     },
     { id: "name" },
     { id: "email" },

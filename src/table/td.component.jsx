@@ -6,10 +6,18 @@ import PropTypes from "prop-types";
 // Application Modules
 import {brand} from "./table.stylesheet.js";
 
-const Td = ({td, activeRow, column, row, className}) => {
+const Td = ({ td, children, activeRow, render, accessor, row, className, minWidth, width, maxWidth }) => {
   var transformTd;
-  if (column && column.render && column.accessor) return <td>{column.render(column.accessor(row), row)}</td>
-  else if (column && column.render) return <td>{column.render(td, row)}</td>
+  if (!width) width = 100;
+  var tdClass = "tc-td";
+  if (className) tdClass = tdClass.concat(" ", className)
+  if (activeRow) tdClass = tdClass.concat(" activeIndex");
+
+  const renderTd = (data) => {
+    return <div className={tdClass} style={{ flex: `${width} 0 auto`, width: `${width}px`, minWidth: `${minWidth}px`, maxWidth: `${maxWidth}px` }}>{data}</div>
+  }
+  if (render && accessor) return renderTd(render(accessor(row), row))
+  else if (render) return renderTd(render(td, row))
 
   const renderObject = () => <JsonTree data={td} hideRoot={true} theme={{
     tree: ({style}) => ({ style: Object.assign({}, style, {backgroundColor: undefined})}),
@@ -20,14 +28,15 @@ const Td = ({td, activeRow, column, row, className}) => {
   }}/>
 
   // Apply Accessor
-  if (column && column.accessor) td = column.accessor(row);
+  if (accessor) td = accessor(row);
 
   // Check td type
   if (td && React.isValidElement(td)) transformTd = td;
   else if (td && typeof td === "object") transformTd = renderObject();
   else if (td != null || typeof td === "boolean") transformTd = td.toString();
-
-  return <td className={(activeRow ? "activeIndex" : className)}>{transformTd}</td>;
+  else if (children) transformTd = children;
+  
+  return renderTd(transformTd);
 }
 
 Td.propTypes = {

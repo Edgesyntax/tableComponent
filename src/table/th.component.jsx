@@ -3,12 +3,15 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Application Modules
+import Resize from "./resize.component.jsx";
 import DownArrow from "../icons/mdArrowDropdown.component.jsx";
 import UpArrow from "../icons/mdArrowDropup.component.jsx";
 
-const Th = ({ th, name, value, sort, sortTable, sortable, children }) => {
+const Th = ({ id, label, name, sort, sortTable, sortable, className, resizeTable, onResizeStart, onResizeEnd, resize, children, minWidth, width, maxWidth, isLastColumn }) => {
+  if(!width) width = 100;
+  
   // Sort table using index
-  var transformTh = (th && th.label ? th.label.toString() : th && th.id ? th.id.toString() : "");
+  var transformTh = (label ? label.toString() : id ? id.toString() : "");
 
   const sortColumn = sort && Object.keys(sort)[0]
   const currentSortDirection = sort && Object.values(sort)[0];
@@ -16,31 +19,46 @@ const Th = ({ th, name, value, sort, sortTable, sortable, children }) => {
   var sortDirection = "ASC"; // Set default sort to ASC on `sortTable`
   
   // Check if sorting is in dec order
-  if (sort && sortColumn === value && currentSortDirection === "DES") sortDirection = "INI";
+  if (sort && sortColumn === id && currentSortDirection === "DES") sortDirection = "INI";
   // Check if sorting is in reset order
-  else if (sort && sortColumn === value && currentSortDirection === "INI") sortDirection = "ASC";
+  else if (sort && sortColumn === id && currentSortDirection === "INI") sortDirection = "ASC";
   // Check if sorting is in asc order
-  else if (sort && sortColumn === value && currentSortDirection === "ASC") sortDirection = "DES";
+  else if (sort && sortColumn === id && currentSortDirection === "ASC") sortDirection = "DES";
   
-  if (sortable) {
-    transformTh =
-      <button
-        name={name}
-        value={JSON.stringify({ [value]: sortDirection })}
-        onClick={sortTable}
-        style={{ width: "100%" }}>
-        {transformTh}
-        {sortColumn === value && currentSortDirection === "DES" ? <DownArrow className="icon" /> : null}
-        {sortColumn === value && currentSortDirection === "ASC" ? <UpArrow className="icon" /> : null}
-      </button>
+  var thClass = "tc-th";
+  if (className) thClass = thClass.concat(" ", className)
+
+  const renderTh = () => {
+    if (name === "filter") return null;
+    if (sortable){
+      return (
+        <button
+          name={name}
+          value={JSON.stringify({ [id]: sortDirection })}
+          onClick={sortTable}
+          style={{ width: "100%" }}>
+          {transformTh}
+          {sortColumn === id && currentSortDirection === "DES" ? <DownArrow className="icon" /> : null}
+          {sortColumn === id && currentSortDirection === "ASC" ? <UpArrow className="icon" /> : null}
+        </button>
+      )
+    }
+    return transformTh
   }
-  return <th>{transformTh}{children}</th>;
+  return <div className={thClass} style={{ flex: `${width} 0 auto`, width: `${width}px`, minWidth: `${minWidth}px`, maxWidth: `${maxWidth}px` }}>
+    <div className="tc-th-content">
+      {renderTh()}
+
+      {children}
+    </div>
+    {!isLastColumn && resizeTable ? <Resize id={id} resize={resize} resizeTable={resizeTable} onResizeStart={onResizeStart} onResizeEnd={onResizeEnd}/> : null }
+  </div>;
 }
 
 Th.propTypes = {
   th: PropTypes.object,
   name: PropTypes.string,
-  value: PropTypes.any,
+  id: PropTypes.any,
   sort: PropTypes.object,
   sortTable: PropTypes.func,
   sortable: PropTypes.number,
