@@ -40,7 +40,7 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
             type="text"
             value={(filterValue ? filterValue : "")}
             onChange={filterTable}
-            className="formControl filter" />
+            className="tc-filter" />
         : null }
         {shouldFilter && column.filter ? <column.filter 
           columnName={column.id}

@@ -66,7 +66,6 @@ class Main extends Component{
           id: "expirationDate", label: "expiration", filter: ({ columnName, onChange, filter }) => (
             <input
               type="date"
-              className="formControl filter"
               name={columnName}
               onChange={(event) => onChange(event)}
               value={filter || ""} />
@@ -77,7 +76,6 @@ class Main extends Component{
           id: "quantity", filter: ({ columnName, onChange, filter }) => (
             <input
               type="number"
-              className="formControl filter"
               name={columnName}
               onChange={(event) => onChange(event)}
               value={filter || ""} />

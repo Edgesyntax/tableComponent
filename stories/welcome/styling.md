@@ -1,26 +1,6 @@
 All table styles are scoped using the `.table-component` prefix making it extremely easy to override the default styles.
 
 ```css
-.table-component table {
-  border-collapse: initail;
-  position: relative;
-}
-.table-component th, .table-component tfoot td {
-  background-color: #d1f2f4;
-  border-color: #E1E1E1;
-}
-```
-
-**Brand Colors**
-```js
-{
-  primaryColor    : "#c0392b",
-  secondaryColor  : "#f9f9f9",
-  borderColor     : "#E1E1E1"
-}
-```
-**CSS Styles**
-```css
 .table-component {
   position: relative;
 }
@@ -37,17 +17,31 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   user-select: none;
 }
 .table-component .tc-thead button {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   background: transparent;
   border: 0;
   cursor: pointer;
+  white-space: nowrap;
   font: inherit;
-  outline: none;
+  color: inherit
 }
 
-.table-component select {
+.table-component select,
+.table-component input[type="text"],
+.table-component input[type="number"] {
   height: 100%;
+  width: 100%;
   margin: 0;
-  border: 1px solid #E1E1E1
+  padding: 0px 4px;
+  border: 1px solid #E1E1E1;
+  box-sizing: border-box;
+}
+.table-component select {
+  width: auto;
 }
 
 .table-component .tc-th-content {
@@ -105,17 +99,6 @@ All table styles are scoped using the `.table-component` prefix making it extrem
 .table-component .tc-tr.active {
   background: rgba(209, 67, 51, 0.1)
 }
-
-.table-component .formControl {
-  height: 100%;
-  width: auto;
-  margin: 0;
-  border: 1px solid #E1E1E1;
-  box-sizing: border-box;
-}
-.table-component .formControl.filter {
-  width: 100%;
-}
 .table-component i {
   pointer-events: none
 }
@@ -127,12 +110,6 @@ All table styles are scoped using the `.table-component` prefix making it extrem
 }
 .table-component .index {
   text-align: center;
-  flex: 0 0 auto;
-  width: 50px;
-}
-.table-component .index.select {
-  width: 30px;
-  padding: 2px 0;
 }
 .table-component .activeIndex {
   background-color: #c0392b;
