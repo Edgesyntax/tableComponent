@@ -25,8 +25,7 @@
 }
 
 .table-component select,
-.table-component input[type="text"],
-.table-component input[type="number"] {
+.table-component input{
   height: 100%;
   width: 100%;
   margin: 0;
