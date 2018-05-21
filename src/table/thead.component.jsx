@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Th from "./th.component.jsx";
 import Funnel from "../icons/IosFunnel.component.jsx";
 
-const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, resizeTable, onResizeStart, onResizeEnd}) => {
+const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, resizeTable, onResizeStart, onResizeEnd, selectAllRows}) => {
   const renderThead = () => {
     if (!columns || !columns.length) return null;
     return columns.map((column, index) => {
@@ -55,7 +55,7 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
       <main className="tc-tr">
         {selectable ?
           <Th className="index select" width={20}>
-            <input type="checkbox" />
+            <input type="checkbox" onChange={() => selectAllRows()}/>
           </Th>
         : null}
         {showIndex ? <Th className="index" width={50}/> : null}
@@ -63,7 +63,7 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
       </main>
       {filterable ? 
         <main className="tc-tr">
-          {showIndex ? <Th /> : null}
+          {showIndex ? <Th className="index" width={50}/> : null}
           {renderFilters()}
         </main> 
       : null}

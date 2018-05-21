@@ -10,9 +10,6 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
-.tc-tbody {
-  overflow: auto;
-}
 .table-component .tc-thead {
   user-select: none;
 }
@@ -44,8 +41,10 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   width: auto;
 }
 
-.table-component .tc-th-content {
+.table-component .tc-th,
+.table-component .tc-th button {
   text-align: center;
+  text-transform: capitalize;
 }
 .tc-th-resizer {
   display: inline-block;

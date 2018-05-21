@@ -1,3 +1,4 @@
+// TODO: store active and selected tables in state;
 // React Modules
 import React from "react";
 import CSSModules from "react-css-modules";
@@ -27,6 +28,8 @@ class Table extends React.Component{
     this.onResizeStart    = this.onResizeStart.bind(this);
     this.onResizeEnd      = this.onResizeEnd.bind(this);
     this.onResizeAction   = this.onResizeAction.bind(this);
+    this.selectAllRows    = this.selectAllRows.bind(this);
+    this.selectRow        = this.selectRow.bind(this);
   }
   componentWillMount(){
     this.init(this.props);
@@ -226,6 +229,12 @@ class Table extends React.Component{
       document.removeEventListener('mouseleave', this.onResizeEnd)
     })
   }
+  selectAllRows() {
+    if (this.props.onSelectAllRows) this.props.onSelectAllRows(this.state.table)
+  }
+  selectRow(row){
+    if(this.props.onRowSelection) this.props.onRowSelection(row)
+  }
   renderTr(){
     const {table, page, pageSize, columns} = this.state;
     const {activeRow} = this.props;
@@ -241,6 +250,7 @@ class Table extends React.Component{
         index={(pageSize ? ((page - 1) * pageSize) + index : index)}
         showIndex={this.props.showIndex}
         selectable={this.props.selectable}
+        selectRow={this.selectRow}
         activeRow={isActiveRow}/>
     })
   }
@@ -275,7 +285,8 @@ class Table extends React.Component{
               onResizeStart={this.onResizeStart}
               onResizeEnd={this.onResizeEnd}
               resizeTable={this.onResizeAction}
-              resize={resize}/>
+              resize={resize}
+              selectAllRows={this.selectAllRows}/>
           : null }
           {loading ? 
             <main className="tc-tbody" className="tc-loading">
@@ -309,6 +320,8 @@ Table.propTypes = {
   onFilterChange: PropTypes.func,
   onPageSizeChange: PropTypes.func,
   onPageChange: PropTypes.func,
+  onSelectAllRows: PropTypes.func,
+  onRowSelection: PropTypes.func,
   // Other Props
   showIndex: PropTypes.bool,
   activeRow: PropTypes.object,

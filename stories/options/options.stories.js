@@ -18,7 +18,7 @@ import NoDataTextReadme from "./option-noDataText.md";
 
 storiesOf("Other Props", module)
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex />))
-  .add("Selectable", withReadme(SelectableReadme, () => <Main showIndex selectable />))
+  .add("Selectable", withReadme(SelectableReadme, () => <Main showIndex selectable onSelectAllRows={(rows) => console.log(rows)} onRowSelection={(row) => console.log(row)}/> ))
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{ id: "_id", value: "5844822b3e9c1401b8db0871" }} />))
   .add("Manual", withReadme(ManualReadme, () => <Main pageSize={25} manual />))
   .add("Total", withReadme(TotalReadme, () => <Main pageSize={25} total={400} />))

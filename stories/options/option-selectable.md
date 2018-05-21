@@ -8,7 +8,9 @@ const Default = () => {
   return (
     <Table
       data={data}
-      selectable />
+      selectable 
+      onSelectAllRows={(rows) => console.log(rows)}
+      onRowSelection={(row) => console.log(row)}/>
   )
 }
 
