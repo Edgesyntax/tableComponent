@@ -2,8 +2,7 @@
   position: relative;
 }
 .tc-table {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
