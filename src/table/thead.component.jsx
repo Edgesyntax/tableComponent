@@ -54,16 +54,16 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
     <main className="tc-thead">
       <main className="tc-tr">
         {selectable ?
-          <Th className="index select" width={20}>
+          <Th className="index select" maxWidth={20}>
             <input type="checkbox" onChange={() => selectAllRows()}/>
           </Th>
         : null}
-        {showIndex ? <Th className="index" width={50}/> : null}
+        {showIndex ? <Th className="index" maxWidth={65}/> : null}
         {renderThead()}
       </main>
       {filterable ? 
         <main className="tc-tr">
-          {showIndex ? <Th className="index" width={50}/> : null}
+          {showIndex ? <Th className="index" maxWidth={65}/> : null}
           {renderFilters()}
         </main> 
       : null}

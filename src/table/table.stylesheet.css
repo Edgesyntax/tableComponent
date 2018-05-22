@@ -33,6 +33,11 @@
   border: 1px solid #E1E1E1;
   box-sizing: border-box;
 }
+.table-component input[type=checkbox] { 
+  height: auto;
+  width: auto;
+  padding: 0;
+}
 .table-component select {
   width: auto;
 }
