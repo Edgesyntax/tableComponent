@@ -262,10 +262,10 @@ class Table extends React.Component{
   }
   render(){
     const { table, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, pages, columns, resize } = this.state;
-    const { hideHeader, showIndex, noDataText, loading, loadingText} = this.props;
+    const { hideHeader, showIndex, noDataText, loading, height, loadingText} = this.props;
     return(
       <main className="table-component">
-        <main className="tc-table">
+        <main className="tc-table" style={{height}}>
           {!hideHeader ?
             <Thead
               columns={columns}
@@ -281,9 +281,10 @@ class Table extends React.Component{
               onResizeEnd={this.onResizeEnd}
               resizeTable={this.onResizeAction}
               resize={resize}
+              height={height}
               selectAllRows={this.selectAllRows}/>
           : null }
-          <main className="tc-tbody">
+          <main className="tc-tbody" style={height && {overflowY: "auto"}}>
             {loading ?
               <main className="tc-overlay">
                 <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
@@ -291,7 +292,7 @@ class Table extends React.Component{
             : null }
             {!table || !table.length ?
               <main>
-                <center className="tc-message-text">{noDataText ? noDataText : "No records found."}</center>
+                <center className="tc-message-text">{noDataText ? noDataText : "No records found"}</center>
               </main>
               : null}
             {this.renderTr()}

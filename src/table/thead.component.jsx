@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import Th from "./th.component.jsx";
 import Funnel from "../icons/IosFunnel.component.jsx";
 
-const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, resizeTable, onResizeStart, onResizeEnd, selectAllRows}) => {
+const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, height, resizeTable, onResizeStart, onResizeEnd, selectAllRows}) => {
   const renderThead = () => {
     if (!columns || !columns.length) return null;
     return columns.map((column, index) => {
@@ -52,21 +52,23 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
   
   return(
     <main className="tc-thead">
-      <main className="tc-tr">
-        {selectable ?
-          <Th className="index select" maxWidth={20}>
-            <input type="checkbox" onChange={() => selectAllRows()}/>
-          </Th>
-        : null}
-        {showIndex ? <Th className="index" maxWidth={65}/> : null}
-        {renderThead()}
-      </main>
-      {filterable ? 
+      <div style={height && { overflowY: "scroll" }}>
         <main className="tc-tr">
+          {selectable ?
+            <Th className="index select" maxWidth={20}>
+              <input type="checkbox" onChange={() => selectAllRows()}/>
+            </Th>
+          : null}
           {showIndex ? <Th className="index" maxWidth={65}/> : null}
-          {renderFilters()}
-        </main> 
-      : null}
+          {renderThead()}
+        </main>
+        {filterable ? 
+          <main className="tc-tr">
+            {showIndex ? <Th className="index" maxWidth={65}/> : null}
+            {renderFilters()}
+          </main> 
+        : null}
+      </div>
     </main>
   )
 }
