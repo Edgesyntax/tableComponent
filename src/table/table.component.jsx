@@ -288,12 +288,14 @@ class Table extends React.Component{
               resize={resize}
               selectAllRows={this.selectAllRows}/>
           : null }
-          {loading ? 
-            <main className="tc-tbody" className="tc-loading">
-              <h3>{loadingText ? loadingText : <h3>Loading...</h3>}</h3>
-            </main> 
-          : null}
-          <main className="tc-tbody">{this.renderTableBody()}</main>
+          <main className="tc-tbody">
+            {loading ?
+              <main className="tc-loading">
+                <div>{loadingText ? loadingText : "Loading..."}</div>
+              </main> 
+            : null }
+            {this.renderTableBody()}
+          </main>
           <Tfoot
             columns={columns}
             tableLength={pages || this.fTableData.length}
