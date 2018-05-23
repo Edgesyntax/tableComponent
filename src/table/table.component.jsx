@@ -284,7 +284,7 @@ class Table extends React.Component{
               height={height}
               selectAllRows={this.selectAllRows}/>
           : null }
-          <main className="tc-tbody" style={height && {overflowY: "auto"}}>
+          <main className="tc-tbody" style={height && {overflowY: "scroll"}}>
             {loading ?
               <main className="tc-overlay">
                 <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
