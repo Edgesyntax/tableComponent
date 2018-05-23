@@ -20,7 +20,11 @@ import setPageSizeAction  from "../helpers/limit.js";
 class Table extends React.Component{
   constructor(){
     super();
-    this.state = {}
+    this.state = {
+      page: 1,
+      pageSize: 25,
+      pageSizeOptions: [25, 50, 100]
+    }
     this.onSortAction     = this.onSortAction.bind(this);
     this.onFilterAction   = this.onFilterAction.bind(this);
     this.onPageSizeAction = this.onPageSizeAction.bind(this);
@@ -43,7 +47,7 @@ class Table extends React.Component{
     document.removeEventListener('mouseleave', this.onResizeEnd)
   }
   init(props){
-    var sortable,filterable,sort,pageSize,filter,page,table;
+    var sortable,filterable,sort,pageSize,filter,page,pages,table;
     // Assign user defined columns or generate columns
     const columns = (this.state.columns ? this.state.columns : props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
     // Make all columns sortable if no user defined sortable array
@@ -60,11 +64,13 @@ class Table extends React.Component{
     // Assign user defined filter or use state filter
     filter    = (this.state.filter ? this.state.filter : props.filter);
     // Assign user defined page or use state page
-    page      = (this.state.page ? this.state.page : props.page ? props.page : 1);
+    page      = (this.state.page ? this.state.page : props.page);
+    // Assign user defined pages or use state pages
+    pages     = (props.pages ? props.pages : props.data && props.data.length ?  Math.ceil(props.data.length / pageSize) : 1);
     // Generate table data
     table = this.generateTableData({props, sort, pageSize, filter, columns});
     // Set application state
-    this.setState({sort, sortable, filterable, pageSize, filter, page, table, columns});
+    this.setState({sort, sortable, filterable, pageSize, filter, page, pages, table, columns});
   }
   generateTableData({props, dev, pageSize, filter, sort, columns}){
     // Generate table data
@@ -254,20 +260,9 @@ class Table extends React.Component{
         activeRow={isActiveRow}/>
     })
   }
-  renderTableBody(){
-    const { table } = this.state;
-    const { noDataText } = this.props;
-    
-    if(table && table.length) return this.renderTr()
-    return(
-      <center>
-        <h3>{noDataText ? noDataText : "No records found."}</h3>
-      </center>
-    )
-  }
   render(){
-    const { table, sortable, sort, filterable, filter, pageSize, page, columns, resize } = this.state;
-    const { hideHeader, showIndex, noDataText, pages, loading, loadingText} = this.props;
+    const { table, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, pages, columns, resize } = this.state;
+    const { hideHeader, showIndex, noDataText, loading, loadingText} = this.props;
     return(
       <main className="table-component">
         <main className="tc-table">
@@ -290,18 +285,25 @@ class Table extends React.Component{
           : null }
           <main className="tc-tbody">
             {loading ?
-              <main className="tc-loading">
-                <div>{loadingText ? loadingText : "Loading..."}</div>
+              <main className="tc-overlay">
+                <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
               </main> 
             : null }
-            {this.renderTableBody()}
+            {!table || !table.length ?
+              <main>
+                <center className="tc-message-text">{noDataText ? noDataText : "No records found."}</center>
+              </main>
+              : null}
+            {this.renderTr()}
           </main>
           <Tfoot
             columns={columns}
-            tableLength={pages || this.fTableData.length}
+            tableLength={this.fTableData.length}
             pageSize={pageSize}
             setPageSize={this.onPageSizeAction}
             page={page}
+            pages={pages}
+            pageSizeOptions={pageSizeOptions}
             paginateTable={this.onPaginateAction}/>
         </main>
       </main>

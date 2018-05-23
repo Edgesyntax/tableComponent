@@ -2,15 +2,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, paginateTable }) => {
-  if (!tableLength || !pageSize || tableLength < pageSize) return null;
-  const renderPageInfo = () => <span>Page {page} of {Math.ceil(tableLength / pageSize)} - {tableLength} Items</span>;
+const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, page, pages, paginateTable }) => {
+  const renderPageInfo = () => <span>Page {page} of {pages} - {tableLength} Items</span>;
 
   const renderPageSize = () => {
-    const options = [25, 50, 100];
-    if (options.indexOf(pageSize) === -1) options.unshift(pageSize);
+    if (pageSizeOptions.indexOf(pageSize) === -1) pageSizeOptions.unshift(pageSize);
 
-    const renderOptions = () => options.map((option, index) => <option key={index} value={option}>{option} rows</option>)
+    const renderOptions = () => pageSizeOptions.map((option, index) => <option key={index} value={option}>{option} rows</option>)
     return (
       <select name="pageSize" value={pageSize} onChange={setPageSize}>
         {renderOptions()}
@@ -27,8 +25,7 @@ const Tfoot = ({ columns, tableLength, pageSize, setPageSize, page, paginateTabl
           offset = 5;
           break;
         case 2:
-        case Math.ceil(tableLength / pageSize) - 1: //4.28
-        // case Math.ceil(tableLength/pageSize) - 2: // 3.28
+        case pages - 1: //4.28
           offset = 4;
           break;
         default:
@@ -71,6 +68,7 @@ Tfoot.propTypes = {
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
   page: PropTypes.number,
+  pages: PropTypes.number,
   paginateTable: PropTypes.func
 }
 

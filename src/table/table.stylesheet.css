@@ -10,6 +10,7 @@
 }
 .table-component .tc-thead {
   user-select: none;
+  border-bottom: 1px solid #E1E1E1;
 }
 .table-component .tc-thead button {
   display: inline-block;
@@ -63,6 +64,9 @@
   flex-direction: row;
   border-bottom: 1px solid #E1E1E1;
 }
+.table-component .tc-tr:last-child {
+  border-bottom: 0;
+}
 .table-component .tc-th,
 .table-component .tc-td {
   border-right: 1px solid #E1E1E1;
@@ -77,6 +81,7 @@
   flex-direction: row;
   align-items: center;
   padding: 2px 6px;
+  border-top: 1px solid #E1E1E1;
 }
 .table-component .tc-th,
 .table-component .tc-td {
@@ -139,7 +144,7 @@
 .table-component .funnel {
   fill: #E1E1E1
 }
-.table-component .tc-loading {
+.table-component .tc-overlay {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -150,4 +155,9 @@
   right: 1px;
   background: rgba(255, 255, 255, .8);
   z-index: 1;
+}
+.table-component .tc-message-text {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #00000099;
 }
