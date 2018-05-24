@@ -16,8 +16,12 @@ const filterTable = ({ cTableData, filter, filterable, columns }) => {
         if (column.accessor) {
           var accessor = column.accessor(row);
           switch (typeof accessor) {
-            case "object": return tableValue = accessor;
-            default: tableValue = String(accessor).toLowerCase().trim();
+            case "object": 
+              tableValue = accessor;
+              break;
+            default: 
+              tableValue = String(accessor).toLowerCase().trim();
+              break;
           }
         }
         const filtered = customFilter(tableValue, customFilterValue);
