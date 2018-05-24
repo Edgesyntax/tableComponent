@@ -9,4 +9,4 @@ import Main from "../main.jsx";
 import LimitingInitialLimitReadme from "./limiting-initial-limit.md";
 
 storiesOf("Paging", module)
-  .add("Initial Page Size", withReadme(LimitingInitialLimitReadme, () => <Main pageSize={25} />));
+  .add("Initial Page Size", withReadme(LimitingInitialLimitReadme, () => <Main defaultPageSize={50} />));

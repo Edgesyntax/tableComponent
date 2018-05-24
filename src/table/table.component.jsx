@@ -22,7 +22,6 @@ class Table extends React.Component{
     super();
     this.state = {
       page: 1,
-      pageSize: 25,
       pageSizeOptions: [25, 50, 100]
     }
     this.onSortAction     = this.onSortAction.bind(this);
@@ -60,7 +59,7 @@ class Table extends React.Component{
     // Assign default sort column or use state
     sort      = (this.state.sort ? this.state.sort : props.sort);
     // Assign default pageSize or show all data
-    pageSize     = (this.state.pageSize ? this.state.pageSize : props.pageSize);
+    pageSize  = (this.state.pageSize ? this.state.pageSize : props.defaultPageSize ? props.defaultPageSize : 25);
     // Assign user defined filter or use state filter
     filter    = (this.state.filter ? this.state.filter : props.filter);
     // Assign user defined page or use state page
@@ -320,7 +319,7 @@ Table.propTypes = {
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   sort: PropTypes.object,
   sortable: PropTypes.array,
-  pageSize: PropTypes.number,
+  defaultPageSize: PropTypes.number,
   // Events
   onSortChange: PropTypes.func,
   onFilterChange: PropTypes.func,

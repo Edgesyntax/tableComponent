@@ -8,7 +8,7 @@ const Default = () => {
   return (
     <Table
       data={data}
-      pageSize={25} />
+      defaultPageSize={50} />
   )
 }
 
