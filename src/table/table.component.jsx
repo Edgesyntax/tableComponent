@@ -262,7 +262,7 @@ class Table extends React.Component{
   }
   render(){
     const { table, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, pages, columns, resize } = this.state;
-    const { hideHeader, showIndex, noDataText, loading, height, loadingText} = this.props;
+    const { hideHeader, showIndex, noDataText, loading, height, loadingText, dynamicFooter} = this.props;
     return(
       <main className="table-component">
         <main className="tc-table" style={{height}}>
@@ -300,12 +300,13 @@ class Table extends React.Component{
           <Tfoot
             columns={columns}
             tableLength={this.fTableData.length}
-            pageSize={pageSize}
             setPageSize={this.onPageSizeAction}
             page={page}
             pages={pages}
+            pageSize={pageSize}
             pageSizeOptions={pageSizeOptions}
-            paginateTable={this.onPaginateAction}/>
+            paginateTable={this.onPaginateAction}
+            dynamicFooter={dynamicFooter}/>
         </main>
       </main>
     );
@@ -333,7 +334,8 @@ Table.propTypes = {
   manual: PropTypes.bool,
   pages: PropTypes.number,
   page: PropTypes.number,
-  dev: PropTypes.bool,
+  dev: PropTypes.bool, 
+  dynamicFooter: PropTypes.bool,
   noDataText: PropTypes.string
 }
 

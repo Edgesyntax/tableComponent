@@ -8,11 +8,12 @@ const Default = () => {
   return (
     <Table
       data={data}
-      height={400}/>
+      showIndex
+      dynamicFooter />
   )
 }
 
 export default Default;
 ```
 
-The `height` option allows you to have a fixed header and footer with a vertical scroll body
+The `dynamicFooter` option hides the footer unless data length exceeds pageSize

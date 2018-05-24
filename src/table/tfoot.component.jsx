@@ -2,7 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, page, pages, paginateTable }) => {
+const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, page, pages, paginateTable, dynamicFooter }) => {
+  if (dynamicFooter && tableLength < pageSize) return null;
   const renderPageInfo = () => <span>Page {page} of {pages} - {tableLength} Items</span>;
 
   const renderPageSize = () => {
@@ -18,8 +19,8 @@ const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, p
   const renderPagination = () => {
     const paginationArray = [];
     var offset;
-    for (var i = 1; i < tableLength; i = i+pageSize) {
-      const paginationIndex = Math.ceil(i/pageSize);
+    Array(pages).fill(null).map((currentPage, index) => {
+      currentPage = index + 1
       switch (page) {
         case 1:
           offset = 5;
@@ -31,8 +32,8 @@ const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, p
         default:
           offset = 3;
       }
-      if (page - offset < paginationIndex && paginationIndex < page + offset) paginationArray.push(paginationIndex);
-    }
+      if (page - offset < currentPage && currentPage < page + offset) paginationArray.push(currentPage);
+    })
     return paginationArray.map((currentPage) => {
       return (
         <button
@@ -69,6 +70,7 @@ Tfoot.propTypes = {
   setPageSize: PropTypes.func,
   page: PropTypes.number,
   pages: PropTypes.number,
+  pageSizeOptions: PropTypes.array,
   paginateTable: PropTypes.func
 }
 
