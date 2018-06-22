@@ -14,16 +14,27 @@ const Th = ({ id, label, name, sort, sortTable, sortable, className, resizeTable
   var transformTh = (label ? label.toString() : id ? id.toString() : "");
 
   const sortColumn = sort && Object.keys(sort)[0]
-  const currentSortDirection = sort && Object.values(sort)[0];
+  var currentSortDirection = sort && Object.values(sort)[0];
+  switch (currentSortDirection) {
+    case "ASC":
+      currentSortDirection = 1
+      break;
+    case "DES":
+      currentSortDirection = -1
+      break;
+    case "INI":
+      currentSortDirection = 0
+      break;
+  }
   
-  var sortDirection = "ASC"; // Set default sort to ASC on `sortTable`
+  var sortDirection = 1; // Set default sort to 1 on `sortTable`
   
   // Check if sorting is in dec order
-  if (sort && sortColumn === id && currentSortDirection === "DES") sortDirection = "INI";
+  if (sort && sortColumn === id && currentSortDirection === -1) sortDirection = 0;
   // Check if sorting is in reset order
-  else if (sort && sortColumn === id && currentSortDirection === "INI") sortDirection = "ASC";
+  else if (sort && sortColumn === id && currentSortDirection === 0) sortDirection = 1;
   // Check if sorting is in asc order
-  else if (sort && sortColumn === id && currentSortDirection === "ASC") sortDirection = "DES";
+  else if (sort && sortColumn === id && currentSortDirection === 1) sortDirection = -1;
   
   var thClass = "tc-th";
   if (className) thClass = thClass.concat(" ", className)
@@ -38,8 +49,8 @@ const Th = ({ id, label, name, sort, sortTable, sortable, className, resizeTable
           onClick={sortTable}
           style={{ width: "100%" }}>
           {transformTh}
-          {sortColumn === id && currentSortDirection === "DES" ? <DownArrow className="icon" /> : null}
-          {sortColumn === id && currentSortDirection === "ASC" ? <UpArrow className="icon" /> : null}
+          {sortColumn === id && currentSortDirection === -1 ? <DownArrow className="icon" /> : null}
+          {sortColumn === id && currentSortDirection === 1 ? <UpArrow className="icon" /> : null}
         </button>
       )
     }

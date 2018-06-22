@@ -12,15 +12,11 @@ import ActiveRowReadme from "./option-activeRow.md";
 import HeightReadme from "./option-height.md";
 import DynamicFooterReadme from "./option-dynamic-footer.md";
 import ManualReadme from "./option-manual.md";
-import TotalReadme from "./option-total.md";
-import PageReadme from "./option-page.md";
-import DevReadme from "./option-dev.md";
 import LoadingReadme from "./option-loading.md";
 import NoDataTextReadme from "./option-noDataText.md";
 
 storiesOf("Other Props", module)
   .add("Active Row", withReadme(ActiveRowReadme, () => <Main showIndex activeRow={{ id: "_id", value: "5844822b3e9c1401b8db0871" }} />))
-  .add("Dev", withReadme(DevReadme, () => <Main dev filterable pageSize={50} />))
   .add("Dynamic Footer", withReadme(DynamicFooterReadme, () => <Main data={[
     {
       "_id": "5844822be1ea02fe2b261ab1",
@@ -56,7 +52,5 @@ storiesOf("Other Props", module)
     { id: "age" }
   ]}
   noDataText="Error finding matching records." />))
-  .add("Page", withReadme(PageReadme, () => <Main pageSize={25} page={4} />))
   .add("Selectable", withReadme(SelectableReadme, () => <Main showIndex selectable onSelectAllRows={(rows) => console.log(rows)} onRowSelection={(row) => console.log(row)}/> ))
   .add("Show index", withReadme(ShowIndexReadme, () => <Main showIndex />))
-  .add("Total", withReadme(TotalReadme, () => <Main pageSize={25} total={400} />));

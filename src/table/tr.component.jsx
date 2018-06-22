@@ -16,7 +16,7 @@ const Tr = ({ columns, showIndex, selectable, selectRow, row, index, activeRow})
         </Td>
       : null}
       {showIndex ? <Td td={index + 1} className="index" activeRow={activeRow} maxWidth={65}/> : null}
-      {row && renderTd()}
+      {row && columns && renderTd()}
     </main>
   );
 }

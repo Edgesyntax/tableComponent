@@ -5,7 +5,7 @@ import Table from "tableComponent";
 import data from "./table.mock.json";
 
 const Default = () => {
-  return <Table page={4} />
+  return <Table defaultPage={4} />
 }
 
 export default Default;

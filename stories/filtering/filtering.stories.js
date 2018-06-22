@@ -8,14 +8,14 @@ import Main from "../main.jsx";
 // Readme
 import FilterAllColumnsReadme from "./filter-all-columns.md";
 import FilterSpecificColumnsReadme from "./filter-specific-columns.md";
-import FilterInitialFilterReadme from "./filter-initial-filter.md";
+import FilterDefaultFilterReadme from "./filter-default-filter.md";
 import FilterCustomComponentReadme from "./filter-custom-component.md";
 import FilterCustomFilterMethodReadme from "./filter-custom-filter-method.md";
 
 storiesOf("Filtering", module)
   .add("Filter all columns", withReadme(FilterAllColumnsReadme, () => <Main filterable />))
   .add("Filter specific columns", withReadme(FilterSpecificColumnsReadme, () => <Main filterable={["age"]} />))
-  .add("Initial Filter", withReadme(FilterInitialFilterReadme, () => <Main filterable filter={{ name: "brittany", age: 100 }} />))
+  .add("Default Filter", withReadme(FilterDefaultFilterReadme, () => <Main filterable defaultFilter={{ name: "brittany", age: 100 }} />))
   .add("Custom Filter Component", withReadme(FilterCustomComponentReadme, () => <Main
     onStateChange={(response) => console.log(response)}
     columns={[

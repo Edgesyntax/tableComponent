@@ -2,9 +2,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, page, pages, paginateTable, dynamicFooter }) => {
-  if (dynamicFooter && tableLength < pageSize) return null;
-  const renderPageInfo = () => <span>Page {page} of {pages} - {tableLength} Items</span>;
+const Tfoot = ({ count, pageSize, pageSizeOptions, setPageSize, page, paginateTable, dynamicFooter }) => {
+  if (dynamicFooter && count < pageSize) return null;
+
+  const pages = Math.ceil(count / pageSize)
+  const renderPageInfo = () => <span>Page {page} of {pages} - {count} Items</span>;
 
   const renderPageSize = () => {
     if (pageSizeOptions.indexOf(pageSize) === -1) pageSizeOptions.unshift(pageSize);
@@ -64,12 +66,10 @@ const Tfoot = ({ columns, tableLength, pageSize, pageSizeOptions, setPageSize, p
 }
 
 Tfoot.propTypes = {
-  columns: PropTypes.array.isRequired,
-  tableLength: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
   pageSize: PropTypes.number,
   setPageSize: PropTypes.func,
   page: PropTypes.number,
-  pages: PropTypes.number,
   pageSizeOptions: PropTypes.array,
   paginateTable: PropTypes.func
 }

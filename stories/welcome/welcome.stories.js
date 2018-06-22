@@ -20,7 +20,7 @@ storiesOf('Welcome', module)
   .add("Default", withReadme(MainReadme, () => <Main />))
   .add("Json", withReadme(JSONReadme, () => <Main data={tableJSON} />))
   .add("Styling", withReadme(StylingReadme, () => <Styling />))
-  // .add("Server Side Data", withReadme(ServerRenderReadme, () => <ServerSideData />));
+  .add("Server Side Data", withReadme(ServerRenderReadme, () => <ServerSideData />));
 
 
 

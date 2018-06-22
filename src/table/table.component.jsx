@@ -1,4 +1,3 @@
-// TODO: store active and selected tables in state;
 // React Modules
 import React from "react";
 import CSSModules from "react-css-modules";
@@ -6,22 +5,23 @@ import PropTypes from "prop-types";
 
 // Application Modules
 import tableStylesheet from "./table.stylesheet.css";
-import Th from "./th.component.jsx";
 import Tr from "./tr.component.jsx";
-import Td from "./td.component.jsx";
 import Thead from "./thead.component.jsx";
 import Tfoot from "./tfoot.component.jsx";
-
-import generateTableColumns, {validateColumns}  from "../helpers/columns.js";
-import sortTableAction   from "../helpers/sort.js";
-import filterTableAction from "../helpers/filter.js";
-import setPageSizeAction  from "../helpers/limit.js";
+import Util from "../helpers/util.js";
 
 class Table extends React.Component{
-  constructor(){
+  constructor(props){
     super();
     this.state = {
-      page: 1,
+      data: props.data || [],
+      columns: props.columns || Util.generateTableColumns(props.data),
+      sort: props.defaultSort,
+      sortable: props.sortable || true,
+      filter: props.defaultFilter,
+      filterable: props.filterable || false,
+      page: props.defaultPage || 1,
+      pageSize: props.defaultPageSize || 25,
       pageSizeOptions: [25, 50, 100]
     }
     this.onSortAction     = this.onSortAction.bind(this);
@@ -34,72 +34,24 @@ class Table extends React.Component{
     this.selectAllRows    = this.selectAllRows.bind(this);
     this.selectRow        = this.selectRow.bind(this);
   }
-  componentWillMount(){
-    this.init(this.props);
+  static getDerivedStateFromProps(props, state) {
+    if(state.data !== props.data) return {
+      ...state,
+      data: props.data,
+      columns: props.columns || Util.generateTableColumns(props.data)
+    }
+    return null
   }
-  componentWillReceiveProps(nextProps){
-    this.init(nextProps);
+  // componentDidUpdate(prevProps, prevState){
+  //   if (this.props.onStateChange) this.props.onStateChange(this.state)
+  // }
+  componentDidMount(){
+    if (this.props.onStateChange) this.props.onStateChange(this.state)
   }
   componentWillUnmount(){
     document.removeEventListener('mousemove', this.onResizeAction)
     document.removeEventListener('mouseup', this.onResizeEnd)
     document.removeEventListener('mouseleave', this.onResizeEnd)
-  }
-  init(props){
-    var sortable,filterable,sort,pageSize,filter,page,pages,table;
-    // Assign user defined columns or generate columns
-    const columns = (this.state.columns ? this.state.columns : props.columns && validateColumns(props.columns) ? props.columns : generateTableColumns(props));
-    // Make all columns sortable if no user defined sortable array
-    const columnIds = columns.map((column) => column.id);
-
-    sortable  = (props.sortable ? props.sortable : columnIds);
-    // Make all columns filterable if no user defined filterable array
-    if(props.filterable && props.filterable.length) filterable = props.filterable
-    else if (props.filterable) filterable = columnIds;
-    // Assign default sort column or use state
-    sort      = (this.state.sort ? this.state.sort : props.sort);
-    // Assign default pageSize or show all data
-    pageSize  = (this.state.pageSize ? this.state.pageSize : props.defaultPageSize ? props.defaultPageSize : 25);
-    // Assign user defined filter or use state filter
-    filter    = (this.state.filter ? this.state.filter : props.filter);
-    // Assign user defined page or use state page
-    page      = (this.state.page ? this.state.page : props.page);
-    // Assign user defined pages or use state pages
-    pages     = (props.pages ? props.pages : props.data && props.data.length ?  Math.ceil(props.data.length / pageSize) : 1);
-    // Generate table data
-    table = this.generateTableData({props, sort, pageSize, filter, columns});
-    // Set application state
-    this.setState({sort, sortable, filterable, pageSize, filter, page, pages, table, columns});
-  }
-  generateTableData({props, dev, pageSize, filter, sort, columns}){
-    // Generate table data
-    (this.props.dev ? console.time('Generating table data') : null);
-    var cTableData = props.data, activeRow = props.activeRow;
-    this.fTableData = []
-    
-    if (!cTableData || !cTableData.length) return;
-
-    // Filter table data
-    (this.props.dev ? console.time('Filtering table data') : null);
-    if (filter ? cTableData = filterTableAction({cTableData, filter, filterable: this.state.filterable, columns}) : null);
-    (this.props.dev ? console.timeEnd('Filtering table data') : null);
-
-    // Sort table data
-    (this.props.dev ? console.time('Sorting table data') : null);
-    if (sort ? cTableData = sortTableAction({ cTableData, sort, columns }) : null);
-    (this.props.dev ? console.timeEnd('Sorting table data') : null);
-
-    // Set full table data
-    this.fTableData = cTableData;
-
-    // Set table page size
-    (this.props.dev ? console.time('Setting page size') : null);
-    if (pageSize ? cTableData = setPageSizeAction({ cTableData, pageSize, page: this.state.page }) : null);
-    (this.props.dev ? console.timeEnd('Setting page size') : null);
-
-    (this.props.dev ? console.timeEnd('Generating table data') : null);
-
-    return cTableData;
   }
   onSortAction(event) {
     var name = event.target.name;
@@ -109,18 +61,8 @@ class Table extends React.Component{
     state.page = 1;
     // Set action value
     state.sort = JSON.parse(value);
-
     if (this.props.onSortChange) this.props.onSortChange(state.sort) //{ [state.sort.column]: state.sort.direction}
-    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
-    // Generate table
-    state.table = this.generateTableData({
-      props: this.props,
-      pageSize: state.pageSize,
-      filter: state.filter,
-      sort: state.sort,
-      columns: state.columns
-    });
     this.setState(state);
   }
   onFilterAction(event) {
@@ -138,16 +80,7 @@ class Table extends React.Component{
     else state.filter = { [name]: value };
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
-    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
-    // Generate table
-    state.table = this.generateTableData({ 
-      props: this.props, 
-      pageSize: state.pageSize,
-      filter: state.filter,
-      sort: state.sort,
-      columns: state.columns 
-    });
     this.setState(state);
   }
   onPageSizeAction(event) {
@@ -160,16 +93,7 @@ class Table extends React.Component{
     state.pageSize = parseInt(value);
 
     if (this.props.onPageSizeChange) this.props.onPageSizeChange(state.pageSize)
-    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
-    // Generate table
-    state.table = this.generateTableData({
-      props: this.props,
-      pageSize: state.pageSize,
-      filter: state.filter,
-      sort: state.sort,
-      columns: state.columns
-    });
     this.setState(state);
   }
   onPaginateAction(event) {
@@ -181,16 +105,7 @@ class Table extends React.Component{
     // Set action value
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
-    if (this.props.onStateChange) this.props.onStateChange(state)
     if (this.props.manual) return;
-    // Generate table
-    state.table = this.generateTableData({
-      props: this.props,
-      pageSize: state.pageSize,
-      filter: state.filter,
-      sort: state.sort,
-      columns: state.columns
-    });
     this.setState(state);
   }
   onResizeStart(event, column){
@@ -225,7 +140,7 @@ class Table extends React.Component{
     })
     this.setState(state);
   }
-  onResizeEnd(event){
+  onResizeEnd(){
     var state = this.state;
     state.resize = false;
     this.setState(state, () => {
@@ -240,10 +155,14 @@ class Table extends React.Component{
   selectRow(row){
     if(this.props.onRowSelection) this.props.onRowSelection(row)
   }
-  renderTr(){
-    const {table, page, pageSize, columns} = this.state;
-    const {activeRow} = this.props;
-    if (!table || !table.length) return;
+  renderTr(table){
+    const { page, pageSize, columns} = this.state;
+    const { activeRow, noDataText} = this.props;
+    if (!table || !table.length) return (
+      <main>
+        <center className="tc-message-text">{noDataText ? noDataText : "No records found"}</center>
+      </main>
+    );
     return table.map((row, index) => {
       const hasActiveRow = activeRow && activeRow.id && activeRow.value;
       const activeRowValue = hasActiveRow && row[activeRow.id];
@@ -260,8 +179,10 @@ class Table extends React.Component{
     })
   }
   render(){
-    const { table, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, pages, columns, resize } = this.state;
-    const { hideHeader, showIndex, noDataText, loading, height, loadingText, dynamicFooter} = this.props;
+    const { data, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, columns, resize } = this.state;
+    const { dynamicFooter, loadingText, height, loading, hideHeader, showIndex, selectable, count} = this.props;
+    const { table, processedTable } = new Util(data, columns).filter(filter).sort(sort).limit(pageSize, page);
+    
     return(
       <main className="table-component">
         <main className="tc-table" style={{height}}>
@@ -269,7 +190,7 @@ class Table extends React.Component{
             <Thead
               columns={columns}
               showIndex={showIndex}
-              selectable={this.props.selectable}
+              selectable={selectable}
               filter={filter}
               filterable={filterable}
               filterTable={this.onFilterAction}
@@ -289,19 +210,13 @@ class Table extends React.Component{
                 <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
               </main> 
             : null }
-            {!table || !table.length ?
-              <main>
-                <center className="tc-message-text">{noDataText ? noDataText : "No records found"}</center>
-              </main>
-              : null}
-            {this.renderTr()}
+            {this.renderTr(table)}
           </main>
           <Tfoot
             columns={columns}
-            tableLength={this.fTableData.length}
+            count={count || processedTable.length || 0}
             setPageSize={this.onPageSizeAction}
             page={page}
-            pages={pages}
             pageSize={pageSize}
             pageSizeOptions={pageSizeOptions}
             paginateTable={this.onPaginateAction}
@@ -315,11 +230,10 @@ class Table extends React.Component{
 Table.propTypes = {
   data: PropTypes.array,
   columns: PropTypes.array,
-  filter: PropTypes.object,
+  defaultFilter: PropTypes.object,
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-  sort: PropTypes.object,
+  defaultSort: PropTypes.object,
   sortable: PropTypes.array,
-  defaultPageSize: PropTypes.number,
   // Events
   onSortChange: PropTypes.func,
   onFilterChange: PropTypes.func,
@@ -331,9 +245,9 @@ Table.propTypes = {
   showIndex: PropTypes.bool,
   activeRow: PropTypes.object,
   manual: PropTypes.bool,
-  pages: PropTypes.number,
-  page: PropTypes.number,
-  dev: PropTypes.bool, 
+  count: PropTypes.number,
+  defaultPageSize: PropTypes.number,
+  defaultPage: PropTypes.number,
   dynamicFooter: PropTypes.bool,
   noDataText: PropTypes.string
 }

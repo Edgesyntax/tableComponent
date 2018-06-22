@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 // Application Modules
 import Th from "./th.component.jsx";
-import Funnel from "../icons/IosFunnel.component.jsx";
 
 const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, height, resizeTable, onResizeStart, onResizeEnd, selectAllRows}) => {
   const renderThead = () => {
@@ -64,6 +63,9 @@ const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filtera
         </main>
         {filterable ? 
           <main className="tc-tr">
+            {selectable ?
+              <Th className="index select" maxWidth={20}></Th>
+            : null}
             {showIndex ? <Th className="index" maxWidth={65}/> : null}
             {renderFilters()}
           </main> 
@@ -77,7 +79,7 @@ Thead.propTypes = {
   columns: PropTypes.array,
   showIndex: PropTypes.bool,
   sort: PropTypes.object,
-  sortable: PropTypes.array,
+  sortable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   filter: PropTypes.object,
   filterable: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
   filterTable: PropTypes.func,

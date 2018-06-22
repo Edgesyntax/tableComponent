@@ -7,12 +7,12 @@ import Main from "../main.jsx";
 
 // Readme
 import SortingSortableReadme from "./sorting-sortable.md";
-import SortingInitialSortReadme from "./sorting-initial-sort.md";
+import SortingDefaultSortReadme from "./sorting-default-sort.md";
 import SortingCustomSortMethodReadme from "./sorting-custom-sort-method.md";
 
 storiesOf("Sorting", module)
   .add("Sortable", withReadme(SortingSortableReadme, () => <Main sortable={["name", "balance"]} />))
-  .add("Initial Sort", withReadme(SortingInitialSortReadme, () => <Main sort={{ name: "DES" }} />))
+  .add("Default Sort", withReadme(SortingDefaultSortReadme, () => <Main defaultSort={{ name: "DES" }} />))
   .add("Custom Sort Method", withReadme(SortingCustomSortMethodReadme, () => <Main
     columns={[
       { id: "_id" },
