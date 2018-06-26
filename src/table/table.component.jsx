@@ -14,7 +14,6 @@ class Table extends React.Component{
   constructor(props){
     super();
     this.state = {
-      data: props.data || [],
       columns: props.columns || Util.generateTableColumns(props.data),
       sort: props.defaultSort,
       sortable: props.sortable || true,
@@ -34,16 +33,31 @@ class Table extends React.Component{
     this.selectAllRows    = this.selectAllRows.bind(this);
     this.selectRow        = this.selectRow.bind(this);
   }
-  // componentDidUpdate(prevProps, prevState){
-  //   if (this.props.onStateChange) this.props.onStateChange(this.state)
-  // }
+  componentDidUpdate(prevProps, prevState){
+    if (this.state.table && this.state.table.length && this.props.manual) return;
+    if(
+      prevProps.data !== this.props.data ||
+      prevState.sort !== this.state.sort ||
+      prevState.filter !== this.state.filter ||
+      prevState.page !== this.state.page ||
+      prevState.pageSize !== this.state.pageSize
+    ) this.generateTable()
+  }
   componentDidMount(){
+    this.generateTable()
     if (this.props.onStateChange) this.props.onStateChange(this.state)
   }
   componentWillUnmount(){
     document.removeEventListener('mousemove', this.onResizeAction)
     document.removeEventListener('mouseup', this.onResizeEnd)
     document.removeEventListener('mouseleave', this.onResizeEnd)
+  }
+  generateTable(){
+    var { sort, filter, pageSize, page, columns } = this.state;
+    const { data } = this.props;
+    if (data && !columns || !columns.length) columns = Util.generateTableColumns(data);
+    const { table, processedTable } = new Util(data, columns).filter(filter).sort(sort).limit(pageSize, page);
+    this.setState({table, processedTable, columns});
   }
   onSortAction(event) {
     var name = event.target.name;
@@ -54,6 +68,7 @@ class Table extends React.Component{
     // Set action value
     state.sort = JSON.parse(value);
     if (this.props.onSortChange) this.props.onSortChange(state.sort) //{ [state.sort.column]: state.sort.direction}
+    if (this.props.onStateChange) this.props.onStateChange(state)
     this.setState(state);
   }
   onFilterAction(event) {
@@ -71,6 +86,8 @@ class Table extends React.Component{
     else state.filter = { [name]: value };
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
+    if (this.props.onStateChange) this.props.onStateChange(state)
+
     this.setState(state);
   }
   onPageSizeAction(event) {
@@ -83,6 +100,7 @@ class Table extends React.Component{
     state.pageSize = parseInt(value);
 
     if (this.props.onPageSizeChange) this.props.onPageSizeChange(state.pageSize)
+    if (this.props.onStateChange) this.props.onStateChange(state)
     this.setState(state);
   }
   onPaginateAction(event) {
@@ -94,6 +112,7 @@ class Table extends React.Component{
     // Set action value
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
+    if (this.props.onStateChange) this.props.onStateChange(state)
     this.setState(state);
   }
   onResizeStart(event, column){
@@ -143,8 +162,8 @@ class Table extends React.Component{
   selectRow(row){
     if(this.props.onRowSelection) this.props.onRowSelection(row)
   }
-  renderTr(table){
-    const { page, pageSize, columns} = this.state;
+  renderTr(){
+    const { table, page, pageSize, columns} = this.state;
     const { activeRow, noDataText} = this.props;
     if (!table || !table.length) return (
       <main>
@@ -167,10 +186,8 @@ class Table extends React.Component{
     })
   }
   render(){
-    const { data, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, columns, resize } = this.state;
-    const { dynamicFooter, loadingText, height, loading, hideHeader, showIndex, selectable, count} = this.props;
-    const { table, processedTable } = new Util(data, columns).filter(filter).sort(sort).limit(pageSize, page);
-    
+    const { processedTable, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, columns, resize } = this.state;
+    const { dynamicFooter, loadingText, height, loading, hideHeader, showIndex, selectable, count} = this.props;    
     return(
       <main className="table-component">
         <main className="tc-table" style={{height}}>
@@ -198,11 +215,11 @@ class Table extends React.Component{
                 <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
               </main> 
             : null }
-            {this.renderTr(table)}
+            {this.renderTr()}
           </main>
           <Tfoot
             columns={columns}
-            count={count || processedTable.length || 0}
+            count={count || processedTable && processedTable.length || 0}
             setPageSize={this.onPageSizeAction}
             page={page}
             pageSize={pageSize}

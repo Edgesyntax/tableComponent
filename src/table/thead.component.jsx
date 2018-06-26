@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import Th from "./th.component.jsx";
 
 const Thead = ({ columns, showIndex, selectable, sort, sortable, filter, filterable, filterTable, sortTable, resize, height, resizeTable, onResizeStart, onResizeEnd, selectAllRows}) => {
+  if (!columns || !columns.length) return null;
+  
   const renderThead = () => {
     if (!columns || !columns.length) return null;
     return columns.map((column, index) => {
