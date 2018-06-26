@@ -17,8 +17,8 @@ class Main extends Component{
     this.fetchData = this.fetchData.bind(this);
   }
   fetchData(table){
-    console.log("Fetching data......")
-    var url = new URL("https://jsonplaceholder.typicode.com/posts");
+    console.log("Fetching data......", table)
+    var url = new URL("https://jsonplaceholder.typicode.com/comments");
     Object.keys(this.state.query).forEach(key => url.searchParams.append(key, this.state.query[key]))
     fetch(url, {
       method: "GET"
@@ -39,6 +39,7 @@ class Main extends Component{
     return <Table 
       data={this.state.data}
       manual
+      filterable
       showIndex
       onStateChange={this.fetchData} />
   }

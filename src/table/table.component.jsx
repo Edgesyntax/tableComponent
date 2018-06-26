@@ -34,14 +34,6 @@ class Table extends React.Component{
     this.selectAllRows    = this.selectAllRows.bind(this);
     this.selectRow        = this.selectRow.bind(this);
   }
-  static getDerivedStateFromProps(props, state) {
-    if(state.data !== props.data) return {
-      ...state,
-      data: props.data,
-      columns: props.columns || Util.generateTableColumns(props.data)
-    }
-    return null
-  }
   // componentDidUpdate(prevProps, prevState){
   //   if (this.props.onStateChange) this.props.onStateChange(this.state)
   // }
@@ -55,19 +47,18 @@ class Table extends React.Component{
   }
   onSortAction(event) {
     var name = event.target.name;
-    var state = this.state;
+    var state = {...this.state};
     var value = event.target.value;
     // Reset page
     state.page = 1;
     // Set action value
     state.sort = JSON.parse(value);
     if (this.props.onSortChange) this.props.onSortChange(state.sort) //{ [state.sort.column]: state.sort.direction}
-    if (this.props.manual) return;
     this.setState(state);
   }
   onFilterAction(event) {
     const name = event.target.name;
-    const state = this.state;
+    var state = {...this.state };
     const value = (event.target.value ? event.target.value : undefined);
     // Reset page
     state.page = 1;
@@ -80,12 +71,11 @@ class Table extends React.Component{
     else state.filter = { [name]: value };
 
     if (this.props.onFilterChange) this.props.onFilterChange(state.filter)
-    if (this.props.manual) return;
     this.setState(state);
   }
   onPageSizeAction(event) {
     var name = event.target.name;
-    var state = this.state;
+    var state = {...this.state};
     var value = event.target.value;
     // Reset page
     state.page = 1;
@@ -93,24 +83,22 @@ class Table extends React.Component{
     state.pageSize = parseInt(value);
 
     if (this.props.onPageSizeChange) this.props.onPageSizeChange(state.pageSize)
-    if (this.props.manual) return;
     this.setState(state);
   }
   onPaginateAction(event) {
     var name = event.target.name;
-    var state = this.state;
+    var state = {...this.state};
     var value = event.target.value;
 
     if (state.page === parseInt(value)) return;
     // Set action value
     state.page = parseInt(value);
     if (this.props.onPageChange) this.props.onPageChange(state.page)
-    if (this.props.manual) return;
     this.setState(state);
   }
   onResizeStart(event, column){
     event.stopPropagation();
-    var state = this.state;
+    var state = {...this.state};
     const parentWidth = event.target.parentElement.getBoundingClientRect().width;
     const pageX = event.pageX;
 
@@ -126,7 +114,7 @@ class Table extends React.Component{
     })
   }
   onResizeAction(event){
-    var state = this.state;
+    var state = {...this.state};
     const pageX = event.pageX;
     var { column, parentWidth, startX } = state.resize;
     
@@ -141,7 +129,7 @@ class Table extends React.Component{
     this.setState(state);
   }
   onResizeEnd(){
-    var state = this.state;
+    var state = {...this.state};
     state.resize = false;
     this.setState(state, () => {
       document.removeEventListener('mousemove', this.onResizeAction)
