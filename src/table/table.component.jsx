@@ -53,9 +53,9 @@ class Table extends React.Component{
   }
   generateTable(){
     var { sort, filter, pageSize, page, columns } = this.state;
-    const { data, manual, defaultPageSize } = this.props;
+    const { data, manual } = this.props;
     if (data && !columns || !columns.length) columns = Util.generateTableColumns(data);
-    const { table, processedTable } = new Util(data, columns, manual).filter(filter).sort(sort).limit(pageSize, page, defaultPageSize);
+    const { table, processedTable } = new Util(data, columns, manual).filter(filter).sort(sort).limit(pageSize, page);
     this.setState({table, processedTable, columns});
   }
   onSortAction(event) {
@@ -165,8 +165,8 @@ class Table extends React.Component{
     const { table, page, pageSize, columns} = this.state;
     const { activeRow, noDataText} = this.props;
     if (!table || !table.length) return (
-      <main>
-        <center className="tc-message-text">{noDataText ? noDataText : "No records found"}</center>
+      <main className="tc-no-data">
+        <div className="tc-message-text">{noDataText ? noDataText : "No records found"}</div>
       </main>
     );
     return table.map((row, index) => {

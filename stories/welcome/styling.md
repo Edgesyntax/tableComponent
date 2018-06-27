@@ -3,15 +3,19 @@ All table styles are scoped using the `.table-component` prefix making it extrem
 ```css
 .table-component {
   position: relative;
+  box-sizing: border-box;
 }
 .tc-table {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
 .table-component .tc-thead {
   user-select: none;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fafafa;
 }
 .table-component .tc-thead button {
   display: inline-block;
@@ -28,14 +32,18 @@ All table styles are scoped using the `.table-component` prefix making it extrem
 }
 
 .table-component select,
-.table-component input[type="text"],
-.table-component input[type="number"] {
+.table-component input{
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0px 4px;
   border: 1px solid #E1E1E1;
   box-sizing: border-box;
+}
+.table-component input[type=checkbox] { 
+  height: auto;
+  width: auto;
+  padding: 0;
 }
 .table-component select {
   width: auto;
@@ -59,11 +67,15 @@ All table styles are scoped using the `.table-component` prefix making it extrem
 .table-component .tc-tr {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #E1E1E1;
+  border-bottom: 1px solid #f0f0f0;
+}
+.table-component .tc-thead .tc-tr:last-child {
+  border-bottom: 0;
 }
 .table-component .tc-th,
 .table-component .tc-td {
-  border-right: 1px solid #E1E1E1;
+  border-right: 1px solid #f0f0f0;
+  min-width: 28px;
 }
 .table-component .tc-th:last-child,
 .table-component .tc-td:last-child {
@@ -74,6 +86,7 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   flex-direction: row;
   align-items: center;
   padding: 2px 6px;
+  border-top: 1px solid #f0f0f0;
 }
 .table-component .tc-th,
 .table-component .tc-td {
@@ -87,13 +100,15 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.table-component .tc-th,
 .table-component .tc-tfoot,
 .table-component .index {
-  background-color: #f9f9f9;
+  background-color: #fafafa;
+}
+.table-component .tc-tbody {
+  position: relative;
 }
 .table-component .tc-tbody .tc-tr:not(.active):hover {
-  background-color: #f9f9f9
+  background-color: #fafafa
 }
 .table-component .tc-tr.active {
   background: rgba(209, 67, 51, 0.1)
@@ -130,9 +145,9 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   color: #999
 }
 .table-component .funnel {
-  fill: #E1E1E1
+  fill: #f0f0f0
 }
-.table-component .tc-loading {
+.table-component .tc-overlay {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -143,6 +158,18 @@ All table styles are scoped using the `.table-component` prefix making it extrem
   right: 1px;
   background: rgba(255, 255, 255, .8);
   z-index: 1;
+}
+.table-component .tc-no-data {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, .8);
+}
+.table-component .tc-message-text {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #00000099;
 }
 ```
 

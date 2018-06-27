@@ -105,16 +105,13 @@ class Util {
     else this.table = this.table.sort(sortMethod);
     return this
   }
-  limit(pageSize, page, defaultPageSize) {
+  limit(pageSize, page) {
     this.processedTable = this.table;
     if (!pageSize || !page) return this;
-    if(this.manual){
-      this.table = this.table.slice(0, defaultPageSize || pageSize);
-      return this;
-    }
+
     const resetPage = page - 1
     // check if page
-    if (resetPage > 0) {
+    if (!this.manual && resetPage > 0) {
       const currentPage = pageSize * resetPage;
       this.table = this.table.slice(currentPage, pageSize + currentPage);
       return this;
