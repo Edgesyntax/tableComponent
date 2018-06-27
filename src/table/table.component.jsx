@@ -34,7 +34,6 @@ class Table extends React.Component{
     this.selectRow        = this.selectRow.bind(this);
   }
   componentDidUpdate(prevProps, prevState){
-    if (this.state.table && this.state.table.length && this.props.manual) return;
     if(
       prevProps.data !== this.props.data ||
       prevState.sort !== this.state.sort ||
@@ -54,9 +53,9 @@ class Table extends React.Component{
   }
   generateTable(){
     var { sort, filter, pageSize, page, columns } = this.state;
-    const { data } = this.props;
+    const { data, manual, defaultPageSize } = this.props;
     if (data && !columns || !columns.length) columns = Util.generateTableColumns(data);
-    const { table, processedTable } = new Util(data, columns).filter(filter).sort(sort).limit(pageSize, page);
+    const { table, processedTable } = new Util(data, columns, manual).filter(filter).sort(sort).limit(pageSize, page, defaultPageSize);
     this.setState({table, processedTable, columns});
   }
   onSortAction(event) {

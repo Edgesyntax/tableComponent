@@ -1,10 +1,11 @@
 class Util {
-  constructor(data, columns){
+  constructor(data, columns, manual){
     this.table = data || [];
     this.columns = columns;
+    this.manual = manual;
   }
   filter(filter){
-    if (!filter || !this.columns) return this;
+    if (!filter || !this.columns || this.manual) return this;
     // Get filter keys
     const filterKeys = Object.keys(filter);
     if (!filterKeys || !filterKeys.length || !this.columns) return this;
@@ -57,7 +58,7 @@ class Util {
     return this
   }
   sort(sort){
-    if (!sort || !this.columns) return this;
+    if (!sort || !this.columns || this.manual) return this;
 
     const sortColumn = Object.keys(sort)[0]
     var sortDirection = Object.values(sort)[0]
@@ -104,14 +105,19 @@ class Util {
     else this.table = this.table.sort(sortMethod);
     return this
   }
-  limit(pageSize, page){
+  limit(pageSize, page, defaultPageSize) {
     this.processedTable = this.table;
     if (!pageSize || !page) return this;
+    if(this.manual){
+      this.table = this.table.slice(0, defaultPageSize || pageSize);
+      return this;
+    }
     const resetPage = page - 1
     // check if page
     if (resetPage > 0) {
       const currentPage = pageSize * resetPage;
       this.table = this.table.slice(currentPage, pageSize + currentPage);
+      return this;
     }
     this.table = this.table.slice(0, pageSize);
     return this

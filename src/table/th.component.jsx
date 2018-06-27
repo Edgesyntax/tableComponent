@@ -45,7 +45,7 @@ const Th = ({ id, label, name, sort, sortTable, sortable, className, resizeTable
       return (
         <button
           name={name}
-          value={JSON.stringify({ [id]: sortDirection })}
+          value={(sortDirection ? JSON.stringify({ [id]: sortDirection }) : "{}")}
           onClick={sortTable}
           style={{ width: "100%" }}>
           {transformTh}
