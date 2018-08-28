@@ -161,14 +161,24 @@ class Table extends React.Component{
   selectRow(row){
     if(this.props.onRowSelection) this.props.onRowSelection(row)
   }
-  renderTr(){
-    const { table, page, pageSize, columns} = this.state;
-    const { activeRow, noDataText} = this.props;
-    if (!table || !table.length) return (
+  renderMessage() {
+    const { table } = this.state;
+    const { loadingText, loading, noDataText} = this.props;   
+    if(loading) return (
+      <main className="tc-overlay">
+        <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
+      </main>
+    )
+    else if (!table || !table.length) return (
       <main className="tc-no-data">
         <div className="tc-message-text">{noDataText ? noDataText : "No records found"}</div>
       </main>
-    );
+    )
+  }
+  renderTr(){
+    const { table, page, pageSize, columns} = this.state;
+    const { activeRow} = this.props;
+    if (!table || !table.length) return;
     return table.map((row, index) => {
       const hasActiveRow = activeRow && activeRow.id && activeRow.value;
       const activeRowValue = hasActiveRow && row[activeRow.id];
@@ -186,7 +196,7 @@ class Table extends React.Component{
   }
   render(){
     const { processedTable, sortable, sort, filterable, filter, pageSize, pageSizeOptions, page, columns, resize } = this.state;
-    const { dynamicFooter, loadingText, height, loading, hideHeader, showIndex, selectable, count} = this.props;    
+    const { dynamicFooter, height, hideHeader, showIndex, selectable, count} = this.props;    
     return(
       <main className="table-component">
         <main className="tc-table" style={{height}}>
@@ -209,11 +219,7 @@ class Table extends React.Component{
               selectAllRows={this.selectAllRows}/>
           : null }
           <main className="tc-tbody" style={height && {overflowY: "scroll"}}>
-            {loading ?
-              <main className="tc-overlay">
-                <div className="tc-message-text">{loadingText ? loadingText : "Loading..."}</div>
-              </main> 
-            : null }
+            {this.renderMessage()}
             {this.renderTr()}
           </main>
           <Tfoot
